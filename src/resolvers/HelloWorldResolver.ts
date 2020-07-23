@@ -1,9 +1,10 @@
+import 'reflect-metadata';
 import { Query, Resolver } from 'type-graphql';
 
 @Resolver()
 export class HelloWorldResolver {
     @Query(() => String)
-    hello() {
+    hello(): string {
         return 'hi!';
     }
 }

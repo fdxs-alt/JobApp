@@ -17,8 +17,8 @@ import { HelloWorldResolver } from './resolvers/HelloWorldResolver';
     });
 
     apolloServer.applyMiddleware({ app, cors: false });
-    const port = process.env.PORT || 5000;
-    app.listen(port, () => {
-        console.log(`server started at http://localhost:${port}/graphql`);
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+        console.log(`server started at http://localhost:${PORT}/graphql`);
     });
 })();
