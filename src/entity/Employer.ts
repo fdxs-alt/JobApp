@@ -1,7 +1,10 @@
 import { User } from './User';
 import { Entity, Column } from 'typeorm';
-
+import { Field, ObjectType } from 'type-graphql';
+@ObjectType()
 @Entity()
 export class Employer extends User {
-    @Column('varchar', { nullable: false, length: 255 }) company: string;
+  @Field()
+  @Column('varchar', { nullable: false, length: 255 })
+  company: string;
 }
