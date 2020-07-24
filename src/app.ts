@@ -5,6 +5,7 @@ import { createConnection } from 'typeorm';
 import { buildSchema, ArgumentValidationError } from 'type-graphql';
 import { AuthResolver } from './resolvers/AuthResolver';
 import { UserResolver } from './resolvers/UserResolver';
+import { ConfirmEmailResolver } from './resolvers/ConfirmEmailResolver';
 import { redis } from './redis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
@@ -18,9 +19,13 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [AuthResolver, UserResolver],
+      resolvers: [AuthResolver, UserResolver, ConfirmEmailResolver],
     }),
-    context: ({ req }) => ({ req }),
+    context: ({ req }) => ({
+      req,
+      redis,
+      url: process.env.baseurl,
+    }),
     formatError: (error: GraphQLError): GraphQLFormattedError => {
       if (error.originalError instanceof ApolloError) {
         return error;
