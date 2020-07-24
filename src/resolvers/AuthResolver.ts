@@ -1,47 +1,40 @@
-import 'reflect-metadata';
-import { Query, Resolver, Mutation, Arg } from 'type-graphql';
+import { Resolver, Mutation, Arg, Ctx } from 'type-graphql';
 import { UserResponse } from '../types-graphql/UserResponse';
-import { AuthInput } from '../types-graphql/AuthInput';
+import { LoginInput } from '../types-graphql/LoginInput';
+import { RegisterInput } from '../types-graphql/RegisterInput';
 import { User } from '../entity/User';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import { userExists, userNotFound, wrongPassword } from '../utils/Errors';
+import { MyContext } from '../types-graphql/MyContext';
+import { AuthenticationError } from 'apollo-server-express';
+
 @Resolver()
 export class AuthResolver {
   @Mutation(() => UserResponse)
   async register(
-    @Arg('input') { email, password }: AuthInput,
+    @Arg('input') { email, password }: RegisterInput,
   ): Promise<UserResponse> {
-    const existingUser = await User.findOne({ where: { email } });
-
-    if (existingUser) return userExists;
-
     const bcryptedPassword = await bcrypt.hash(password, 10);
 
     const user = User.create({
       email,
       password: bcryptedPassword,
     });
+    await user.save();
 
     return { user };
   }
 
   @Mutation(() => UserResponse)
   async login(
-    @Arg('input') { email, password }: AuthInput,
+    @Arg('input') { email, password }: LoginInput,
+    @Ctx() ctx: MyContext,
   ): Promise<UserResponse> {
     const user = await User.findOne({ where: { email } });
 
-    if (!user) return userNotFound;
+    const isValid = await bcrypt.compare(password, user.password);
+    if (!isValid) throw new AuthenticationError('Email or password is wrong');
 
-    const isValid = bcrypt.compare(password, user.password);
-
-    if (!isValid) return wrongPassword;
-
-    const token = jwt.sign({ sub: user.id }, '1234556789', {
-      expiresIn: '12h',
-    });
-
-    return { user, token };
+    ctx.req.session!.userId = user.id;
+    return { user };
   }
 }

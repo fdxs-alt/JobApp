@@ -1,6 +1,5 @@
-import { Request, Response } from 'express';
+import { Request } from 'express';
 
 export interface MyContext {
   req: Request;
-  res: Response;
 }

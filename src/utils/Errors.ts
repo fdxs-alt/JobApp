@@ -24,3 +24,16 @@ export const wrongPassword = {
     },
   ],
 };
+
+export const sessionError = {
+  input: 'session',
+  message: "Can't verify user from session",
+};
+export const sessionNotFound = {
+  errors: [
+    {
+      input: 'password',
+      message: 'Session has expired',
+    },
+  ],
+};

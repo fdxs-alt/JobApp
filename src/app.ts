@@ -1,23 +1,47 @@
 import 'reflect-metadata';
-import { ApolloServer } from 'apollo-server-express';
-import * as express from 'express';
+import { ApolloServer, ApolloError } from 'apollo-server-express';
+import express from 'express';
 import { createConnection } from 'typeorm';
-import { buildSchema } from 'type-graphql';
+import { buildSchema, ArgumentValidationError } from 'type-graphql';
 import { AuthResolver } from './resolvers/AuthResolver';
+import { UserResolver } from './resolvers/UserResolver';
 import { redis } from './redis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
+import { GraphQLError, GraphQLFormattedError } from 'graphql';
 
-(async () => {
+const main = async () => {
   const app = express();
 
   await createConnection();
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [AuthResolver],
+      resolvers: [AuthResolver, UserResolver],
     }),
-    context: ({ req, res }) => ({ req, res }),
+    context: ({ req }) => ({ req }),
+    formatError: (error: GraphQLError): GraphQLFormattedError => {
+      if (error.originalError instanceof ApolloError) {
+        return error;
+      }
+
+      if (error.originalError instanceof ArgumentValidationError) {
+        const { extensions, locations, message, path } = error;
+
+        error.extensions.code = 'GRAPHQL_VALIDATION_FAILED';
+
+        return {
+          extensions,
+          locations,
+          message,
+          path,
+        };
+      }
+
+      error.message = 'Internal Server Error';
+
+      return error;
+    },
   });
 
   const RedisStore = connectRedis(session);
@@ -32,9 +56,9 @@ import connectRedis from 'connect-redis';
       resave: false,
       saveUninitialized: false,
       cookie: {
+        secure: false,
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
+        maxAge: 1000 * 60 * 60 * 24 * 7,
       },
     }),
   );
@@ -44,4 +68,6 @@ import connectRedis from 'connect-redis';
   app.listen(PORT, () => {
     console.log(`server started at http://localhost:${PORT}/graphql`);
   });
-})();
+};
+
+main();
