@@ -9,6 +9,7 @@ import { redis } from './redis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
+import 'dotenv/config';
 
 const main = async () => {
   const app = express();
