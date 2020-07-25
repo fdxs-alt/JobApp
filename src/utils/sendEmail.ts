@@ -1,6 +1,10 @@
 import nodemailer from 'nodemailer';
 
-export const sendEmail = async (url: string, email: string) => {
+export const sendEmail = async (
+  url: string,
+  email: string,
+  subject: string,
+) => {
   // create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -14,7 +18,7 @@ export const sendEmail = async (url: string, email: string) => {
   await transporter.sendMail({
     from: 'ITjobs@ITjobs.com', // sender address
     to: email, // list of receivers
-    subject: 'Confirm', // Subject line
-    html: `<a href="${url}">Confirm your email</b>`, // html body
+    subject: `${subject}`, // Subject line
+    html: `<a href="${url}">${url}</a>`, // html body
   });
 };

@@ -3,9 +3,6 @@ import { ApolloServer, ApolloError } from 'apollo-server-express';
 import express from 'express';
 import { createConnection } from 'typeorm';
 import { buildSchema, ArgumentValidationError } from 'type-graphql';
-import { AuthResolver } from './resolvers/AuthResolver';
-import { UserResolver } from './resolvers/UserResolver';
-import { ConfirmEmailResolver } from './resolvers/ConfirmEmailResolver';
 import { redis } from './redis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
@@ -19,10 +16,11 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [AuthResolver, UserResolver, ConfirmEmailResolver],
+      resolvers: [__dirname + '/resolvers/*.ts'],
     }),
-    context: ({ req }) => ({
+    context: ({ req, res }) => ({
       req,
+      res,
       redis,
       url: process.env.baseurl,
     }),

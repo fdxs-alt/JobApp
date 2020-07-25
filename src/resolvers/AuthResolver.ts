@@ -8,6 +8,7 @@ import { MyContext } from '../types-graphql/MyContext';
 import { AuthenticationError } from 'apollo-server-express';
 import { createConfirmationLink } from '../utils/createConfirmationLink';
 import { sendEmail } from '../utils/sendEmail';
+import { confirmEmailSubject } from '../constants/NodeMailerConstants';
 @Resolver()
 export class AuthResolver {
   @Mutation(() => UserResponse)
@@ -24,7 +25,7 @@ export class AuthResolver {
     await user.save();
 
     const confirmEmailLink = await createConfirmationLink(url, redis, user.id);
-    await sendEmail(confirmEmailLink, email);
+    await sendEmail(confirmEmailLink, email, confirmEmailSubject);
 
     return { user };
   }
