@@ -5,7 +5,7 @@ import { RegisterInput } from '../types-graphql/RegisterInput';
 import { User } from '../entity/User';
 import bcrypt from 'bcryptjs';
 import { MyContext } from '../types-graphql/MyContext';
-import { AuthenticationError } from 'apollo-server-express';
+import { AuthenticationError, ApolloError } from 'apollo-server-express';
 import { createConfirmationLink } from '../utils/createConfirmationLink';
 import { sendEmail } from '../utils/sendEmail';
 import { confirmEmailSubject } from '../constants/NodeMailerConstants';
@@ -14,13 +14,22 @@ export class AuthResolver {
   @Mutation(() => UserResponse)
   async register(
     @Ctx() { url, redis }: MyContext,
-    @Arg('input') { email, password }: RegisterInput,
+    @Arg('input')
+    { email, password, companyName, hasCompany, name, surname }: RegisterInput,
   ): Promise<UserResponse> {
     const bcryptedPassword = await bcrypt.hash(password, 10);
 
+    if (hasCompany && !companyName)
+      throw new ApolloError(
+        'If you are working for company, you need to provide company name',
+      );
     const user = User.create({
       email,
       password: bcryptedPassword,
+      companyName,
+      hasCompany,
+      name,
+      surname,
     });
     await user.save();
 

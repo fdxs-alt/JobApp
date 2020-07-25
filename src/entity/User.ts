@@ -25,8 +25,29 @@ export class User extends BaseEntity {
   @Column('boolean', { default: false })
   confirmed: boolean;
 
+  @Field()
+  @Column('boolean', { default: false })
+  hasCompany: boolean;
+
+  @Field()
+  @Column('varchar', { length: 255 })
+  name: string;
+
+  @Field()
+  @Column('varchar', { length: 255, nullable: true })
+  companyName: string;
+
+  @Field()
+  @Column('varchar', { length: 255 })
+  surname: string;
+
+  @Field()
+  @Column('varchar', { length: 255 })
+  fullName: string;
+
   @BeforeInsert()
-  createId(): void {
+  createIdandName(): void {
     this.id = uuidv4();
+    this.fullName = this.name + ' ' + this.surname;
   }
 }

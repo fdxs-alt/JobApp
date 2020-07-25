@@ -30,5 +30,5 @@ export class JobOffer {
   onlineRecrutation: boolean;
 
   @ManyToOne(() => Company, (company) => company.joboffers)
-  company: Company;
+  company: Promise<Company>;
 }
