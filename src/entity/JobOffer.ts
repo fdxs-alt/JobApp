@@ -1,9 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  BaseEntity,
+} from 'typeorm';
 import { Company } from './CompanyDetails';
 import { Field, ObjectType } from 'type-graphql';
 @ObjectType()
 @Entity()
-export class JobOffer {
+export class JobOffer extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id: number;

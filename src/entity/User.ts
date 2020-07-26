@@ -15,10 +15,10 @@ export class User extends BaseEntity {
   id: string;
 
   @Field()
-  @Column('varchar', { length: 255, unique: true, nullable: false })
+  @Column('varchar', { length: 255, unique: true })
   email: string;
 
-  @Column('text', { nullable: false })
+  @Column('text')
   password: string;
 
   @Field()

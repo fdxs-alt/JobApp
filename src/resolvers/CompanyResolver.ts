@@ -57,7 +57,7 @@ export class CompanyResolver {
 
     return newCompany;
   }
-  @Query(() => Company)
+  @Query(() => [Company])
   async getAllComapanies(): Promise<Company[]> {
     const allCorporations = await Company.find();
 

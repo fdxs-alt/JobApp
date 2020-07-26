@@ -18,31 +18,31 @@ export class Company extends BaseEntity {
   id: number;
 
   @Field()
-  @Column('varchar', { nullable: false, length: 255 })
+  @Column('varchar', { length: 255 })
   companyName: string;
 
   @Field()
-  @Column('smallint', { nullable: false })
+  @Column('smallint')
   yearOfSetUp: number;
 
   @Field()
-  @Column('smallint', { nullable: false })
+  @Column('smallint')
   sizeOfCompany: number;
 
   @Field()
-  @Column('varchar', { length: 255, nullable: false })
+  @Column('varchar', { length: 255 })
   localisation: string;
 
   @Field()
-  @Column('text', { nullable: false })
+  @Column('text')
   description: string;
 
   @Field(() => [String])
-  @Column('varchar', { nullable: false, array: true })
+  @Column('varchar', { array: true })
   technologies: string[];
 
   @Field(() => [String])
-  @Column('varchar', { nullable: false, array: true })
+  @Column('varchar', { array: true })
   benefits: string[];
 
   @Field()
