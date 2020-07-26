@@ -1,10 +1,11 @@
 import { Resolver, Mutation, Ctx, Arg } from 'type-graphql';
 import { User } from '../entity/User';
 import { ResetPasswordInput } from '../types-graphql/ResetPasswordInput';
-import { ChangePasswordPrefix } from '../constants/NodeMailerConstants';
+import { ChangePasswordPostfix } from '../constants/NodeMailerConstants';
 import bcrypt from 'bcryptjs';
 import { MyContext } from '../types-graphql/MyContext';
 import { ApolloError } from 'apollo-server-express';
+
 @Resolver()
 export class ResetPasswordResolver {
   @Mutation(() => User, { nullable: true })
@@ -12,7 +13,10 @@ export class ResetPasswordResolver {
     @Arg('data') { password, confirmPassword, token }: ResetPasswordInput,
     @Ctx() { redis, req }: MyContext,
   ): Promise<User | ApolloError> {
-    const userId = await redis.get(token + ChangePasswordPrefix);
+    if (confirmPassword !== password)
+      new ApolloError('Passwords are not identical');
+
+    const userId = await redis.get(token + ChangePasswordPostfix);
     if (!userId) new ApolloError("Can't change password, try once again");
 
     const user = await User.findOne({ id: userId });
@@ -22,7 +26,7 @@ export class ResetPasswordResolver {
     user.password = await bcrypt.hash(password, 10);
 
     await user.save();
-    await redis.del(token + ChangePasswordPrefix);
+    await redis.del(token + ChangePasswordPostfix);
 
     req.session!.userId = user.id;
 
