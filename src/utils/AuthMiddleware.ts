@@ -9,5 +9,6 @@ export const AuthMiddleware: MiddlewareFn<MyContext> = async (
   if (!context.req.session!.userId) {
     throw new AuthenticationError('Not authenticated');
   }
+
   return next();
 };

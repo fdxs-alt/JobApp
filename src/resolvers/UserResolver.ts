@@ -1,16 +1,8 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Arg,
-  UseMiddleware,
-  Ctx,
-} from 'type-graphql';
+import { Resolver, Query, UseMiddleware, Ctx } from 'type-graphql';
 import { AuthMiddleware } from '../utils/AuthMiddleware';
 import { UserResponse } from '../types-graphql/UserResponse';
 import { User } from '../entity/User';
 import { MyContext } from '../types-graphql/MyContext';
-import { sessionNotFound } from '../utils/Errors';
 import { AuthenticationError } from 'apollo-server-express';
 @Resolver()
 export class UserResolver {

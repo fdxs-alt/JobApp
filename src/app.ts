@@ -56,13 +56,13 @@ const main = async () => {
         client: redis,
       }),
       name: 'qid',
-      secret: 'aslkdfjoiq12312',
+      secret: process.env.secret,
       resave: false,
       saveUninitialized: false,
       cookie: {
         secure: false,
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 365,
       },
     }),
   );
