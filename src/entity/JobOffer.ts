@@ -47,6 +47,8 @@ export class JobOffer extends BaseEntity {
   onlineRecrutation: boolean;
 
   @Field(() => Company)
-  @ManyToOne(() => Company, (company) => company.joboffers)
+  @ManyToOne(() => Company, (company) => company.joboffers, {
+    onDelete: 'CASCADE',
+  })
   company: Company;
 }

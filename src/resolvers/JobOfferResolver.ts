@@ -55,6 +55,21 @@ export class JobOfferResolver {
     await newJobOffer.save();
     return newJobOffer;
   }
+  @Mutation(() => Boolean)
+  async deleteJobOffer(
+    @Arg('id') id: number,
+  ): Promise<Boolean | [Boolean, Error]> {
+    try {
+      const jobOfferExists = await JobOffer.findOne({ id });
+      if (!jobOfferExists) return false;
+      await JobOffer.delete({
+        id,
+      });
+      return true;
+    } catch (error) {
+      return [false, error];
+    }
+  }
   @Query(() => [JobOffer])
   async allJobOffers(): Promise<JobOffer[]> {
     const jobOffers = await JobOffer.find({});

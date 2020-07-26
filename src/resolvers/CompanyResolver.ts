@@ -9,7 +9,7 @@ import {
 import { Company } from '../entity/CompanyDetails';
 import { CompanyInput } from '../types-graphql/CompanyInput';
 import { MyContext } from '../types-graphql/MyContext';
-import { AuthenticationError, ApolloError } from 'apollo-server-express';
+import { ApolloError } from 'apollo-server-express';
 import { User } from '../entity/User';
 import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
 
@@ -30,9 +30,6 @@ export class CompanyResolver {
     }: CompanyInput,
     @Ctx() ctx: MyContext,
   ): Promise<Company> {
-    if (!ctx.req.session!.userId)
-      throw new AuthenticationError('User unauthorized');
-
     const user = await User.findOne({ where: { id: ctx.req.session!.userId } });
 
     const alreadyHasCreatedCompany = await Company.findOne({
@@ -56,6 +53,28 @@ export class CompanyResolver {
     await newCompany.save();
 
     return newCompany;
+  }
+  @Mutation(() => Boolean)
+  async deleteComapny(
+    @Arg('id') id: number,
+    @Ctx() ctx: MyContext,
+  ): Promise<Boolean | [Boolean, Error]> {
+    try {
+      const comapnyExists = await Company.findOne({
+        id,
+        employer: ctx.req.session!.userId,
+      });
+
+      if (!comapnyExists) return false;
+
+      await Company.delete({
+        id,
+        employer: ctx.req.session!.userId,
+      });
+      return true;
+    } catch (error) {
+      return [false, error];
+    }
   }
   @Query(() => [Company])
   async getAllComapanies(): Promise<Company[]> {
