@@ -4,9 +4,11 @@ import {
   Column,
   ManyToOne,
   BaseEntity,
+  OneToMany,
 } from 'typeorm';
 import { Company } from './CompanyDetails';
 import { Field, ObjectType } from 'type-graphql';
+import { Images } from './Images';
 @ObjectType()
 @Entity()
 export class JobOffer extends BaseEntity {
@@ -51,4 +53,8 @@ export class JobOffer extends BaseEntity {
     onDelete: 'CASCADE',
   })
   company: Company;
+
+  @Field(() => [Images])
+  @OneToMany(() => Images, (image) => image.joboffer)
+  image: Images;
 }
