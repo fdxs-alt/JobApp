@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { ApolloServer, ApolloError } from 'apollo-server-express';
 import express from 'express';
+import { graphqlUploadExpress } from 'graphql-upload';
 import { createConnection } from 'typeorm';
 import { buildSchema, ArgumentValidationError } from 'type-graphql';
 import { redis } from './redis';
@@ -46,6 +47,7 @@ const main = async () => {
 
       return error;
     },
+    uploads: false,
   });
 
   const RedisStore = connectRedis(session);
@@ -66,6 +68,7 @@ const main = async () => {
       },
     }),
   );
+  app.use(graphqlUploadExpress({ maxFileSize: 1000000000, maxFiles: 10 }));
 
   apolloServer.applyMiddleware({ app, cors: false });
   const PORT = process.env.PORT || 5000;
