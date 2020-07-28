@@ -5,5 +5,4 @@ export interface Upload {
   filename: string;
   mimetype: string;
   encoding: string;
-  id: number;
 }

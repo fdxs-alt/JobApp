@@ -14,28 +14,29 @@ export class ImageResolver {
   async addImage(
     @Arg('picture', () => GraphQLUpload)
     { createReadStream, filename, mimetype }: Upload,
-    @Arg('id') id: number,
+    @Arg('id', () => Number) id: number,
   ): Promise<boolean> {
     return new Promise((res, rej) => {
       createReadStream().pipe(
-        createWriteStream(path.join(__dirname + `../../../images/${filename}`))
+        createWriteStream(
+          path.join(__dirname + `../../../images/${Date.now() + filename}`),
+        )
           .on('finish', async () => {
             try {
-              console.log(id);
               const jobOffer = await JobOffer.findOne({ id });
-              if (!jobOffer) rej(false);
+              if (!jobOffer) return rej(false);
               const newImage = await Images.create({
                 name: filename,
                 type: mimetype,
                 data: fs.readFileSync(
-                  __dirname + `../../../images/${filename}`,
+                  __dirname + `../../../images/${Date.now() + filename}`,
                 ),
                 joboffer: jobOffer,
               });
               await newImage.save();
               res(true);
             } catch (error) {
-              rej(false);
+              return rej(false);
             }
           })
           .on('error', () => rej(false)),
