@@ -8,7 +8,7 @@ import { MyContext } from '../types-graphql/MyContext';
 import { AuthenticationError, ApolloError } from 'apollo-server-express';
 import { createConfirmationLink } from '../utils/createConfirmationLink';
 import { sendEmail } from '../utils/sendEmail';
-import { confirmEmailSubject } from '../constants/NodeMailerConstants';
+import { confirmEmailSubject } from '../constants/Contants';
 import { createAccessToken, createRefreshToken } from '../utils/createTokens';
 import { sendRefreshCookie } from '../utils/sendRefreshCookie';
 @Resolver()

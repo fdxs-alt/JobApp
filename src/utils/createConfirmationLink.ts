@@ -1,4 +1,4 @@
-import { ConfirmEmailPostfix } from '../constants/NodeMailerConstants';
+import { ConfirmEmailPostfix } from '../constants/Contants';
 import { sign } from 'jsonwebtoken';
 export const createConfirmationLink = async (
   url: string,

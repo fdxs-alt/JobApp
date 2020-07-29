@@ -9,6 +9,7 @@ import {
 import { Company } from './CompanyDetails';
 import { Field, ObjectType } from 'type-graphql';
 import { Images } from './Images';
+import { Cv } from './Cv';
 @ObjectType()
 @Entity()
 export class JobOffer extends BaseEntity {
@@ -57,4 +58,8 @@ export class JobOffer extends BaseEntity {
   @Field(() => [Images])
   @OneToMany(() => Images, (image) => image.joboffer)
   image: Images;
+
+  @Field(() => [Cv])
+  @OneToMany(() => Cv, (cv) => cv.user)
+  cvs: Cv;
 }

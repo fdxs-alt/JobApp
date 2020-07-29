@@ -16,7 +16,7 @@ export class ImageResolver {
     { createReadStream, filename, mimetype }: FileUpload,
     @Arg('id', () => Number) id: number,
   ): Promise<boolean> {
-    return new Promise((res, rej) => {
+    const p = new Promise<boolean>((res, rej) => {
       createReadStream().pipe(
         createWriteStream(
           path.join(__dirname + `../../../images/${Date.now() + filename}`),
@@ -44,6 +44,8 @@ export class ImageResolver {
           .on('error', () => rej(false)),
       );
     });
+    const result = await Promise.resolve(p);
+    return result;
   }
   @Mutation(() => Boolean)
   async addImages(

@@ -1,9 +1,9 @@
 import { Resolver, Mutation, Ctx, Arg } from 'type-graphql';
 import { User } from '../entity/User';
-import { ChangePasswordPostfix } from '../constants/NodeMailerConstants';
+import { ChangePasswordPostfix } from '../constants/Contants';
 import { sendEmail } from '../utils/sendEmail';
 import { MyContext } from '../types-graphql/MyContext';
-import { resetPasswordSubject } from '../constants/NodeMailerConstants';
+import { resetPasswordSubject } from '../constants/Contants';
 import { sign } from 'jsonwebtoken';
 @Resolver()
 export class ForgetPasswordResolver {

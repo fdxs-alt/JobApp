@@ -4,9 +4,11 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   BeforeInsert,
+  OneToMany,
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { Field, ObjectType } from 'type-graphql';
+import { Cv } from './Cv';
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
@@ -47,6 +49,10 @@ export class User extends BaseEntity {
 
   @Column('int', { default: 0 })
   tokenVersion: number;
+
+  @Field(() => [Cv])
+  @OneToMany(() => Cv, (cv) => cv.user)
+  cvs: Cv;
 
   @BeforeInsert()
   createIdandName(): void {

@@ -45,7 +45,7 @@ export class Company extends BaseEntity {
   @Column('varchar', { array: true })
   benefits: string[];
 
-  @Field()
+  @Field(() => User)
   @OneToOne(() => User)
   @JoinColumn()
   employer: User;
