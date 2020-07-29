@@ -4,4 +4,7 @@ import { User } from '../entity/User';
 export class UserResponse {
   @Field(() => User, { nullable: true })
   user: User;
+
+  @Field(() => String)
+  accessToken: string;
 }

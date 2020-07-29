@@ -1,20 +1,45 @@
 import 'reflect-metadata';
 import { ApolloServer, ApolloError } from 'apollo-server-express';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { graphqlUploadExpress } from 'graphql-upload';
 import { createConnection } from 'typeorm';
 import { buildSchema, ArgumentValidationError } from 'type-graphql';
-import { redis } from './redis';
-import session from 'express-session';
-import connectRedis from 'connect-redis';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
+import cookieParser from 'cookie-parser';
 import 'dotenv/config';
+import { verify } from 'jsonwebtoken';
+import { User } from './entity/User';
+import { createAccessToken, createRefreshToken } from './utils/createTokens';
+import { sendRefreshCookie } from './utils/sendRefreshCookie';
 
 const main = async () => {
   const app = express();
 
   await createConnection();
+  app.use(cookieParser());
+  app.post('/refresh', async (req: Request, res: Response) => {
+    const refreshToken = req.cookies.jrc;
 
+    if (!refreshToken) return res.send({ ok: false, accessToken: '' });
+
+    let decoded = null;
+
+    try {
+      decoded = verify(refreshToken, process.env.secret_2);
+    } catch (error) {
+      return res.send({ ok: false, accessToken: '' });
+    }
+    const user = await User.findOne({ id: decoded.userId });
+
+    if (!user) return res.send({ ok: false, accessToken: '' });
+
+    if (user.tokenVersion !== decoded.tokenVersion)
+      return res.send({ ok: false, accessToken: '' });
+
+    sendRefreshCookie(res, createRefreshToken(user));
+
+    return res.send({ ok: true, accessToken: createAccessToken(user) });
+  });
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
       resolvers: [__dirname + '/resolvers/*.ts'],
@@ -22,7 +47,6 @@ const main = async () => {
     context: ({ req, res }) => ({
       req,
       res,
-      redis,
       url: process.env.baseurl,
     }),
     formatError: (error: GraphQLError): GraphQLFormattedError => {
@@ -50,24 +74,6 @@ const main = async () => {
     uploads: false,
   });
 
-  const RedisStore = connectRedis(session);
-
-  app.use(
-    session({
-      store: new RedisStore({
-        client: redis,
-      }),
-      name: 'qid',
-      secret: process.env.secret,
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        secure: false,
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 365,
-      },
-    }),
-  );
   app.use(graphqlUploadExpress({ maxFileSize: 1000000000, maxFiles: 10 }));
 
   apolloServer.applyMiddleware({ app, cors: false });

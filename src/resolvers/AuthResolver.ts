@@ -9,14 +9,16 @@ import { AuthenticationError, ApolloError } from 'apollo-server-express';
 import { createConfirmationLink } from '../utils/createConfirmationLink';
 import { sendEmail } from '../utils/sendEmail';
 import { confirmEmailSubject } from '../constants/NodeMailerConstants';
+import { createAccessToken, createRefreshToken } from '../utils/createTokens';
+import { sendRefreshCookie } from '../utils/sendRefreshCookie';
 @Resolver()
 export class AuthResolver {
-  @Mutation(() => UserResponse)
+  @Mutation(() => User)
   async register(
-    @Ctx() { url, redis }: MyContext,
+    @Ctx() { url }: MyContext,
     @Arg('input')
     { email, password, companyName, hasCompany, name, surname }: RegisterInput,
-  ): Promise<UserResponse> {
+  ): Promise<User> {
     const bcryptedPassword = await bcrypt.hash(password, 10);
 
     if (hasCompany && !companyName)
@@ -32,11 +34,14 @@ export class AuthResolver {
       surname,
     });
     await user.save();
+    const confirmEmailLink = await createConfirmationLink(url, user.id);
 
-    const confirmEmailLink = await createConfirmationLink(url, redis, user.id);
+    if (!confirmEmailLink)
+      throw new Error('An error occured during sending confirmation email');
+
     await sendEmail(confirmEmailLink, email, confirmEmailSubject);
 
-    return { user };
+    return user;
   }
 
   @Mutation(() => UserResponse)
@@ -45,14 +50,17 @@ export class AuthResolver {
     @Ctx() ctx: MyContext,
   ): Promise<UserResponse> {
     const user = await User.findOne({ where: { email } });
-
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) throw new AuthenticationError('Email or password is wrong');
 
     if (!user.confirmed)
       throw new AuthenticationError('You need to confirm your account first');
 
-    ctx.req.session!.userId = user.id;
-    return { user };
+    sendRefreshCookie(ctx.res, createRefreshToken(user));
+
+    return {
+      user,
+      accessToken: createAccessToken(user),
+    };
   }
 }

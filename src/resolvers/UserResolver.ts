@@ -1,17 +1,35 @@
-import { Resolver, Query, UseMiddleware, Ctx } from 'type-graphql';
+import {
+  Resolver,
+  Query,
+  UseMiddleware,
+  Ctx,
+  Mutation,
+  Arg,
+} from 'type-graphql';
 import { AuthMiddleware } from '../utils/AuthMiddleware';
-import { UserResponse } from '../types-graphql/UserResponse';
 import { User } from '../entity/User';
 import { MyContext } from '../types-graphql/MyContext';
-import { AuthenticationError } from 'apollo-server-express';
+
 @Resolver()
 export class UserResolver {
   @UseMiddleware(AuthMiddleware)
-  @Query(() => UserResponse)
-  async getUser(@Ctx() ctx: MyContext): Promise<UserResponse> {
-    if (!ctx.req.session!.userId) new AuthenticationError('User unauthorized');
+  @Query(() => User)
+  async getUser(@Ctx() ctx: MyContext): Promise<User> {
+    const user = await User.findOne({ where: { id: ctx.payload.userId } });
+    return user;
+  }
 
-    const user = await User.findOne({ where: { id: ctx.req.session!.userId } });
-    return { user };
+  @Mutation(() => Boolean)
+  async updateRefreshTokenVersion(
+    @Arg('userId', () => String) userId: string,
+  ): Promise<boolean> {
+    try {
+      const user = await User.findOne({ id: userId });
+      user.tokenVersion += 1;
+      await user.save();
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }

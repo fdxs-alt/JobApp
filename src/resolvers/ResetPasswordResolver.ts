@@ -1,35 +1,35 @@
 import { Resolver, Mutation, Ctx, Arg } from 'type-graphql';
 import { User } from '../entity/User';
 import { ResetPasswordInput } from '../types-graphql/ResetPasswordInput';
-import { ChangePasswordPostfix } from '../constants/NodeMailerConstants';
 import bcrypt from 'bcryptjs';
 import { MyContext } from '../types-graphql/MyContext';
-import { ApolloError } from 'apollo-server-express';
-
+import { verify } from 'jsonwebtoken';
+import { UserResponse } from '../types-graphql/UserResponse';
+import { createAccessToken, createRefreshToken } from '../utils/createTokens';
+import { sendRefreshCookie } from '../utils/sendRefreshCookie';
 @Resolver()
 export class ResetPasswordResolver {
-  @Mutation(() => User, { nullable: true })
+  @Mutation(() => UserResponse, { nullable: true })
   async reset(
     @Arg('data') { password, confirmPassword, token }: ResetPasswordInput,
-    @Ctx() { redis, req }: MyContext,
-  ): Promise<User | ApolloError> {
-    if (confirmPassword !== password)
-      new ApolloError('Passwords are not identical');
+    @Ctx() { res }: MyContext,
+  ): Promise<UserResponse> {
+    if (confirmPassword !== password) new Error('Passwords are not identical');
+    try {
+      const decoded = verify(token, process.env.secret);
+      const id = (decoded as string).split(' ')[0];
 
-    const userId = await redis.get(token + ChangePasswordPostfix);
-    if (!userId) new ApolloError("Can't change password, try once again");
+      const user = await User.findOne({ id });
 
-    const user = await User.findOne({ id: userId });
+      if (!user) throw new Error("Can't change password, try once again");
 
-    if (!user) return new ApolloError("Can't change password, try once again");
+      user.password = await bcrypt.hash(password, 10);
+      await user.save();
 
-    user.password = await bcrypt.hash(password, 10);
-
-    await user.save();
-    await redis.del(token + ChangePasswordPostfix);
-
-    req.session!.userId = user.id;
-
-    return user;
+      sendRefreshCookie(res, createRefreshToken(user));
+      return { user, accessToken: createAccessToken(user) };
+    } catch (error) {
+      throw new Error('Error occured during changing password');
+    }
   }
 }

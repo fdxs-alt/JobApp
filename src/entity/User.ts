@@ -45,6 +45,9 @@ export class User extends BaseEntity {
   @Column('varchar', { length: 255 })
   fullName: string;
 
+  @Column('int', { default: 0 })
+  tokenVersion: number;
+
   @BeforeInsert()
   createIdandName(): void {
     this.id = uuidv4();

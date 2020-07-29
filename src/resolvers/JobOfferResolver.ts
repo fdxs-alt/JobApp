@@ -9,7 +9,6 @@ import {
 import { JobOffer } from '../entity/JobOffer';
 import { JobOfferInput } from '../types-graphql/JobOfferInput';
 import { MyContext } from '../types-graphql/MyContext';
-import { AuthenticationError, ApolloError } from 'apollo-server-express';
 import { Company } from '../entity/CompanyDetails';
 import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
 
@@ -31,15 +30,12 @@ export class JobOfferResolver {
     }: JobOfferInput,
     @Ctx() ctx: MyContext,
   ): Promise<JobOffer> {
-    if (!ctx.req.session!.userId)
-      throw new AuthenticationError('User unauthorized');
-
     const alreadyHasCreatedCompany = await Company.findOne({
-      employer: ctx.req.session!.userId,
+      employer: ctx.payload.userId as any,
     });
 
     if (!alreadyHasCreatedCompany)
-      throw new ApolloError('You need to create your company first');
+      throw new Error('You need to create your company first');
 
     const newJobOffer = JobOffer.create({
       benefitsInWork,

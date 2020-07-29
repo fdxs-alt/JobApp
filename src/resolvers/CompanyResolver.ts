@@ -9,7 +9,6 @@ import {
 import { Company } from '../entity/CompanyDetails';
 import { CompanyInput } from '../types-graphql/CompanyInput';
 import { MyContext } from '../types-graphql/MyContext';
-import { ApolloError } from 'apollo-server-express';
 import { User } from '../entity/User';
 import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
 
@@ -30,14 +29,14 @@ export class CompanyResolver {
     }: CompanyInput,
     @Ctx() ctx: MyContext,
   ): Promise<Company> {
-    const user = await User.findOne({ where: { id: ctx.req.session!.userId } });
+    const user = await User.findOne({ where: { id: ctx.payload.userId } });
 
     const alreadyHasCreatedCompany = await Company.findOne({
-      employer: ctx.req.session!.userId,
+      employer: ctx.payload.userId as any,
     });
 
     if (alreadyHasCreatedCompany)
-      throw new ApolloError('You have already created your company');
+      throw new Error('You have already created your company');
 
     const newCompany = Company.create({
       benefits,
@@ -62,14 +61,14 @@ export class CompanyResolver {
     try {
       const comapnyExists = await Company.findOne({
         id,
-        employer: ctx.req.session!.userId,
+        employer: ctx.payload.userId as any,
       });
 
       if (!comapnyExists) return false;
 
       await Company.delete({
         id,
-        employer: ctx.req.session!.userId,
+        employer: ctx.payload.userId as any,
       });
       return true;
     } catch (error) {
