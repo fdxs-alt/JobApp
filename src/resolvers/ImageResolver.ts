@@ -28,9 +28,11 @@ export class ImageResolver {
               const newImage = Images.create({
                 name: filename,
                 type: mimetype,
-                data: fs.readFileSync(
-                  __dirname + `../../../images/${Date.now() + filename}`,
-                ),
+                data: ('\\x' +
+                  fs.readFileSync(
+                    __dirname + `../../../images/${Date.now() + filename}`,
+                    { encoding: 'hex' },
+                  )) as any,
                 joboffer: jobOffer,
               });
               await newImage.save();
@@ -48,42 +50,35 @@ export class ImageResolver {
     @Arg('picture', () => [GraphQLUpload])
     pictures: [FileUpload],
     @Arg('id', () => Number) id: number,
-  ): Promise<boolean[] | boolean> {
+  ): Promise<boolean> {
     const readableStreams = await Promise.all(pictures);
 
-    const b = readableStreams.map((readStreamInstance) => {
+    readableStreams.map(async (readStreamInstance) => {
       const { filename, createReadStream, mimetype } = readStreamInstance;
       const destination = path.join(
         __dirname + `../../../images/${Date.now() + filename}`,
       );
-      return new Promise<boolean>((res, rej) => {
-        createReadStream().pipe(
-          createWriteStream(destination)
-            .on('finish', async () => {
-              try {
-                const jobOffer = await JobOffer.findOne({ id });
-                if (!jobOffer) return rej(false);
-                await Images.create({
-                  name: filename,
-                  type: mimetype,
-                  data: fs.readFileSync(destination),
-                  joboffer: jobOffer,
-                }).save();
+      createReadStream().pipe(
+        createWriteStream(destination).on('error', () => {
+          throw new Error('Something went wrong');
+        }),
+      );
 
-                return rej(false);
-              } catch (error) {
-                console.log(error);
-                rej(false);
-              }
-            })
-            .on('error', (error) => {
-              console.log(error);
-              rej(false);
-            }),
-        );
-      });
+      try {
+        const jobOffer = await JobOffer.findOne({ id });
+        if (!jobOffer) throw new Error('User does not have such a company');
+        await Images.insert({
+          name: filename,
+          type: mimetype,
+          data: ('\\x' +
+            fs.readFileSync(destination, { encoding: 'hex' })) as any,
+          joboffer: jobOffer,
+        });
+      } catch (error) {
+        throw new Error('Something went wrong');
+      }
     });
-    const result = await Promise.all(b).catch(() => false);
-    return result;
+
+    return true;
   }
 }
