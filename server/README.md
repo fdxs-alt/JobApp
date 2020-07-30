@@ -7,5 +7,3 @@
 5. Password reset and email confirmation with nodemailer and jwt
 6. Saving images and cvs in datebase (postgre's bytea) - grapql-upload
 ---
-#### Frontend: 
-###### work in progress
