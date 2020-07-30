@@ -10,6 +10,7 @@ import {
 import { User } from './User';
 import { JobOffer } from './JobOffer';
 import { Field, ObjectType } from 'type-graphql';
+import { Opinion } from './Opinions';
 @ObjectType()
 @Entity()
 export class Company extends BaseEntity {
@@ -53,4 +54,8 @@ export class Company extends BaseEntity {
   @Field(() => [JobOffer])
   @OneToMany(() => JobOffer, (joboffer) => joboffer.company)
   joboffers: JobOffer;
+
+  @Field(() => [Opinion])
+  @OneToMany(() => Opinion, (opinion) => opinion.company)
+  opinions: Opinion;
 }

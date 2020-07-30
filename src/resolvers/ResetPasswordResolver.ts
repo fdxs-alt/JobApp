@@ -7,6 +7,7 @@ import { verify } from 'jsonwebtoken';
 import { UserResponse } from '../types-graphql/UserResponse';
 import { createAccessToken, createRefreshToken } from '../utils/createTokens';
 import { sendRefreshCookie } from '../utils/sendRefreshCookie';
+
 @Resolver()
 export class ResetPasswordResolver {
   @Mutation(() => UserResponse, { nullable: true })

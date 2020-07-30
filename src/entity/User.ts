@@ -9,6 +9,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { Field, ObjectType } from 'type-graphql';
 import { Cv } from './Cv';
+import { Opinion } from './Opinions';
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
@@ -54,6 +55,9 @@ export class User extends BaseEntity {
   @OneToMany(() => Cv, (cv) => cv.user)
   cvs: Cv;
 
+  @Field(() => [Opinion])
+  @OneToMany(() => Opinion, (opinion) => opinion.user)
+  opinions: Opinion;
   @BeforeInsert()
   createIdandName(): void {
     this.id = uuidv4();
