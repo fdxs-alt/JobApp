@@ -1,5 +1,4 @@
 ## Job App
----
 #### Backend: 
 1. TypeGraphql + Apollo Server with Express.js + Typescript
 2. Typorm as ORM (PostgreSQL)
