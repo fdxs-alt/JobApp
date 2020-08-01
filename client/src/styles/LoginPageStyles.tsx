@@ -31,7 +31,7 @@ export const Title = styled.h2`
   padding: 0 1rem 1rem 1rem;
 `;
 
-export const LoginInput = styled.input`
+export const Input = styled.input`
   width: 90%;
   padding: 0.8rem 0.6rem;
   font-size: 1rem;
@@ -50,6 +50,7 @@ export const InputLabel = styled.label`
 `;
 export const LinkContainer = styled.div`
   padding: 2rem;
+  color: ${(props) => props.theme.colors.fontColor};
 `;
 export const Icon = styled(FontAwesomeIcon)`
   margin-right: 5px;

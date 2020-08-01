@@ -7,7 +7,7 @@ import {
   Icon,
   FormContainer,
   InputLabel,
-  LoginInput,
+  Input,
   Title,
   Error,
   Paragraph,
@@ -46,7 +46,7 @@ const Login = () => {
           password.
         </Paragraph>
         <InputLabel htmlFor="Email">E-mail</InputLabel>
-        <LoginInput
+        <Input
           name="email"
           placeholder="john@doe.com"
           ref={register({ required: true })}

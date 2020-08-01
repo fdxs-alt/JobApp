@@ -11,7 +11,7 @@ const Header = styled.header`
   font-size: 1.1rem;
   font-weight: 600;
   justify-content: space-between;
-  border-bottom: 1px solid ${(props) => props.theme.colors.border};
+  border-bottom: 1px solid ${(props) => props.theme.colors.lightBorder};
 `;
 const LeftPanel = styled.ul`
   list-style-type: none;
@@ -32,7 +32,7 @@ const LeftElement = styled.li`
   border-bottom: 4px solid ${(props) => props.theme.colors.dark};
   width: 20%;
 
-  border-right: 0.02rem solid ${(props) => props.theme.colors.border};
+  border-right: 1px solid ${(props) => props.theme.colors.lightBorder};
 
   padding: 1.8rem 1rem;
   text-align: center;
@@ -45,12 +45,12 @@ const RightElement = styled.li`
   border-bottom: 4px solid ${(props) => props.theme.colors.dark};
   width: 20%;
 
-  border-right: 0.02rem solid ${(props) => props.theme.colors.border};
+  border-right: 1px solid ${(props) => props.theme.colors.lightBorder};
   padding: 1.8rem 1rem;
   text-align: center;
   text-transform: uppercase;
   &:first-child {
-    border-left: 0.02rem solid ${(props) => props.theme.colors.border};
+    border-left: 1px solid ${(props) => props.theme.colors.lightBorder};
   }
   &:last-child {
     border-right: none;
@@ -91,7 +91,7 @@ const Navbar = () => {
           <MyLink to="/login">Log in</MyLink>
         </RightElement>
         <RightElement>
-          <MyLink to="/">Register</MyLink>
+          <MyLink to="/register">Register</MyLink>
         </RightElement>
       </RightPanel>
     </Header>

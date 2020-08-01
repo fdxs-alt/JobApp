@@ -6,8 +6,11 @@ const theme = {
     border: '#f9f9f9',
     error: '#f76a64',
     border2: '#f2f2f2',
-    fontColor: "#bbb1b1"
+    fontColor: '#bbb1b1',
+    darkish: '#191919',
+    lightBorder: '#eeeeee',
   },
 };
 
 export default theme;
+

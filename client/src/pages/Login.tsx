@@ -7,7 +7,7 @@ import {
   Icon,
   FormContainer,
   InputLabel,
-  LoginInput,
+  Input,
   Title,
   Error,
 } from '../styles/LoginPageStyles';
@@ -30,7 +30,6 @@ const Login = () => {
   const { register, handleSubmit, errors } = useForm<login>({
     resolver: joiResolver(schema),
   });
-  console.log(errors);
   const onSubmit = (data: login) => console.log(data);
   return (
     <Container>
@@ -44,7 +43,7 @@ const Login = () => {
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
         <Title>Log in to Employer Panel</Title>
         <InputLabel htmlFor="Email">E-mail</InputLabel>
-        <LoginInput
+        <Input
           name="email"
           placeholder="john@doe.com"
           ref={register({ required: true })}
@@ -56,7 +55,7 @@ const Login = () => {
           <Error>Email must be a valid email</Error>
         )}
         <InputLabel htmlFor="Password">Password</InputLabel>
-        <LoginInput
+        <Input  
           type="password"
           name="password"
           placeholder="Don't tell anybody"
