@@ -46,7 +46,6 @@ const RightElement = styled.li`
   width: 20%;
 
   border-right: 0.02rem solid ${(props) => props.theme.colors.border};
-
   padding: 1.8rem 1rem;
   text-align: center;
   text-transform: uppercase;
@@ -68,7 +67,9 @@ const Navbar = () => {
   return (
     <Header>
       <LeftPanel>
-        <LeftElement>NO FLUFF JOBS</LeftElement>
+        <LeftElement>
+          <MyLink to="/">NO FLUFF JOBS</MyLink>
+        </LeftElement>
         <LeftElement>
           <MyLink to="/jobs">Offers</MyLink>
         </LeftElement>
@@ -87,7 +88,7 @@ const Navbar = () => {
           <MyLink to="/">Post a job</MyLink>
         </RightElement>
         <RightElement>
-          <MyLink to="/">Log in</MyLink>
+          <MyLink to="/login">Log in</MyLink>
         </RightElement>
         <RightElement>
           <MyLink to="/">Register</MyLink>

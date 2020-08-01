@@ -4,6 +4,11 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.1.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
+    "@hapi/joi": "^17.1.1",
+    "@hookform/resolvers": "^0.1.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -42,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@types/hapi__joi": "^17.1.4",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.1",
     "@typescript-eslint/eslint-plugin": "^3.7.1",

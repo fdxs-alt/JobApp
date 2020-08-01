@@ -8,6 +8,7 @@ import ForEmployers from '../pages/ForEmployers';
 import Pricing from '../pages/Pricing';
 import Clients from '../pages/Clients';
 import Events from '../pages/Events';
+import ResetPassword from '../pages/ResetPassword';
 
 const Routes: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const Routes: React.FC = () => {
         <Route exact path="/employers/clients" component={Clients} />
         <Route exact path="/employers/events" component={Events} />
         <Route exact path="/jobs" component={MainPage} />
+        <Route exact path="/reset" component={ResetPassword} />
       </Switch>
     </BrowserRouter>
   );
