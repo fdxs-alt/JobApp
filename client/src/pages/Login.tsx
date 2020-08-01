@@ -55,7 +55,7 @@ const Login = () => {
           <Error>Email must be a valid email</Error>
         )}
         <InputLabel htmlFor="Password">Password</InputLabel>
-        <Input  
+        <Input
           type="password"
           name="password"
           placeholder="Don't tell anybody"
