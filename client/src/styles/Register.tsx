@@ -2,15 +2,18 @@ import styled from 'styled-components';
 interface RegisterFormInterface {
   active?: boolean;
 }
-export const RegisterContainer = styled.div`
+export const RegisterContainer = styled.div<RegisterFormInterface>`
   width: 100%;
+  height: ${(props) => (props.active ? '' : '40vh')};
   background-color: white;
 `;
-export const RegisterForm = styled.div<RegisterFormInterface>`
+export const RegisterForm = styled.form<RegisterFormInterface>`
   width: 100%;
   background-color: white;
   padding: 2rem;
-  display: ${(props) => (props.active ? 'block' : 'none')};
+  display: ${(props) => (props.active ? 'flex' : 'none')};
+  flex-direction: column;
+  align-items: center;
 `;
 export const ButtonContainer = styled.div`
   display: flex;
@@ -70,6 +73,8 @@ export const Time = styled.div`
   grid-column: 1/3;
   padding: 2rem;
   border: 1px solid ${(props) => props.theme.colors.lightBorder};
+  display: flex;
+  align-items: center;
 `;
 export const Card = styled.div`
   padding: 4.5rem;
@@ -86,4 +91,12 @@ export const Card = styled.div`
 export const Title = styled.h4`
   color: ${(props) => props.theme.colors.darkish};
   padding: 0.5rem;
+`;
+export const LoginForm = styled.form<RegisterFormInterface>`
+  width: 100%;
+  background-color: white;
+  padding: 2rem;
+  display: ${(props) => (props.active ? 'none' : 'flex')};
+  flex-direction: column;
+  align-items: center;
 `;
