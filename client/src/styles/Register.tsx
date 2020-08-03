@@ -100,3 +100,20 @@ export const LoginForm = styled.form<RegisterFormInterface>`
   flex-direction: column;
   align-items: center;
 `;
+export const Checkbox = styled.input`
+  display: flex;
+  align-self: center;
+  margin-left: 20px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  &:checked {
+    border: 1px solid #41b883;
+    background-color: ${(props) => props.theme.colors.button};
+  }
+`;
+export const SuccessMessage = styled.h3`
+  color: lightgreen;
+  text-align: center;
+  padding: 0.6rem 0;
+`;

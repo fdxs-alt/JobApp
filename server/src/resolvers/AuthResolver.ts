@@ -13,12 +13,12 @@ import { createAccessToken, createRefreshToken } from '../utils/createTokens';
 import { sendRefreshCookie } from '../utils/sendRefreshCookie';
 @Resolver()
 export class AuthResolver {
-  @Mutation(() => User)
+  @Mutation(() => Boolean)
   async register(
     @Ctx() { url }: MyContext,
     @Arg('input')
     { email, password, companyName, hasCompany, name, surname }: RegisterInput,
-  ): Promise<User> {
+  ): Promise<boolean> {
     const bcryptedPassword = await bcrypt.hash(password, 10);
 
     if (hasCompany && !companyName)
@@ -41,7 +41,7 @@ export class AuthResolver {
 
     await sendEmail(confirmEmailLink, email, confirmEmailSubject);
 
-    return user;
+    return true;
   }
 
   @Mutation(() => UserResponse)

@@ -11,12 +11,14 @@ import { verify } from 'jsonwebtoken';
 import { User } from './entity/User';
 import { createAccessToken, createRefreshToken } from './utils/createTokens';
 import { sendRefreshCookie } from './utils/sendRefreshCookie';
+import cors from 'cors';
 
 const main = async () => {
   const app = express();
 
   await createConnection();
   app.use(cookieParser());
+  app.use(cors());
   app.post('/refresh', async (req: Request, res: Response) => {
     const refreshToken = req.cookies.jrc;
 

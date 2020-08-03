@@ -1,24 +1,14 @@
 import React, { useState } from 'react';
 import { MyButton } from '../styles/Button';
-import { RegisterForm } from '../styles/Register';
+import { RegisterForm, Checkbox, SuccessMessage } from '../styles/Register';
 import { InputLabel, Input } from '../styles/LoginPageStyles';
 import { useForm } from 'react-hook-form';
 import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';
 import { Error } from '../styles/LoginPageStyles';
-import styled from 'styled-components';
-const Checkbox = styled.input`
-  display: flex;
-  align-self: center;
-  margin-left: 20px;
-  height: 20px;
-  width: 20px;
-  cursor: pointer;
-  &:checked {
-    border: 1px solid #41b883;
-    background-color: ${(props) => props.theme.colors.button};
-  }
-`;
+import { useMutation } from '@apollo/client';
+import { REGISTER } from '../Graphql/AuthMutations';
+
 interface Props {
   active: boolean;
 }
@@ -44,18 +34,45 @@ const schema = Joi.object({
 
 const Register: React.FC<Props> = ({ active }: Props) => {
   const [isOwner, setisOwner] = useState(false);
-  const { register, handleSubmit, errors } = useForm<RegisterProps>({
+  const [reg, { error, loading }] = useMutation(REGISTER);
+  const [registered, setRegistered] = useState<boolean>();
+  const { register, handleSubmit, errors, reset } = useForm<RegisterProps>({
     resolver: joiResolver(schema),
   });
-  const onSubmit = (data: RegisterProps) => console.log(data);
+
+  const onSubmit = async ({
+    email,
+    password,
+    hasCompany,
+    name,
+    surname,
+    company,
+  }: RegisterProps) => {
+    const input = {
+      email,
+      password,
+      hasCompany,
+      name,
+      surname,
+      company,
+    };
+    try {
+      await reg({ variables: { input } });
+      setRegistered(true);
+      reset();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <RegisterForm active={active} onSubmit={handleSubmit(onSubmit)}>
       <InputLabel>Name</InputLabel>
       <Input name="name" ref={register} />
-      {errors.name && <Error>Name field can't be empty</Error>}
+      {errors.name && <Error>Name field cant be empty</Error>}
       <InputLabel>Surname</InputLabel>
       <Input name="surname" ref={register} />
-      {errors.surname && <Error>Surname field can't be empty</Error>}
+      {errors.surname && <Error>Surname field cant be empty</Error>}
       <InputLabel>Email</InputLabel>
       <Input name="email" ref={register} />
       {errors.email?.type === 'string.empty' && (
@@ -72,7 +89,7 @@ const Register: React.FC<Props> = ({ active }: Props) => {
       {errors.password?.type === 'string.min' && (
         <Error>Password field must be at least 8 characters</Error>
       )}
-      <InputLabel style={{marginBottom: "15px"}}>
+      <InputLabel style={{ marginBottom: '15px' }}>
         Are you the owner of the company?
         <Checkbox
           type="checkbox"
@@ -81,14 +98,23 @@ const Register: React.FC<Props> = ({ active }: Props) => {
           onClick={() => setisOwner(!isOwner)}
         />
       </InputLabel>
-
+      {error && (
+        <Error style={{ textAlign: 'center', fontSize: '1.5rem' }}>
+          Email is already in use, try another email
+        </Error>
+      )}
+      {registered && (
+        <SuccessMessage>
+          You were registed successfully, confirm your email now
+        </SuccessMessage>
+      )}
       {isOwner && (
         <>
           <InputLabel>Company</InputLabel>
           <Input name="company" ref={register} required />
         </>
       )}
-      <MyButton width={40}>Register</MyButton>
+      {!loading && <MyButton width={40}>Register</MyButton>}
     </RegisterForm>
   );
 };
