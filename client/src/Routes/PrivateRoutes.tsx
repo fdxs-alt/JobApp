@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { IS_AUTH } from '../Graphql/Queries';
-const NotAccessableWhenLogged: React.FC<{
+const PrivateRoutes: React.FC<{
   component: React.FC;
   path: string;
   exact?: boolean;
@@ -10,10 +10,10 @@ const NotAccessableWhenLogged: React.FC<{
   const { data } = useQuery(IS_AUTH);
 
   return data.isAuthenticated ? (
-    <Redirect to="/" />
-  ) : (
     <Route path={props.path} exact={props.exact} component={props.component} />
+  ) : (
+    <Redirect to="/" />
   );
 };
 
-export default NotAccessableWhenLogged;
+export default PrivateRoutes;
