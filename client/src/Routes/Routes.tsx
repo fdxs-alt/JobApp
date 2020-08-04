@@ -9,21 +9,21 @@ import Pricing from '../pages/Pricing';
 import Clients from '../pages/Clients';
 import Events from '../pages/Events';
 import ResetPassword from '../pages/ResetPassword';
-
+import ForbbidenWhenLogged from './NotAccessableWhenLogged';
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
+        <ForbbidenWhenLogged exact path="/login" component={Login} />
+        <ForbbidenWhenLogged exact path="/register" component={Register} />
         <Route exact path="/company" component={Companies} />
         <Route exact path="/employers" component={ForEmployers} />
         <Route exact path="/employers/pricing" component={Pricing} />
         <Route exact path="/employers/clients" component={Clients} />
         <Route exact path="/employers/events" component={Events} />
         <Route exact path="/jobs" component={MainPage} />
-        <Route exact path="/reset" component={ResetPassword} />
+        <ForbbidenWhenLogged exact path="/reset" component={ResetPassword} />
       </Switch>
     </BrowserRouter>
   );

@@ -42,37 +42,36 @@ const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
       console.log(error);
     }
   };
-  if (isAuth()) return <Redirect to="/" />;
-  else
-    return (
-      <LoginForm active={active} onSubmit={handleSubmit(onSubmit)}>
-        <InputLabel htmlFor="Email">Email</InputLabel>
-        <Input
-          name="email"
-          placeholder="john@doe.com"
-          ref={register({ required: true })}
-        />
-        {errors.email?.type === 'string.empty' && (
-          <Error>Email field cannot be empty</Error>
-        )}
-        {errors.email?.type === 'string.email' && (
-          <Error>Email must be a valid email</Error>
-        )}
-        <InputLabel htmlFor="Password">Password</InputLabel>
-        <Input
-          type="password"
-          name="password"
-          placeholder="Don't tell anybody"
-          ref={register({ required: true })}
-        />
-        {errors.password?.message && (
-          <Error>Password field cannot be empty</Error>
-        )}
-        <MyButton style={{ marginBottom: '1.5rem' }} width={30}>
-          Log in
-        </MyButton>
-      </LoginForm>
-    );
+
+  return (
+    <LoginForm active={active} onSubmit={handleSubmit(onSubmit)}>
+      <InputLabel htmlFor="Email">Email</InputLabel>
+      <Input
+        name="email"
+        placeholder="john@doe.com"
+        ref={register({ required: true })}
+      />
+      {errors.email?.type === 'string.empty' && (
+        <Error>Email field cannot be empty</Error>
+      )}
+      {errors.email?.type === 'string.email' && (
+        <Error>Email must be a valid email</Error>
+      )}
+      <InputLabel htmlFor="Password">Password</InputLabel>
+      <Input
+        type="password"
+        name="password"
+        placeholder="Don't tell anybody"
+        ref={register({ required: true })}
+      />
+      {errors.password?.message && (
+        <Error>Password field cannot be empty</Error>
+      )}
+      <MyButton style={{ marginBottom: '1.5rem' }} width={30}>
+        Log in
+      </MyButton>
+    </LoginForm>
+  );
 };
 
 export default withRouter(Login);

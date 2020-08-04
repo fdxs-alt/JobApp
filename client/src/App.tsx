@@ -12,8 +12,8 @@ const App: React.FC = () => {
     }).then(async (response) => {
       const data = await response.json();
       setToken(data.accessToken);
-      setLoading(false);
       isAuth(true);
+      setLoading(false);
     });
   }, []);
 

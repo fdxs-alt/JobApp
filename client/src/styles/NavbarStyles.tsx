@@ -33,8 +33,7 @@ export const LeftElement = styled.li`
   width: 20%;
 
   border-right: 1px solid ${(props) => props.theme.colors.lightBorder};
-
-  padding: 1.8rem 1rem;
+  padding: 2rem;
   text-align: center;
   text-transform: uppercase;
   &:hover {
@@ -44,9 +43,8 @@ export const LeftElement = styled.li`
 export const RightElement = styled.li`
   border-bottom: 4px solid ${(props) => props.theme.colors.dark};
   width: 20%;
-
+  padding: 2rem;
   border-right: 1px solid ${(props) => props.theme.colors.lightBorder};
-  padding: 1.8rem 1rem;
   text-align: center;
   text-transform: uppercase;
   &:first-child {
