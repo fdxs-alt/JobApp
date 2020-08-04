@@ -18,7 +18,12 @@ const main = async () => {
 
   await createConnection();
   app.use(cookieParser());
-  app.use(cors());
+  app.use(
+    cors({
+      origin: 'http://localhost:3000',
+      credentials: true,
+    }),
+  );
   app.post('/refresh', async (req: Request, res: Response) => {
     const refreshToken = req.cookies.jrc;
 
