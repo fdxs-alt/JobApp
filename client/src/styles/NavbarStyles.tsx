@@ -15,14 +15,14 @@ export const Header = styled.header`
 `;
 export const LeftPanel = styled.ul`
   list-style-type: none;
-  width: 45%;
+  width: 50%;
   display: flex;
   align-items: center;
 `;
 
 export const RightPanel = styled.ul`
   list-style-type: none;
-  width: 45%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -31,9 +31,8 @@ export const RightPanel = styled.ul`
 export const LeftElement = styled.li`
   border-bottom: 4px solid ${(props) => props.theme.colors.dark};
   width: 20%;
-
+  padding: 2rem 0;
   border-right: 1px solid ${(props) => props.theme.colors.lightBorder};
-  padding: 2rem;
   text-align: center;
   text-transform: uppercase;
   &:hover {
@@ -43,7 +42,7 @@ export const LeftElement = styled.li`
 export const RightElement = styled.li`
   border-bottom: 4px solid ${(props) => props.theme.colors.dark};
   width: 20%;
-  padding: 2rem;
+  padding: 2rem 0;
   border-right: 1px solid ${(props) => props.theme.colors.lightBorder};
   text-align: center;
   text-transform: uppercase;

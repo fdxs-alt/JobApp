@@ -11,3 +11,8 @@ export const GET_User = gql`
     }
   }
 `;
+export const IS_AUTH = gql`
+  query isAuth {
+    isAuthenticated @client
+  }
+`;

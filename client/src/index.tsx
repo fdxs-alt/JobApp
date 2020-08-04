@@ -12,13 +12,26 @@ import {
 } from '@apollo/client';
 import AuthLink from './Graphql/AuthLink';
 import RefreshTokenLink from './Graphql/RefreshTokenLink';
+import isAuthenticated from './Graphql/isAuth';
 
 const links = ApolloLink.from([RefreshTokenLink, AuthLink]);
 const client = new ApolloClient({
   uri: 'http://localhost:5000/graphql',
   credentials: 'include',
   link: links,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          isAuthenticated: {
+            read() {
+              return isAuthenticated();
+            },
+          },
+        },
+      },
+    },
+  }),
 });
 
 ReactDOM.render(

@@ -1,6 +1,7 @@
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import { getToken, setToken } from '../AccessToken';
 import JwtDecode from 'jwt-decode';
+import isAuthenticated from './isAuth';
 
 const link = new TokenRefreshLink({
   accessTokenField: 'accessToken',
@@ -22,7 +23,8 @@ const link = new TokenRefreshLink({
   },
   handleFetch: (accessToken: string) => setToken(accessToken),
   handleError: (err: Error) => {
-    console.log('Token invalid', err);
+    isAuthenticated(false);
+    setToken('');
   },
 });
 export default link;

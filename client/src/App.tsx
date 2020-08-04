@@ -11,13 +11,18 @@ const App: React.FC = () => {
       credentials: 'include',
     }).then(async (response) => {
       const data = await response.json();
+      console.log(data);
       setToken(data.accessToken);
-      isAuth(true);
+      if (data.accessToken.length === 0) {
+        isAuth(false);
+      } else {
+        isAuth(true);
+      }
       setLoading(false);
     });
   }, []);
 
-  if (loading) return <h1>Loading</h1>;
+  if (loading) return null;
   else return <Routes />;
 };
 
