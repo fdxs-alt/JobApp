@@ -15,7 +15,10 @@ import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
 import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';
-
+import { LOGIN } from '../Graphql/AuthMutations';
+import { useMutation } from '@apollo/client';
+import { setToken } from '../AccessToken';
+import isAuthenticated from '../Graphql/isAuth';
 type login = {
   email: string;
   password: string;
@@ -27,10 +30,23 @@ const schema = Joi.object({
   password: Joi.string().required(),
 });
 const Login = () => {
+  const [login] = useMutation(LOGIN);
   const { register, handleSubmit, errors } = useForm<login>({
     resolver: joiResolver(schema),
   });
-  const onSubmit = (data: login) => console.log(data);
+  const onSubmit = async ({ email, password }: login) => {
+    const input = { email, password };
+    try {
+      const response = await login({ variables: { input } });
+      console.log(response);
+      if (response && response.data) {
+        isAuthenticated(true);
+        setToken(response.data.login.accessToken);
+      }
+    } catch (error) {
+      isAuthenticated(false);
+    }
+  };
   return (
     <Container>
       <LinkContainer>

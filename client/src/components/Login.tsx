@@ -34,12 +34,13 @@ const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
     const input = { email, password };
     try {
       const response = await login({ variables: { input } });
+      console.log(response);
       if (response && response.data) {
-        setToken(response.data.login.accessToken);
         isAuth(true);
+        setToken(response.data.login.accessToken);
       }
     } catch (error) {
-      console.log(error);
+      isAuth(false);
     }
   };
 

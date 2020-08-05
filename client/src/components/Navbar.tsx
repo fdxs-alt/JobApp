@@ -12,7 +12,10 @@ import { GET_User } from '../Graphql/Queries';
 import { LOGOUT } from '../Graphql/AuthMutations';
 import { setToken } from '../AccessToken';
 import isAuthenticated from '../Graphql/isAuth';
+import { useHistory } from 'react-router-dom';
 const Navbar = () => {
+  const history = useHistory();
+
   const { data, loading } = useQuery(GET_User, {
     fetchPolicy: 'network-only',
   });
@@ -57,7 +60,9 @@ const Navbar = () => {
                   await logout();
                   isAuthenticated(false);
                   setToken('');
+                  isAuthenticated(false);
                   client.clearStore();
+                  history.push("/login");
                 }}
               >
                 Logout

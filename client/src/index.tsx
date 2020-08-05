@@ -16,8 +16,6 @@ import isAuthenticated from './Graphql/isAuth';
 
 const links = ApolloLink.from([RefreshTokenLink, AuthLink]);
 const client = new ApolloClient({
-  uri: 'http://localhost:5000/graphql',
-  credentials: 'include',
   link: links,
   cache: new InMemoryCache({
     typePolicies: {

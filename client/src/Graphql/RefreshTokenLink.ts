@@ -24,7 +24,6 @@ const link = new TokenRefreshLink({
   handleFetch: (accessToken: string) => setToken(accessToken),
   handleError: (err: Error) => {
     isAuthenticated(false);
-    setToken('');
   },
 });
 export default link;

@@ -4,6 +4,7 @@ import { getToken } from '../AccessToken';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:5000/graphql',
+  credentials: 'include',
 });
 
 const authLink = setContext((_, { headers }) => {
