@@ -6,6 +6,7 @@ import {
   RightElement,
   LeftPanel,
   RightPanel,
+  Logout,
 } from '../styles/NavbarStyles';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_User } from '../Graphql/Queries';
@@ -41,7 +42,13 @@ const Navbar = () => {
         </LeftPanel>
         <RightPanel>
           <RightElement>
-            <MyLink to="/employers">For employer</MyLink>
+            {data?.getUser.hasCompany ? (
+              <MyLink to="/employers">For employer</MyLink>
+            ) : data ? (
+              <MyLink to="/">Apply for a job</MyLink>
+            ) : (
+              <MyLink to="/login">Log in</MyLink>
+            )}
           </RightElement>
           <RightElement>
             <MyLink to="/">Post a job</MyLink>
@@ -55,18 +62,18 @@ const Navbar = () => {
           </RightElement>
           <RightElement>
             {data ? (
-              <button
+              <Logout
                 onClick={async () => {
                   await logout();
                   isAuthenticated(false);
                   setToken('');
                   isAuthenticated(false);
                   client.clearStore();
-                  history.push("/login");
+                  history.push('/login');
                 }}
               >
-                Logout
-              </button>
+                LOGOUT
+              </Logout>
             ) : (
               <MyLink to="/register">Register</MyLink>
             )}

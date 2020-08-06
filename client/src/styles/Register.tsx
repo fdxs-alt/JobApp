@@ -115,5 +115,5 @@ export const Checkbox = styled.input`
 export const SuccessMessage = styled.h3`
   color: lightgreen;
   text-align: center;
-  padding: 0.6rem 0;
+  padding: 0.6rem;
 `;

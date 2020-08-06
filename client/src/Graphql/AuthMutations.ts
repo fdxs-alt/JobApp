@@ -19,5 +19,15 @@ export const LOGIN = gql`
 export const LOGOUT = gql`
   mutation Logout {
     logout
-  } 
-`
+  }
+`;
+export const CONFIRM = gql`
+  mutation Confirm($token: String!) {
+    confirm(token: $token)
+  }
+`;
+export const RESET_BY_EMAIL = gql`
+  mutation ResetEmail($email: String!) {
+    resetEmail(email: $email)
+  }
+`;

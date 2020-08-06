@@ -56,8 +56,7 @@ export class AuthResolver {
     if (!user.confirmed)
       throw new AuthenticationError('You need to confirm your account first');
 
-    const token = createRefreshToken(user);
-    ctx.res.cookie('jrc', token, { httpOnly: true });
+    sendRefreshCookie(ctx.res, createRefreshToken(user));
 
     return {
       user,

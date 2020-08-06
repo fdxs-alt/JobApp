@@ -1,10 +1,9 @@
 import 'reflect-metadata';
-import { ApolloServer, ApolloError } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import express, { Request, Response } from 'express';
 import { graphqlUploadExpress } from 'graphql-upload';
 import { createConnection } from 'typeorm';
-import { buildSchema, ArgumentValidationError } from 'type-graphql';
-import { GraphQLError, GraphQLFormattedError } from 'graphql';
+import { buildSchema } from 'type-graphql';
 import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import { verify } from 'jsonwebtoken';
@@ -56,28 +55,6 @@ const main = async () => {
       res,
       url: process.env.baseurl,
     }),
-    formatError: (error: GraphQLError): GraphQLFormattedError => {
-      if (error.originalError instanceof ApolloError) {
-        return error;
-      }
-
-      if (error.originalError instanceof ArgumentValidationError) {
-        const { extensions, locations, message, path } = error;
-
-        error.extensions.code = 'GRAPHQL_VALIDATION_FAILED';
-
-        return {
-          extensions,
-          locations,
-          message,
-          path,
-        };
-      }
-
-      error.message = 'Internal Server Error';
-
-      return error;
-    },
     uploads: false,
   });
 

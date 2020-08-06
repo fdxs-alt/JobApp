@@ -8,7 +8,7 @@ import { joiResolver } from '@hookform/resolvers';
 import { Error } from '../styles/LoginPageStyles';
 import { LOGIN } from '../Graphql/AuthMutations';
 import { useMutation } from '@apollo/client';
-import { withRouter, RouteComponentProps, Redirect } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { setToken } from '../AccessToken';
 import isAuth from '../Graphql/isAuth';
 type login = {
@@ -26,7 +26,7 @@ interface Props {
 }
 
 const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
-  const [login] = useMutation(LOGIN);
+  const [login, { loading, error }] = useMutation(LOGIN);
   const { register, handleSubmit, errors } = useForm<login>({
     resolver: joiResolver(schema),
   });
@@ -34,7 +34,6 @@ const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
     const input = { email, password };
     try {
       const response = await login({ variables: { input } });
-      console.log(response);
       if (response && response.data) {
         isAuth(true);
         setToken(response.data.login.accessToken);
@@ -68,9 +67,18 @@ const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
       {errors.password?.message && (
         <Error>Password field cannot be empty</Error>
       )}
-      <MyButton style={{ marginBottom: '1.5rem' }} width={30}>
-        Log in
-      </MyButton>
+      {loading ? (
+        <MyButton style={{ marginBottom: '1.5rem' }} width={30} disabled>
+          Log in
+        </MyButton>
+      ) : (
+        <MyButton style={{ marginBottom: '1.5rem' }} width={30}>
+          Log in
+        </MyButton>
+      )}
+      {error?.message && (
+        <Error style={{ textAlign: 'center' }}>{error.message}</Error>
+      )}
     </LoginForm>
   );
 };

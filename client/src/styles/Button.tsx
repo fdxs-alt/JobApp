@@ -11,5 +11,10 @@ export const MyButton = styled.button<MyButtonProps>`
   border: none;
   color: white;
   padding: 1.2rem;
-  font-weight:600;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;

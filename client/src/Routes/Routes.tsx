@@ -10,6 +10,8 @@ import Clients from '../pages/Clients';
 import Events from '../pages/Events';
 import ResetPassword from '../pages/ResetPassword';
 import ForbbidenWhenLogged from './NotAccessableWhenLogged';
+import Confirm from '../pages/Confirm';
+import Reset from '../pages/Reset';
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
@@ -23,6 +25,9 @@ const Routes: React.FC = () => {
         <Route exact path="/employers/clients" component={Clients} />
         <Route exact path="/employers/events" component={Events} />
         <Route exact path="/jobs" component={MainPage} />
+        <ForbbidenWhenLogged path="/user/confirm" component={Confirm} />
+        <ForbbidenWhenLogged path="/user/changePassword" component={Reset} />
+
         <ForbbidenWhenLogged exact path="/reset" component={ResetPassword} />
       </Switch>
     </BrowserRouter>

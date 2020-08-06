@@ -60,3 +60,11 @@ export const MyLink = styled(Link)`
   text-decoration: none;
   color: white;
 `;
+export const Logout = styled.button`
+  color: white;
+  background-color: inherit;
+  border: none;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+`;

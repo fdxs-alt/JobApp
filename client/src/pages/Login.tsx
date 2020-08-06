@@ -30,7 +30,7 @@ const schema = Joi.object({
   password: Joi.string().required(),
 });
 const Login = () => {
-  const [login] = useMutation(LOGIN);
+  const [login, { error, loading }] = useMutation(LOGIN);
   const { register, handleSubmit, errors } = useForm<login>({
     resolver: joiResolver(schema),
   });
@@ -38,7 +38,6 @@ const Login = () => {
     const input = { email, password };
     try {
       const response = await login({ variables: { input } });
-      console.log(response);
       if (response && response.data) {
         isAuthenticated(true);
         setToken(response.data.login.accessToken);
@@ -47,6 +46,7 @@ const Login = () => {
       isAuthenticated(false);
     }
   };
+
   return (
     <Container>
       <LinkContainer>
@@ -80,9 +80,18 @@ const Login = () => {
         {errors.password?.message && (
           <Error>Password field cannot be empty</Error>
         )}
-        <MyButton style={{ marginBottom: '1.5rem' }} width={30}>
-          Log in
-        </MyButton>
+        {loading ? (
+          <MyButton style={{ marginBottom: '1.5rem' }} width={30} disabled>
+            Log in
+          </MyButton>
+        ) : (
+          <MyButton style={{ marginBottom: '1.5rem' }} width={30}>
+            Log in
+          </MyButton>
+        )}
+        {error?.message && (
+          <Error style={{ textAlign: 'center'}}>{error.message}</Error>
+        )}
 
         <MyLink to="/reset">Forgot password?</MyLink>
       </FormContainer>

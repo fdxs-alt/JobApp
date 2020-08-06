@@ -5,6 +5,7 @@ import { sendEmail } from '../utils/sendEmail';
 import { MyContext } from '../types-graphql/MyContext';
 import { resetPasswordSubject } from '../constants/Contants';
 import { sign } from 'jsonwebtoken';
+import { ApolloError } from 'apollo-server-express';
 @Resolver()
 export class ForgetPasswordResolver {
   @Mutation(() => Boolean)
@@ -13,7 +14,7 @@ export class ForgetPasswordResolver {
     @Ctx() { url }: MyContext,
   ): Promise<boolean> {
     const user = await User.findOne({ where: { email } });
-    if (!user) return false;
+    if (!user) throw new ApolloError("Can't indetify user");
 
     const token = sign(
       user.id + ' ' + ChangePasswordPostfix,
@@ -26,7 +27,7 @@ export class ForgetPasswordResolver {
         resetPasswordSubject,
       );
     } catch (error) {
-      return false;
+      throw new ApolloError('An error occured');
     }
 
     return true;

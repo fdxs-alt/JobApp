@@ -54,8 +54,9 @@ const Register: React.FC<Props> = ({ active }: Props) => {
       hasCompany,
       name,
       surname,
-      company,
+      companyName: company,
     };
+    console.log(input);
     try {
       await reg({ variables: { input } });
       setRegistered(true);
@@ -103,18 +104,20 @@ const Register: React.FC<Props> = ({ active }: Props) => {
           Email is already in use, try another email
         </Error>
       )}
-      {registered && (
-        <SuccessMessage>
-          You were registed successfully, confirm your email now
-        </SuccessMessage>
-      )}
+
       {isOwner && (
         <>
           <InputLabel>Company</InputLabel>
           <Input name="company" ref={register} required />
         </>
       )}
+
       {!loading && <MyButton width={40}>Register</MyButton>}
+      {registered && (
+        <SuccessMessage>
+          You were registed successfully, confirm your email now
+        </SuccessMessage>
+      )}
     </RegisterForm>
   );
 };

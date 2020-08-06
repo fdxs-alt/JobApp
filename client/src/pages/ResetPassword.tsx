@@ -12,10 +12,13 @@ import {
   Error,
   Paragraph,
 } from '../styles/LoginPageStyles';
+import { SuccessMessage } from '../styles/Register';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
 import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';
+import { useMutation } from '@apollo/client';
+import { RESET_BY_EMAIL } from '../Graphql/AuthMutations';
 
 type reset = {
   email: string;
@@ -26,10 +29,18 @@ const schema = Joi.object({
     .email({ minDomainSegments: 2, tlds: { allow: false } }),
 });
 const Login = () => {
+  const [reset, { loading, error }] = useMutation(RESET_BY_EMAIL);
   const { register, handleSubmit, errors } = useForm<reset>({
     resolver: joiResolver(schema),
   });
-  const onSubmit = (data: reset) => console.log(data);
+  const onSubmit = async (data: reset) => {
+    const email = { email: data.email };
+    try {
+      await reset({ variables: email });
+    } catch (error) {
+      return;
+    }
+  };
   return (
     <Container>
       <LinkContainer>
@@ -57,9 +68,21 @@ const Login = () => {
         {errors.email?.type === 'string.email' && (
           <Error>Email must be a valid email</Error>
         )}
-        <MyButton style={{ marginBottom: '1.5rem' }} width={40}>
-          Send recovery email
-        </MyButton>
+        {loading ? (
+          <MyButton style={{ marginBottom: '1.5rem' }} width={40} disabled>
+            Send recovery email
+          </MyButton>
+        ) : (
+          <MyButton style={{ marginBottom: '1.5rem' }} width={40}>
+            Send recovery email
+          </MyButton>
+        )}
+        {error && <Error>{error.message}</Error>}
+        {!error && !loading && (
+          <SuccessMessage>
+            Email has been sent successfully, check your mailbox
+          </SuccessMessage>
+        )}
         <MyLink to="/login">Back to login?</MyLink>
       </FormContainer>
     </Container>

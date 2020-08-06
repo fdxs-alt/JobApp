@@ -19,6 +19,7 @@
     "apollo-link-token-refresh": "^0.3.2",
     "graphql": "^15.3.0",
     "jwt-decode": "^2.2.0",
+    "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.2.0",
