@@ -18,7 +18,8 @@ import { joiResolver } from '@hookform/resolvers';
 import { LOGIN } from '../Graphql/AuthMutations';
 import { useMutation } from '@apollo/client';
 import { setToken } from '../AccessToken';
-import isAuthenticated from '../Graphql/isAuth';
+import isAuthenticated, { isOwner } from '../Graphql/isAuth';
+import { useHistory } from 'react-router-dom';
 type login = {
   email: string;
   password: string;
@@ -30,6 +31,7 @@ const schema = Joi.object({
   password: Joi.string().required(),
 });
 const Login = () => {
+  const history = useHistory();
   const [login, { error, loading }] = useMutation(LOGIN);
   const { register, handleSubmit, errors } = useForm<login>({
     resolver: joiResolver(schema),
@@ -41,6 +43,10 @@ const Login = () => {
       if (response && response.data) {
         isAuthenticated(true);
         setToken(response.data.login.accessToken);
+        if (response.data.login.user.hasCompany) {
+          isOwner(true);
+          history.push('/dashboard');
+        }
       }
     } catch (error) {
       isAuthenticated(false);
@@ -90,7 +96,7 @@ const Login = () => {
           </MyButton>
         )}
         {error?.message && (
-          <Error style={{ textAlign: 'center'}}>{error.message}</Error>
+          <Error style={{ textAlign: 'center' }}>{error.message}</Error>
         )}
 
         <MyLink to="/reset">Forgot password?</MyLink>

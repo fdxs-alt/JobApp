@@ -1,10 +1,11 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
 import SearchBar from '../components/SearchBar';
+import Navbars from '../components/Navbars';
+
 const MainPage = () => {
   return (
     <>
-      <Navbar />
+      <Navbars />
       <SearchBar />
     </>
   );

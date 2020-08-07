@@ -12,7 +12,12 @@ export const GET_User = gql`
   }
 `;
 export const IS_AUTH = gql`
-  query isAuth {
+  query IsAuth {
     isAuthenticated @client
+  }
+`;
+export const IS_OWNER = gql`
+  query IsOwner {
+    isOwner @client
   }
 `;

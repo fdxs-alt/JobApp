@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Routes from './Routes/Routes';
 import { setToken } from './AccessToken';
-import isAuth from './Graphql/isAuth';
+import isAuth, { isOwner } from './Graphql/isAuth';
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
@@ -11,12 +11,13 @@ const App: React.FC = () => {
       credentials: 'include',
     }).then(async (response) => {
       const data = await response.json();
-      console.log(data);
+
       setToken(data.accessToken);
       if (data.accessToken.length === 0) {
         isAuth(false);
       } else {
         isAuth(true);
+        if (data.isOwner) isOwner(true);
       }
       setLoading(false);
     });

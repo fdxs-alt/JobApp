@@ -8,7 +8,7 @@ const theme = {
     border2: '#f2f2f2',
     fontColor: '#bbb1b1',
     darkish: '#191919',
-    lightBorder: '#eeeeee',
+    lightBorder: '#313439',
   },
 };
 

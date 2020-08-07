@@ -1,7 +1,7 @@
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import { getToken, setToken } from '../AccessToken';
 import JwtDecode from 'jwt-decode';
-import isAuthenticated from './isAuth';
+import isAuthenticated, { isOwner } from './isAuth';
 
 const link = new TokenRefreshLink({
   accessTokenField: 'accessToken',
@@ -10,7 +10,7 @@ const link = new TokenRefreshLink({
     if (!token) return true;
     try {
       const { exp } = JwtDecode(token);
-      return Date.now() >= exp * 1000;
+      return Date.now() <= exp * 1000;
     } catch (error) {
       return false;
     }
@@ -21,7 +21,11 @@ const link = new TokenRefreshLink({
       credentials: 'include',
     });
   },
-  handleFetch: (accessToken: string) => setToken(accessToken),
+  handleFetch: (accessToken: string) => {
+    setToken(accessToken);
+    const data = JwtDecode(accessToken) as any;
+    if (data!.isOwner) isOwner(true);
+  },
   handleError: (err: Error) => {
     isAuthenticated(false);
   },

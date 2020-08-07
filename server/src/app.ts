@@ -44,7 +44,11 @@ const main = async () => {
 
     sendRefreshCookie(res, createRefreshToken(user));
 
-    return res.send({ ok: true, accessToken: createAccessToken(user) });
+    return res.send({
+      ok: true,
+      accessToken: createAccessToken(user),
+      isOwner: user.hasCompany,
+    });
   });
   const apolloServer = new ApolloServer({
     schema: await buildSchema({

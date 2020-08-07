@@ -12,6 +12,9 @@ import ResetPassword from '../pages/ResetPassword';
 import ForbbidenWhenLogged from './NotAccessableWhenLogged';
 import Confirm from '../pages/Confirm';
 import Reset from '../pages/Reset';
+import OwnerRoutes from './OwnerRoutes';
+import Dashboard from '../pages/OwnerPages/Dashboard';
+import CompanyProfile from '../pages/OwnerPages/CompanyProfile';
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
@@ -27,8 +30,9 @@ const Routes: React.FC = () => {
         <Route exact path="/jobs" component={MainPage} />
         <ForbbidenWhenLogged path="/user/confirm" component={Confirm} />
         <ForbbidenWhenLogged path="/user/changePassword" component={Reset} />
-
         <ForbbidenWhenLogged exact path="/reset" component={ResetPassword} />
+        <OwnerRoutes exact path="/dashboard" component={Dashboard} />
+        <OwnerRoutes exact path="/profile" component={CompanyProfile} />
       </Switch>
     </BrowserRouter>
   );

@@ -12,7 +12,7 @@ import {
 } from '@apollo/client';
 import AuthLink from './Graphql/AuthLink';
 import RefreshTokenLink from './Graphql/RefreshTokenLink';
-import isAuthenticated from './Graphql/isAuth';
+import isAuthenticated, { isOwner } from './Graphql/isAuth';
 
 const links = ApolloLink.from([RefreshTokenLink, AuthLink]);
 const client = new ApolloClient({
@@ -24,6 +24,11 @@ const client = new ApolloClient({
           isAuthenticated: {
             read() {
               return isAuthenticated();
+            },
+          },
+          isOwner: {
+            read() {
+              return isOwner();
             },
           },
         },

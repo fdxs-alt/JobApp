@@ -38,6 +38,10 @@ export class CompanyResolver {
     if (alreadyHasCreatedCompany)
       throw new Error('You have already created your company');
 
+    if (user.companyName !== companyName)
+      throw new Error(
+        'Company name must be the same as you passed during registration',
+      );
     const newCompany = Company.create({
       benefits,
       companyName,

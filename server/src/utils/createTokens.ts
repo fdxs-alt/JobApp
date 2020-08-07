@@ -9,5 +9,9 @@ export const createRefreshToken = (user: User): string => {
   );
 };
 export const createAccessToken = (user: User): string => {
-  return sign({ userId: user.id }, process.env.secret, { expiresIn: '60m' });
+  return sign(
+    { userId: user.id, isOwner: user.hasCompany },
+    process.env.secret,
+    { expiresIn: '60m' },
+  );
 };

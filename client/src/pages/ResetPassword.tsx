@@ -29,7 +29,7 @@ const schema = Joi.object({
     .email({ minDomainSegments: 2, tlds: { allow: false } }),
 });
 const Login = () => {
-  const [reset, { loading, error }] = useMutation(RESET_BY_EMAIL);
+  const [reset, { loading, error, data }] = useMutation(RESET_BY_EMAIL);
   const { register, handleSubmit, errors } = useForm<reset>({
     resolver: joiResolver(schema),
   });
@@ -78,7 +78,7 @@ const Login = () => {
           </MyButton>
         )}
         {error && <Error>{error.message}</Error>}
-        {!error && !loading && (
+        {data && (
           <SuccessMessage>
             Email has been sent successfully, check your mailbox
           </SuccessMessage>
