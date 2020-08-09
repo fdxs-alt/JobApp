@@ -21,3 +21,16 @@ export const IS_OWNER = gql`
     isOwner @client
   }
 `;
+export const GET_USER_COMPANY = gql`
+  query GetUserCompany {
+    getUserCompany{
+      benefits,
+      companyName,
+      description,
+      yearOfSetUp,
+      sizeOfCompany,
+      localisation,
+      technologies
+    }
+  }
+`;

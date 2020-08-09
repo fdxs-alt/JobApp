@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { parse } from 'query-string';
 import { useMutation } from '@apollo/client';
 import { CONFIRM } from '../Graphql/AuthMutations';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 const Confirm = () => {
   const [confirm, { loading, error }] = useMutation(CONFIRM);
   const history = useHistory();

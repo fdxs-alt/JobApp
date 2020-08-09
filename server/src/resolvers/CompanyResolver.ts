@@ -57,6 +57,7 @@ export class CompanyResolver {
 
     return newCompany;
   }
+  @UseMiddleware(EmployerAuthMiddleware)
   @Mutation(() => Boolean)
   async deleteComapny(
     @Arg('id') id: number,
@@ -84,5 +85,13 @@ export class CompanyResolver {
     const allCorporations = await Company.find();
 
     return allCorporations;
+  }
+  @UseMiddleware(EmployerAuthMiddleware)
+  @Query(() => Company)
+  async getUserCompany(@Ctx() ctx: MyContext): Promise<Company> {
+    const userCorportion = await Company.findOne({
+      employer: ctx.payload.userId as any,
+    });
+    return userCorportion;
   }
 }

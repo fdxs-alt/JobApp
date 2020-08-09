@@ -5,6 +5,9 @@ import {
   GridContainer,
   DashboardTitle,
   Title,
+  CompanyInfoContainer,
+  JobOfferContainer,
+  ButtonContainer,
 } from '../../styles/Dashboard';
 
 const Dashboard = () => {
@@ -16,7 +19,9 @@ const Dashboard = () => {
           <DashboardTitle>
             <Title>Dashboard</Title>
           </DashboardTitle>
-          
+          <CompanyInfoContainer>Company info</CompanyInfoContainer>
+          <JobOfferContainer>Offers Info</JobOfferContainer>
+          <ButtonContainer>Buttons</ButtonContainer>
         </GridContainer>
       </Container>
     </>

@@ -15,6 +15,7 @@ import Reset from '../pages/Reset';
 import OwnerRoutes from './OwnerRoutes';
 import Dashboard from '../pages/OwnerPages/Dashboard';
 import CompanyProfile from '../pages/OwnerPages/CompanyProfile';
+import CreateCompany from '../pages/OwnerPages/CreateCompany';
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
@@ -33,6 +34,7 @@ const Routes: React.FC = () => {
         <ForbbidenWhenLogged exact path="/reset" component={ResetPassword} />
         <OwnerRoutes exact path="/dashboard" component={Dashboard} />
         <OwnerRoutes exact path="/profile" component={CompanyProfile} />
+        <OwnerRoutes exact path="/createCompany" component={CreateCompany} />
       </Switch>
     </BrowserRouter>
   );
