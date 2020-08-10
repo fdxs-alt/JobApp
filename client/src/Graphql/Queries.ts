@@ -8,6 +8,7 @@ export const GET_User = gql`
       confirmed
       hasCompany
       fullName
+      companyName
     }
   }
 `;

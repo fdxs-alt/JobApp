@@ -42,8 +42,11 @@ export const Input = styled.input`
     color: ${(props) => props.theme.colors.fontColor};
   }
 `;
-export const InputLabel = styled.label`
-  width: 90%;
+interface InputLabelProps {
+  width?: number;
+}
+export const InputLabel = styled.label<InputLabelProps>`
+  width: ${(props) => (props.width ? props.width + '%' : '90%')};
   color: ${(props) => props.theme.colors.fontColor};
   padding: 0.9rem 0.6rem;
   display: flex;

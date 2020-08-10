@@ -20,7 +20,7 @@ export const technologies = [
 
 export const benefits = [
   'Team events',
-  'Private health care',
+  'Private healthcare',
   'Sport subscrition',
   'Moblie phone',
   'Kitchen',

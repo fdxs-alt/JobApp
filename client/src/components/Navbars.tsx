@@ -22,6 +22,7 @@ const Navbars = () => {
     history.push('/login');
   };
   if (loading) return null;
+  
   else
     return (
       <>
