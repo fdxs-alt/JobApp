@@ -95,7 +95,8 @@ const CreateCompany = () => {
   const [userBenefits, setUserBenefits] = useState<string[]>([]);
   const [technology, setTechnology] = useState<string[]>(technologies);
   const [userTechnology, setUserTechnology] = useState<string[]>([]);
-  const [createCompany, { error }] = useMutation(ADD_COMPANY);
+  const [createCompany, { error, loading }] = useMutation(ADD_COMPANY);
+
   const { register, handleSubmit, errors, reset } = useForm<CreateCompanyProps>(
     {
       resolver: joiResolver(schema),
@@ -106,18 +107,22 @@ const CreateCompany = () => {
     setUserBenefits((prev) => [benefit, ...prev]);
     setBenefits(Benefits.filter((b) => b !== benefit));
   };
+
   const handleDeletingBenefit = (benefit: string) => {
     setUserBenefits(userBenefits.filter((b) => b !== benefit));
     setBenefits((prev) => [benefit, ...prev]);
   };
+
   const handleAddingTech = (tech: string) => {
     setUserTechnology((prev) => [tech, ...prev]);
     setTechnology(technology.filter((b) => b !== tech));
   };
+
   const handleDeletingTech = (tech: string) => {
     setUserTechnology(userTechnology.filter((b) => b !== tech));
     setTechnology((prev) => [tech, ...prev]);
   };
+
   const onSubmit = async (data: CreateCompanyProps) => {
     const input = {
       companyName: data.companyName,
@@ -129,12 +134,13 @@ const CreateCompany = () => {
       benefits: userBenefits,
     };
     try {
-      const response = await createCompany({ variables: { input } });
-      if (response) console.log(response);
+      await createCompany({ variables: { input } });
+      reset();
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <>
       <Navbars />
@@ -259,7 +265,8 @@ const CreateCompany = () => {
               </>
             )}
           </Column>
-          <Button>Save and create</Button>
+          {error && <Error>{error.message}</Error>}
+          {loading ? null : <Button>Save and create</Button>}
         </Container>
       </Wrapper>
     </>
