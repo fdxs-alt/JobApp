@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Navbars from '../../components/Navbars';
-import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { InputLabel, Error } from '../../styles/LoginPageStyles';
 import ToChooseFrom from '../../components/ToChooseFrom';
@@ -14,70 +13,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
 import { GET_USER_COMPANY } from '../../Graphql/Queries';
-const Container = styled.form`
-  width: 95%;
-  padding: 2rem;
-  margin: auto;
-  display: grid;
-  background-color: ${(props) => props.theme.colors.border};
-  grid-template-columns: 0.4fr 1fr;
-  align-items: center;
-`;
-const Wrapper = styled.div`
-  padding: 2rem 0;
-`;
-interface InputProps {
-  readonly width?: number;
-  readonly height?: number;
-}
-const Input = styled.input<InputProps>`
-  width: ${(props) => (props.width ? props.width + '%' : '30%')};
-  height: ${(props) => (props.height ? props.height + 'vh' : '50px')};
-  padding: 0.8rem 0.6rem;
-  font-size: 1rem;
-  margin-bottom: 0.8rem;
-  margin-top: 0.2rem;
-  border: 3px solid ${(props) => props.theme.colors.border2};
-  &::placeholder {
-    color: ${(props) => props.theme.colors.fontColor};
-  }
-`;
-const Column = styled.div`
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const GridWrapper = styled.div`
-  width: 80%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1.2rem;
-`;
-interface AddOwnInterface {
-  active?: boolean;
-}
-const AddOwn = styled.div<AddOwnInterface>`
-  display: flex;
-  align-items: center;
-  background-color: ${(props) => props.theme.colors.button};
-  font-size: 0.9rem;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid ${(props) => props.theme.colors.lightBorder};
-  color: white;
-  cursor: pointer;
-`;
-const Button = styled.button`
-  grid-column: 1/3;
-  width: 20%;
-  justify-self: center;
-  background-color: ${(props) => props.theme.colors.button};
-  font-size: 1.2rem;
-  padding: 0.6rem;
-  border: 1px solid white;
-  color: white;
-  cursor: pointer;
-`;
+import {
+  Wrapper,
+  Container,
+  Input,
+  Column,
+  GridWrapper,
+  Button,
+} from '../../styles/CreateCompanyStyles';
 
 interface CreateCompanyProps {
   companyName: string;
@@ -85,6 +28,10 @@ interface CreateCompanyProps {
   size: number;
   yearOfSetup: number;
   description?: string;
+}
+interface TableErrorProps {
+  message?: string;
+  type?: string;
 }
 const schema = Joi.object({
   companyName: Joi.string().required(),
@@ -100,6 +47,7 @@ const CreateCompany = () => {
   const [technology, setTechnology] = useState<string[]>(technologies);
   const [userTechnology, setUserTechnology] = useState<string[]>([]);
   const [createCompany, { error, loading }] = useMutation(ADD_COMPANY);
+  const [tableError, setTableError] = useState<TableErrorProps>({});
   const history = useHistory();
   const { register, handleSubmit, errors, reset } = useForm<CreateCompanyProps>(
     {
@@ -127,7 +75,23 @@ const CreateCompany = () => {
     setTechnology((prev) => [tech, ...prev]);
   };
 
-  const onSubmit = async (data: CreateCompanyProps) => {
+  const onSubmit = async (data: CreateCompanyProps): Promise<void> => {
+    if (userBenefits.length === 0) {
+      setTableError({
+        message: 'Benefits must be picked',
+        type: 'benefits.empty',
+      });
+      return;
+    }
+
+    if (userTechnology.length === 0) {
+      setTableError({
+        message: 'Technologies must be picked',
+        type: 'technologies.empty',
+      });
+      return;
+    }
+
     const input = {
       companyName: data.companyName,
       yearOfSetUp: data.yearOfSetup,
@@ -137,16 +101,25 @@ const CreateCompany = () => {
       technologies: userTechnology,
       benefits: userBenefits,
     };
+
     try {
       await createCompany({
         variables: { input },
         refetchQueries: [{ query: GET_USER_COMPANY }],
       });
-      toast('Company created successfully');
+      toast.success('Comapny created succesfully, you will be redirect!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       reset();
       setTimeout(() => {
         history.push('/profile');
-      }, 3000);
+      }, 5000);
     } catch (error) {
       console.log(error);
     }
@@ -154,7 +127,19 @@ const CreateCompany = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: '30%' }}
+      />
+
       <Navbars />
       <Wrapper>
         <Container onSubmit={handleSubmit(onSubmit)}>
@@ -218,11 +203,7 @@ const CreateCompany = () => {
               </>
             )}
 
-            {userBenefits.length === 0 ? (
-              <h4 style={{ padding: '2rem' }}>
-                Add benefits, to create a company
-              </h4>
-            ) : (
+            {userBenefits.length === 0 ? null : (
               <>
                 <InputLabel htmlFor="UserBenefits" width={80}>
                   Your benefits:
@@ -238,7 +219,11 @@ const CreateCompany = () => {
                 </GridWrapper>
               </>
             )}
-
+            {tableError.type === 'benefits.empty' && (
+              <Error style={{ width: '80%', padding: '1rem 0' }}>
+                {tableError.message}
+              </Error>
+            )}
             {technology.length === 0 ? null : (
               <>
                 <InputLabel htmlFor="Benefits" width={80}>
@@ -258,9 +243,7 @@ const CreateCompany = () => {
               </>
             )}
 
-            {userTechnology.length === 0 ? (
-              <h4 style={{ padding: '2rem' }}>Add tech, to create a company</h4>
-            ) : (
+            {userTechnology.length === 0 ? null : (
               <>
                 <InputLabel htmlFor="UserBenefits" width={80}>
                   Your tech:
@@ -275,6 +258,11 @@ const CreateCompany = () => {
                   ))}
                 </GridWrapper>
               </>
+            )}
+            {tableError.type === 'technologies.empty' && (
+              <Error style={{ width: '80%', padding: '1rem 0' }}>
+                {tableError.message}
+              </Error>
             )}
           </Column>
           {error && <Error>{error.message}</Error>}
