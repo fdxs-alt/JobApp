@@ -10,6 +10,10 @@ import { useMutation } from '@apollo/client';
 import { joiResolver } from '@hookform/resolvers';
 import Joi from '@hapi/joi';
 import { ADD_COMPANY } from '../../Graphql/CompanyMutations';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useHistory } from 'react-router-dom';
+import { GET_USER_COMPANY } from '../../Graphql/Queries';
 const Container = styled.form`
   width: 95%;
   padding: 2rem;
@@ -96,7 +100,7 @@ const CreateCompany = () => {
   const [technology, setTechnology] = useState<string[]>(technologies);
   const [userTechnology, setUserTechnology] = useState<string[]>([]);
   const [createCompany, { error, loading }] = useMutation(ADD_COMPANY);
-
+  const history = useHistory();
   const { register, handleSubmit, errors, reset } = useForm<CreateCompanyProps>(
     {
       resolver: joiResolver(schema),
@@ -134,8 +138,15 @@ const CreateCompany = () => {
       benefits: userBenefits,
     };
     try {
-      await createCompany({ variables: { input } });
+      await createCompany({
+        variables: { input },
+        refetchQueries: [{ query: GET_USER_COMPANY }],
+      });
+      toast('Company created successfully');
       reset();
+      setTimeout(() => {
+        history.push('/profile');
+      }, 3000);
     } catch (error) {
       console.log(error);
     }
@@ -143,6 +154,7 @@ const CreateCompany = () => {
 
   return (
     <>
+      <ToastContainer />
       <Navbars />
       <Wrapper>
         <Container onSubmit={handleSubmit(onSubmit)}>

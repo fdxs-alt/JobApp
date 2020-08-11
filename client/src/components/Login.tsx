@@ -10,7 +10,8 @@ import { LOGIN } from '../Graphql/AuthMutations';
 import { useMutation } from '@apollo/client';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { setToken } from '../AccessToken';
-import isAuth from '../Graphql/isAuth';
+import isAuth, { isOwner } from '../Graphql/isAuth';
+import { useHistory } from 'react-router-dom';
 type login = {
   email: string;
   password: string;
@@ -30,6 +31,7 @@ const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
   const { register, handleSubmit, errors } = useForm<login>({
     resolver: joiResolver(schema),
   });
+  const history = useHistory();
   const onSubmit = async ({ email, password }: login) => {
     const input = { email, password };
     try {
@@ -37,6 +39,10 @@ const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
       if (response && response.data) {
         isAuth(true);
         setToken(response.data.login.accessToken);
+        if (response.data.login.user.hasCompany) {
+          isOwner(true);
+          history.push('/dashboard');
+        }
       }
     } catch (error) {
       isAuth(false);
