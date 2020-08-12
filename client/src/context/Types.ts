@@ -1,4 +1,13 @@
-export const ADD_BENEFIT = "ADD_BENEFIT"
-export const DELETE_BENEFIT = "DELETE_BENEFIT"
-export const ADD_TECH = "ADD_TECH"
-export const DELETE_TECH = "DELETE_TECH"
+export const ADD_BENEFIT = 'ADD_BENEFIT';
+export const DELETE_BENEFIT = 'DELETE_BENEFIT';
+export const ADD_TECH = 'ADD_TECH';
+export const DELETE_TECH = 'DELETE_TECH';
+export const ADD_SKILL = 'ADD_SKILL';
+export const ADD_MANDATORY = 'ADD_MANDATORY';
+export const DELETE_SKILL = 'DELETE_SKILL';
+export const ADD_TASK = 'ADD_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
+export const DELETE_MANDATORY = 'DELETE_MANDATORY';
+export const ADD_BENEFIT_IN_WORK = 'ADD_BENEFIT_IN_WORK';
+export const DELETE_BENEFIT_IN_WORK = 'DELETE_BENEFIT_IN_WORK';
+export const RESET_VALUES = 'RESET_VALUES';

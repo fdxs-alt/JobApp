@@ -14,10 +14,18 @@ const Container = styled.div`
   border: 1px solid ${(props) => props.theme.colors.lightBorder};
   color: ${(props) => props.theme.colors.fontColor};
   cursor: pointer;
+
+  &:focus {
+    border: 1px solid black;
+  }
 `;
 
 const ToChooseFrom: React.FC<Props> = ({ text, handleClick }) => {
-  return <Container onClick={() => handleClick(text)}>{text}</Container>;
+  return (
+    <Container onClick={() => handleClick(text)} tabIndex={0}>
+      {text}
+    </Container>
+  );
 };
 
 export default ToChooseFrom;

@@ -40,10 +40,7 @@ export const GridWrapper = styled.div`
   grid-template-columns: repeat(5, 1fr);
   gap: 1.2rem;
 `;
-interface AddOwnInterface {
-  active?: boolean;
-}
-export const AddOwn = styled.div<AddOwnInterface>`
+export const AddOwn = styled.div`
   display: flex;
   align-items: center;
   background-color: ${(props) => props.theme.colors.button};

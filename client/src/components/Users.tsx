@@ -17,7 +17,11 @@ const Container = styled.div`
 `;
 
 const Users: React.FC<Props> = ({ text, handleClick }) => {
-  return <Container onClick={() => handleClick(text)}>{text}</Container>;
+  return (
+    <Container onClick={() => handleClick(text)} tabIndex={0}>
+      {text}
+    </Container>
+  );
 };
 
 export default Users;
