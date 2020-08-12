@@ -2,39 +2,85 @@ import React from 'react';
 import Navbars from '../../components/Navbars';
 import { useQuery } from '@apollo/client';
 import { GET_USER_COMPANY } from '../../Graphql/Queries';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import {
+  faFlag,
+  faHome,
+  faUserFriends,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  Icon,
+  Container,
+  CreateCompanyLink,
+  Main,
+  CompanyName,
+  BasicInfo,
+  IconContainer,
+  Description,
+  ColumContainer,
+  Used,
+  GridContainer,
+  Technology,
+  Text,
+} from '../../styles/CompanyProfileStyle';
 
-const CreateCompanyLink = styled(Link)`
-  text-decoration: none;
-  font-size: 2rem;
-  text-align: center;
-  align-self: center; 
-`;
-const Container = styled.div`
-  width: 100%;
-  min-height: 90vh;
-  background-color: ${(props) => props.theme.colors.border};
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-`;
 const CompanyProfile = () => {
   const { data, loading } = useQuery(GET_USER_COMPANY);
-
+  console.log(data);
   if (loading) return null;
-  else
+  else if (!data)
     return (
       <>
         <Navbars />
         <Container>
-          {!data && (
-            <CreateCompanyLink to="/createCompany">
-              You don't have company yet, create it now!
-            </CreateCompanyLink>
-          )}
-          ;
+          <CreateCompanyLink to="/createCompany">
+            You don't have company yet, create it now!
+          </CreateCompanyLink>
         </Container>
+      </>
+    );
+  else
+    return (
+      <>
+        <Navbars />
+        <Main>
+          <CompanyName>{data.getUserCompany.companyName}</CompanyName>
+          <BasicInfo>
+            <IconContainer>
+              <Icon icon={faFlag} />
+              <Text>Set in: {data.getUserCompany.yearOfSetUp}</Text>
+            </IconContainer>
+            <IconContainer>
+              <Icon icon={faHome} />
+              <Text>Localisation: {data.getUserCompany.localisation}</Text>
+            </IconContainer>
+            <IconContainer>
+              <Icon icon={faUserFriends} />
+              <Text>Size of company: {data.getUserCompany.sizeOfCompany}</Text>
+            </IconContainer>
+          </BasicInfo>
+          <Description>{data.getUserCompany.description}</Description>
+          <ColumContainer>
+            <Used>Technologies used:</Used>
+            <GridContainer>
+              {data.getUserCompany.technologies.map(
+                (tech: string, index: number) => (
+                  <Technology key={index}>{tech}</Technology>
+                ),
+              )}
+            </GridContainer>
+          </ColumContainer>
+
+          <ColumContainer>
+            <Used>Benefits in your company:</Used>
+            <GridContainer>
+              {data.getUserCompany.benefits.map(
+                (tech: string, index: number) => (
+                  <Technology key={index}>{tech}</Technology>
+                ),
+              )}
+            </GridContainer>
+          </ColumContainer>
+        </Main>
       </>
     );
 };

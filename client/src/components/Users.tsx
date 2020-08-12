@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
@@ -17,11 +17,7 @@ const Container = styled.div`
 `;
 
 const Users: React.FC<Props> = ({ text, handleClick }) => {
-  return (
-    <Container onClick={() => handleClick(text)}>
-      {text}
-    </Container>
-  );
+  return <Container onClick={() => handleClick(text)}>{text}</Container>;
 };
 
 export default Users;
