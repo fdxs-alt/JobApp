@@ -25,7 +25,6 @@ import {
 
 const CompanyProfile = () => {
   const { data, loading } = useQuery(GET_USER_COMPANY);
-  console.log(data);
   if (loading) return null;
   else if (!data)
     return (

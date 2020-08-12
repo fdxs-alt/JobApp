@@ -11,8 +11,8 @@ const App: React.FC = () => {
       credentials: 'include',
     }).then(async (response) => {
       const data = await response.json();
-
       setToken(data.accessToken);
+
       if (data.accessToken.length === 0) {
         isAuth(false);
       } else {

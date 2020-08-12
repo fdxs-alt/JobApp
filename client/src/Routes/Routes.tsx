@@ -16,6 +16,8 @@ import OwnerRoutes from './OwnerRoutes';
 import Dashboard from '../pages/OwnerPages/Dashboard';
 import CompanyProfile from '../pages/OwnerPages/CompanyProfile';
 import CreateCompany from '../pages/OwnerPages/CreateCompany';
+import JobOffers from '../pages/OwnerPages/JobOffers';
+import CreateJobOffer from '../pages/OwnerPages/CreateJobOffer';
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
@@ -35,6 +37,8 @@ const Routes: React.FC = () => {
         <OwnerRoutes exact path="/dashboard" component={Dashboard} />
         <OwnerRoutes exact path="/profile" component={CompanyProfile} />
         <OwnerRoutes exact path="/createCompany" component={CreateCompany} />
+        <OwnerRoutes exact path="/joboffers" component={JobOffers} />
+        <OwnerRoutes exact path="/createJobOffer" component={CreateJobOffer} />
       </Switch>
     </BrowserRouter>
   );

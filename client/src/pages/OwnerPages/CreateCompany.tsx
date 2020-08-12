@@ -88,7 +88,7 @@ const CreateCompany = () => {
         variables: { input },
         refetchQueries: [{ query: GET_USER_COMPANY }],
       });
-      toast.success('Comapny created succesfully, you will be redirected!', {
+      toast.success('Company created succesfully, you will be redirected!', {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,

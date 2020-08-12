@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_User = gql`
+export const GET_USER = gql`
   query getUser {
     getUser {
       id
@@ -24,14 +24,29 @@ export const IS_OWNER = gql`
 `;
 export const GET_USER_COMPANY = gql`
   query GetUserCompany {
-    getUserCompany{
-      benefits,
-      companyName,
-      description,
-      yearOfSetUp,
-      sizeOfCompany,
-      localisation,
+    getUserCompany {
+      benefits
+      companyName
+      description
+      yearOfSetUp
+      sizeOfCompany
+      localisation
       technologies
+    }
+  }
+`;
+export const ALL_USERS_OFFERS = gql`
+  query AllUsersOffers {
+    allUsersOffers {
+      id
+      title
+      mandatory
+      extraSkills
+      tasks
+      benefitsInWork
+      minSalary
+      maxSalary
+      onlineRecrutation
     }
   }
 `;

@@ -72,4 +72,21 @@ export class JobOfferResolver {
 
     return jobOffers;
   }
+
+  @Mutation(() => Boolean)
+  @Query(() => [JobOffer])
+  async allUsersOffers(@Ctx() ctx: MyContext): Promise<JobOffer[]> {
+    const alreadyHasCreatedCompany = await Company.findOne({
+      employer: ctx.payload.userId as any,
+    });
+
+    if (!alreadyHasCreatedCompany)
+      throw new Error('You need to create your company first');
+
+    const jobOffers = await JobOffer.find({
+      company: alreadyHasCreatedCompany,
+    });
+
+    return jobOffers;
+  }
 }

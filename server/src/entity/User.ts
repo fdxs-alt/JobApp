@@ -36,9 +36,9 @@ export class User extends BaseEntity {
   @Column('varchar', { length: 255 })
   name: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @Column('varchar', { length: 255, nullable: true })
-  companyName: string;
+  companyName?: string;
 
   @Field()
   @Column('varchar', { length: 255 })
