@@ -13,7 +13,7 @@ import {
 import AuthLink from './Graphql/AuthLink';
 import RefreshTokenLink from './Graphql/RefreshTokenLink';
 import isAuthenticated, { isOwner } from './Graphql/isAuth';
-
+import { TableProvider } from './context/TableProvider';
 const links = ApolloLink.from([RefreshTokenLink, AuthLink]);
 const client = new ApolloClient({
   link: links,
@@ -39,10 +39,12 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <ThemeProvider theme={Theme}>
-      <GlobalStyles />
-      <App />
-    </ThemeProvider>
+    <TableProvider>
+      <ThemeProvider theme={Theme}>
+        <GlobalStyles />
+        <App />
+      </ThemeProvider>
+    </TableProvider>
   </ApolloProvider>,
 
   document.getElementById('root'),
