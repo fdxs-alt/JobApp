@@ -21,7 +21,7 @@ import {
 import UserBenefits from '../../components/UserBenefits';
 import UserTech from '../../components/UserTech';
 import Tech from '../../components/Tech';
-import BenefitsComponent from '../../components/Benefits';
+import BenefitsComponent from '../../components/inputs/Benefits';
 const today = new Date();
 interface CreateCompanyProps {
   companyName: string;

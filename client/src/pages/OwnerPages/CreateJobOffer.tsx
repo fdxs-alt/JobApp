@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Navbars from '../../components/Navbars';
 import {
   Container,
@@ -9,13 +9,20 @@ import {
 import { InputLabel, Error } from '../../styles/LoginPageStyles';
 import { JobOfferContext } from '../../context/JobOfferProvider';
 import { Checkbox } from '../../styles/Register';
-import BenefitsInput from '../../components/inputs/BenefitsInput';
-import ExtraSkillsInput from '../../components/inputs/ExtraSkillsInput';
-import MandatoryInput from '../../components/inputs/MandatoryInput';
-import TasksInput from '../../components/inputs/TasksInput';
-const CreateJobOffer = () => {
+import CreateJobOfferInput from '../../components/inputs/CreateJobOfferInput';
+const initalState = {
+  task: '',
+  mandatory: '',
+  extra: '',
+  benefit: '',
+};
+const CreateJobOffer: React.FC = () => {
   const { state, dispatch } = useContext(JobOfferContext);
+  const [values, setValues] = useState(initalState);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
   return (
     <>
       <Navbars />
@@ -44,10 +51,34 @@ const CreateJobOffer = () => {
             </InputLabel>
           </Column>
           <Column>
-            <BenefitsInput />
-            <ExtraSkillsInput />
-            <MandatoryInput />
-            <TasksInput />
+            <CreateJobOfferInput
+              name="task"
+              handleChange={handleChange}
+              value={values.task}
+              buttonText="Add task"
+              labelText="Task in work"
+            />
+            <CreateJobOfferInput
+              name="mandatory"
+              handleChange={handleChange}
+              value={values.mandatory}
+              buttonText="Add mandatory skill"
+              labelText="Mandatory skill in work"
+            />
+            <CreateJobOfferInput
+              name="extra"
+              handleChange={handleChange}
+              value={values.extra}
+              buttonText="Add extra skill"
+              labelText="Add extra skill"
+            />
+            <CreateJobOfferInput
+              name="benefit"
+              handleChange={handleChange}
+              value={values.benefit}
+              buttonText="Add benefit"
+              labelText="Benefit in work"
+            />
           </Column>
         </Container>
       </Wrapper>
