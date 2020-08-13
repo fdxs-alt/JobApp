@@ -7,3 +7,10 @@ export const ADD_COMPANY = gql`
     }
   }
 `;
+export const CREATE_NEW_JOB_OFFER = gql`
+  mutation CreateNewJobOffer($input: JobOfferInput!) {
+    createNewJobOffer(input: $input) {
+      id
+    }
+  }
+`;

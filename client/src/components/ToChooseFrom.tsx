@@ -22,7 +22,13 @@ const Container = styled.div`
 
 const ToChooseFrom: React.FC<Props> = ({ text, handleClick }) => {
   return (
-    <Container onClick={() => handleClick(text)} tabIndex={0}>
+    <Container
+      onClick={() => handleClick(text)}
+      onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') handleClick(text);
+      }}
+      tabIndex={0}
+    >
       {text}
     </Container>
   );
