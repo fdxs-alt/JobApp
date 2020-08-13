@@ -22,7 +22,7 @@ import UserBenefits from '../../components/UserBenefits';
 import UserTech from '../../components/UserTech';
 import Tech from '../../components/Tech';
 import BenefitsComponent from '../../components/Benefits';
-
+const today = new Date();
 interface CreateCompanyProps {
   companyName: string;
   localisation: string;
@@ -124,7 +124,7 @@ const CreateCompany = () => {
       <Navbars />
 
       <Wrapper>
-        <Container>
+        <Container onSubmit={handleSubmit(onSubmit)}>
           <Column>
             <InputLabel htmlFor="Name of Company" width={90}>
               Name of company
@@ -147,7 +147,14 @@ const CreateCompany = () => {
             <InputLabel htmlFor="Size of company" width={90}>
               Size of company
             </InputLabel>
-            <Input name="size" width={90} ref={register} />
+            <Input
+              name="size"
+              width={90}
+              ref={register}
+              type="number"
+              min={0}
+              max={10000}
+            />
 
             {errors.size?.type === 'number.base' && (
               <Error>Size field cannot be empty and must be a number</Error>
@@ -156,7 +163,14 @@ const CreateCompany = () => {
             <InputLabel htmlFor="Year of setup" width={90}>
               Year of setup
             </InputLabel>
-            <Input name="yearOfSetup" width={90} ref={register} />
+            <Input
+              name="yearOfSetup"
+              width={90}
+              ref={register}
+              type="number"
+              min={1950}
+              max={today.getFullYear()}
+            />
 
             {errors.yearOfSetup?.type === 'number.base' && (
               <Error>
@@ -195,9 +209,7 @@ const CreateCompany = () => {
           </Column>
 
           {error && <Error>{error.message}</Error>}
-          {loading ? null : (
-            <Button onSubmit={handleSubmit(onSubmit)}>Save and create</Button>
-          )}
+          {loading ? null : <Button>Save and create</Button>}
         </Container>
       </Wrapper>
     </>

@@ -14,7 +14,10 @@ import AuthLink from './Graphql/AuthLink';
 import RefreshTokenLink from './Graphql/RefreshTokenLink';
 import isAuthenticated, { isOwner } from './Graphql/isAuth';
 import { TableProvider } from './context/TableProvider';
+import { JobProvider } from './context/JobOfferProvider';
+
 const links = ApolloLink.from([RefreshTokenLink, AuthLink]);
+
 const client = new ApolloClient({
   link: links,
   cache: new InMemoryCache({
@@ -39,12 +42,14 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <TableProvider>
-      <ThemeProvider theme={Theme}>
-        <GlobalStyles />
-        <App />
-      </ThemeProvider>
-    </TableProvider>
+    <JobProvider>
+      <TableProvider>
+        <ThemeProvider theme={Theme}>
+          <GlobalStyles />
+          <App />
+        </ThemeProvider>
+      </TableProvider>
+    </JobProvider>
   </ApolloProvider>,
 
   document.getElementById('root'),

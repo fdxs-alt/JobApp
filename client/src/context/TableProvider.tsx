@@ -1,5 +1,5 @@
 import React, { useReducer, createContext, Dispatch } from 'react';
-import { benefits, technologies } from '../HardCoded';
+import { benefits, technologies } from '../DefaultValues/HardCoded';
 import { State, Action } from './TableReducer';
 import TableReducer from './TableReducer';
 
