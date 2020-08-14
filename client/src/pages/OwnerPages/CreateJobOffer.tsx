@@ -5,24 +5,107 @@ import {
   Wrapper,
   Column,
   Input,
+  Button,
 } from '../../styles/CreateCompanyStyles';
 import { InputLabel, Error } from '../../styles/LoginPageStyles';
 import { JobOfferContext } from '../../context/JobOfferProvider';
 import { Checkbox } from '../../styles/Register';
 import CreateJobOfferInput from '../../components/inputs/CreateJobOfferInput';
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@apollo/client';
+import { CREATE_NEW_JOB_OFFER } from '../../Graphql/CompanyMutations';
+import { ALL_USERS_OFFERS } from '../../Graphql/Queries';
+import Joi from '@hapi/joi';
+import { joiResolver } from '@hookform/resolvers';
+import { validateTable, ErrorStateType } from '../../utils/Validation';
+type CreateJobOfferTypes = {
+  title: string;
+  minSalary: number;
+  maxSalary: number;
+  onlineRecrutation: boolean;
+};
 const initalState = {
   task: '',
   mandatory: '',
   extra: '',
   benefit: '',
 };
+
+const schema = Joi.object({
+  title: Joi.string().required(),
+  minSalary: Joi.number().required(),
+  maxSalary: Joi.number().required(),
+  onlineRecrutation: Joi.boolean().required(),
+});
 const CreateJobOffer: React.FC = () => {
-  const { state, dispatch } = useContext(JobOfferContext);
+  const {
+    state: { benefitsInWork, extraSkills, tasks, mandatory },
+    dispatch,
+  } = useContext(JobOfferContext);
   const [values, setValues] = useState(initalState);
+  const [createJob, { error }] = useMutation(CREATE_NEW_JOB_OFFER);
+  const [tableErrors, setTableErrors] = useState<ErrorStateType | null>(null);
+  const { handleSubmit, reset, errors, register } = useForm<
+    CreateJobOfferTypes
+  >({ resolver: joiResolver(schema) });
+  const onSubmit = async (data: CreateJobOfferTypes): Promise<void> => {
+    if (
+      !validateTable(
+        tasks,
+        mandatory,
+        extraSkills,
+        benefitsInWork,
+        setTableErrors,
+      )
+    )
+      return;
+
+    const input = {
+      title: data.title,
+      minSalary: data.minSalary,
+      maxSalary: data.maxSalary,
+      onlineRecrutation: data.onlineRecrutation,
+      benefitsInWork,
+      extraSkills,
+      tasks,
+      mandatory,
+    };
+    console.log(input);
+    try {
+      await createJob({
+        variables: input,
+      });
+      reset();
+      dispatch({ type: 'RESET_VALUES' });
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+  const resetValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [e.target.name]: '' });
+  };
+  const handleAddingBenefit = (benefit: string) => {
+    dispatch({ type: 'ADD_BENEFIT_IN_WORK', payload: benefit });
+  };
+  const handleAddingTask = (task: string) => {
+    dispatch({ type: 'ADD_TASK', payload: task });
+  };
+  const handleAddingExtraSkill = (extra: string) => {
+    dispatch({ type: 'ADD_SKILL', payload: extra });
+  };
+  const handleAddingMandatorySkill = (mandatory: string) => {
+    dispatch({ type: 'ADD_MANDATORY', payload: mandatory });
+  };
+
+  const handleDeletingBenefit = (benefit: string) => {};
+  const handleDeletingTask = (task: string) => {};
+  const handleDeletingExtraSkill = (extra: string) => {};
+  const handleDeletingMandatorySkill = (mandatory: string) => {};
   return (
     <>
       <Navbars />
@@ -33,53 +116,100 @@ const CreateJobOffer: React.FC = () => {
             <InputLabel htmlFor="Name of Company" width={90}>
               Title of a offer
             </InputLabel>
-            <Input name="companyName" width={90} type="text" />
+            <Input name="title" width={90} type="text" ref={register} />
 
+            {errors.title?.type === 'string.empty' && (
+              <Error>Title field cannot be empty</Error>
+            )}
             <InputLabel htmlFor="Minimum salary" width={90}>
               Minimum Salary
             </InputLabel>
-            <Input name="minSalary" width={90} type="number" min={0} />
+            <Input
+              name="minSalary"
+              width={90}
+              type="number"
+              min={0}
+              ref={register}
+            />
+            {errors.minSalary?.type === 'number.base' && (
+              <Error>Minimum salary must be a number and can't be empty</Error>
+            )}
 
             <InputLabel htmlFor="Maximum salary" width={90}>
               Maximum salary
             </InputLabel>
-            <Input name="maxSalary" width={90} type="number" min={0} />
+            <Input
+              name="maxSalary"
+              width={90}
+              type="number"
+              min={0}
+              ref={register}
+            />
+            {errors.maxSalary?.type === 'number.base' && (
+              <Error>Maximum salary must be a number and can't be empty</Error>
+            )}
 
             <InputLabel htmlFor="Online Recrutation" width={90}>
               Online recrutation?
-              <Checkbox name="onlineRecrutation" width={90} type="checkbox" />
+              <Checkbox
+                name="onlineRecrutation"
+                width={90}
+                type="checkbox"
+                ref={register}
+              />
             </InputLabel>
           </Column>
           <Column>
             <CreateJobOfferInput
               name="task"
               handleChange={handleChange}
+              handleClick={handleAddingTask}
+              handleReset={resetValue}
               value={values.task}
               buttonText="Add task"
               labelText="Task in work"
             />
+            {tableErrors?.type === 'tasks.empty' && (
+              <Error>{tableErrors?.message}</Error>
+            )}
             <CreateJobOfferInput
               name="mandatory"
               handleChange={handleChange}
+              handleClick={handleAddingMandatorySkill}
+              handleReset={resetValue}
               value={values.mandatory}
               buttonText="Add mandatory skill"
               labelText="Mandatory skill in work"
             />
+            {tableErrors?.type === 'mandatory.empty' && (
+              <Error>{tableErrors?.message}</Error>
+            )}
             <CreateJobOfferInput
               name="extra"
               handleChange={handleChange}
+              handleClick={handleAddingExtraSkill}
+              handleReset={resetValue}
               value={values.extra}
               buttonText="Add extra skill"
               labelText="Add extra skill"
             />
+            {tableErrors?.type === 'skills.empty' && (
+              <Error>{tableErrors?.message}</Error>
+            )}
             <CreateJobOfferInput
               name="benefit"
               handleChange={handleChange}
+              handleClick={handleAddingBenefit}
+              handleReset={resetValue}
               value={values.benefit}
               buttonText="Add benefit"
               labelText="Benefit in work"
             />
+            {tableErrors?.type === 'benefits.empty' && (
+              <Error>{tableErrors?.message}</Error>
+            )}
           </Column>
+          <Button onClick={handleSubmit(onSubmit)}>Save and create</Button>
         </Container>
       </Wrapper>
     </>

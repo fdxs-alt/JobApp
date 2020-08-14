@@ -124,7 +124,7 @@ const CreateCompany = () => {
       <Navbars />
 
       <Wrapper>
-        <Container onSubmit={handleSubmit(onSubmit)}>
+        <Container >
           <Column>
             <InputLabel htmlFor="Name of Company" width={90}>
               Name of company
@@ -209,7 +209,7 @@ const CreateCompany = () => {
           </Column>
 
           {error && <Error>{error.message}</Error>}
-          {loading ? null : <Button>Save and create</Button>}
+          {loading ? null : <Button onClick={handleSubmit(onSubmit)}>Save and create</Button>}
         </Container>
       </Wrapper>
     </>

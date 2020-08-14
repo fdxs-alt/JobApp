@@ -51,7 +51,7 @@ export default (state: State, action: Action): State => {
         ...state,
         mandatory: [action.payload, ...state.mandatory],
       };
-    case DELETE_SKILL:
+    case DELETE_MANDATORY:
       return {
         ...state,
         mandatory: state.mandatory.filter((b) => b !== action.payload),

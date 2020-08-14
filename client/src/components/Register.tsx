@@ -56,7 +56,6 @@ const Register: React.FC<Props> = ({ active }: Props) => {
       surname,
       companyName: company,
     };
-    console.log(input);
     try {
       await reg({ variables: { input } });
       setRegistered(true);
