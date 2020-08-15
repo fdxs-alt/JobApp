@@ -3,12 +3,27 @@ import Navbars from '../../components/Navbars';
 import { Container, CreateCompanyLink } from '../../styles/CompanyProfileStyle';
 import { ALL_USERS_OFFERS } from '../../Graphql/Queries';
 import { useQuery } from '@apollo/client';
-
+import SingleJobOffer from '../../components/SingleJobOffer';
+import styled from 'styled-components';
+export type UserOfferResponseType = {
+  id: number;
+  benefitsInWork: [string];
+  extraSkills: [string];
+  mandatory: [string];
+  tasks: [string];
+  title: string;
+  maxSalary: number;
+  minSalary: number;
+};
+const JobOffersWrapper = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  padding: 2rem;
+`;
 const JobOffers = () => {
   const { data, loading } = useQuery(ALL_USERS_OFFERS);
-
-  if (loading) return null;
   console.log(data);
+  if (loading) return null;
   if (!data)
     return (
       <>
@@ -21,18 +36,26 @@ const JobOffers = () => {
       </>
     );
   else
-    return data.allUsersOffers.length === 0 ? (
+    return (
       <>
         <Navbars />
         <Container>
-          <CreateCompanyLink to="/createJobOffer">
-            Create your first job offer!
-          </CreateCompanyLink>
+          {data.allUsersOffers.length === 0 ? (
+            <CreateCompanyLink to="/createJobOffer">
+              Create first job offer!
+            </CreateCompanyLink>
+          ) : (
+            <JobOffersWrapper>
+              {data.allUsersOffers.map((offer: UserOfferResponseType) => (
+                <SingleJobOffer
+                  key={offer.id}
+                  title={offer.title}
+                  id={offer.id}
+                />
+              ))}
+            </JobOffersWrapper>
+          )}
         </Container>
-      </>
-    ) : (
-      <>
-        <Navbars />
       </>
     );
 };

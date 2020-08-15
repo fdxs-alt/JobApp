@@ -47,6 +47,18 @@ const CreateJobOfferInput: React.FC<CreateJobOfferInputProps> = ({
           inputRef.current?.focus();
           if (error !== null) setError(null);
         }}
+        onKeyPress={(e: any) => {
+          e.preventDefault();
+          if (e.key === 'Enter') {
+            if (value.length === 0) {
+              setError("This field can't be empty");
+              return;
+            }
+            handleClick(value);
+            inputRef.current?.focus();
+            if (error !== null) setError(null);
+          }
+        }}
       >
         {buttonText}
       </Button>

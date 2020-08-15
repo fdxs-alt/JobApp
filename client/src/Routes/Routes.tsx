@@ -18,6 +18,7 @@ import CompanyProfile from '../pages/OwnerPages/CompanyProfile';
 import CreateCompany from '../pages/OwnerPages/CreateCompany';
 import JobOffers from '../pages/OwnerPages/JobOffers';
 import CreateJobOffer from '../pages/OwnerPages/CreateJobOffer';
+import JobDetails from '../pages/OwnerPages/JobDetails';
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
@@ -39,6 +40,7 @@ const Routes: React.FC = () => {
         <OwnerRoutes exact path="/createCompany" component={CreateCompany} />
         <OwnerRoutes exact path="/joboffers" component={JobOffers} />
         <OwnerRoutes exact path="/createJobOffer" component={CreateJobOffer} />
+        <OwnerRoutes path="/job" component={JobDetails} />
       </Switch>
     </BrowserRouter>
   );
