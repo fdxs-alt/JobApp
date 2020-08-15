@@ -72,8 +72,7 @@ export class JobOfferResolver {
 
     return jobOffers;
   }
-
-  @Mutation(() => Boolean)
+  @UseMiddleware(EmployerAuthMiddleware)
   @Query(() => [JobOffer])
   async allUsersOffers(@Ctx() ctx: MyContext): Promise<JobOffer[]> {
     const alreadyHasCreatedCompany = await Company.findOne({

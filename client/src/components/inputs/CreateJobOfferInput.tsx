@@ -45,6 +45,7 @@ const CreateJobOfferInput: React.FC<CreateJobOfferInputProps> = ({
           }
           handleClick(value);
           inputRef.current?.focus();
+          if (error !== null) setError(null);
         }}
       >
         {buttonText}

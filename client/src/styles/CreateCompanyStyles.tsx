@@ -8,6 +8,9 @@ export const Container = styled.form`
   background-color: ${(props) => props.theme.colors.border};
   grid-template-columns: 0.4fr 1fr;
   align-items: center;
+  &:last-child {
+    grid-column: 1/3;
+  }
 `;
 export const Wrapper = styled.div`
   padding: 2rem 0;
@@ -35,10 +38,11 @@ export const Column = styled.div`
   align-items: center;
 `;
 export const GridWrapper = styled.div`
-  width: 80%;
+  width: 90%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 1.2rem;
+  padding: 1.2rem;
 `;
 export const AddOwn = styled.div`
   display: flex;

@@ -37,8 +37,8 @@ interface TableErrorProps {
 const schema = Joi.object({
   companyName: Joi.string().required(),
   localisation: Joi.string().required(),
-  size: Joi.number().required(),
-  yearOfSetup: Joi.number().required(),
+  size: Joi.number().required().min(1),
+  yearOfSetup: Joi.number().required().min(1950).max(today.getFullYear()),
   description: Joi.string(),
 });
 
@@ -90,7 +90,7 @@ const CreateCompany = () => {
       });
       toast.success('Company created succesfully, you will be redirected!', {
         position: 'top-right',
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -100,7 +100,7 @@ const CreateCompany = () => {
       reset();
       setTimeout(() => {
         history.push('/profile');
-      }, 5000);
+      }, 3500);
     } catch (error) {
       return;
     }
@@ -124,7 +124,7 @@ const CreateCompany = () => {
       <Navbars />
 
       <Wrapper>
-        <Container >
+        <Container>
           <Column>
             <InputLabel htmlFor="Name of Company" width={90}>
               Name of company
@@ -159,6 +159,9 @@ const CreateCompany = () => {
             {errors.size?.type === 'number.base' && (
               <Error>Size field cannot be empty and must be a number</Error>
             )}
+            {errors.size?.type === 'number.min' && (
+              <Error>Size field must be at least 1</Error>
+            )}
 
             <InputLabel htmlFor="Year of setup" width={90}>
               Year of setup
@@ -176,6 +179,12 @@ const CreateCompany = () => {
               <Error>
                 Year of setup field cannot be empty and must be a number
               </Error>
+            )}
+            {errors.yearOfSetup?.type === 'number.min' && (
+              <Error>Year can't be lower than 1950</Error>
+            )}
+            {errors.yearOfSetup?.type === 'number.max' && (
+              <Error>Year can't be higher than {today.getFullYear()}</Error>
             )}
           </Column>
 
@@ -209,7 +218,9 @@ const CreateCompany = () => {
           </Column>
 
           {error && <Error>{error.message}</Error>}
-          {loading ? null : <Button onClick={handleSubmit(onSubmit)}>Save and create</Button>}
+          {loading ? null : (
+            <Button onClick={handleSubmit(onSubmit)}>Save and create</Button>
+          )}
         </Container>
       </Wrapper>
     </>

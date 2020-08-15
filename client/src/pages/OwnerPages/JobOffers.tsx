@@ -6,20 +6,31 @@ import { useQuery } from '@apollo/client';
 
 const JobOffers = () => {
   const { data, loading } = useQuery(ALL_USERS_OFFERS);
+
   if (loading) return null;
-  else if (!data)
+  console.log(data);
+  if (!data)
     return (
       <>
         <Navbars />
         <Container>
-          <CreateCompanyLink to="/createJobOffer">
-            You don't have any job offer yet, create it now!
+          <CreateCompanyLink to="/createCompany">
+            You need to create company first!
           </CreateCompanyLink>
         </Container>
       </>
     );
   else
-    return (
+    return data.allUsersOffers.length === 0 ? (
+      <>
+        <Navbars />
+        <Container>
+          <CreateCompanyLink to="/createJobOffer">
+            Create your first job offer!
+          </CreateCompanyLink>
+        </Container>
+      </>
+    ) : (
       <>
         <Navbars />
       </>
