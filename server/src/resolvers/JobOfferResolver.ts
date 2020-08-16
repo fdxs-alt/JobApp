@@ -88,4 +88,11 @@ export class JobOfferResolver {
 
     return jobOffers;
   }
+  @Query(() => JobOffer)
+  async specificJobOffer(@Arg('id') id: number): Promise<JobOffer> {
+    const offer = await JobOffer.findOne({ id });
+    if (!offer) throw new Error("Offer with given id doesn't exist");
+
+    return offer;
+  }
 }

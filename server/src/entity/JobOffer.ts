@@ -55,7 +55,7 @@ export class JobOffer extends BaseEntity {
   })
   company: Company;
 
-  @Field(() => [Images])
+  @Field(() => [Images], { nullable: true })
   @OneToMany(() => Images, (image) => image.joboffer)
   image: Images;
 

@@ -32,7 +32,7 @@ export const Main = styled.section`
   }
   padding: 1.2rem 0;
 `;
-export const CompanyName = styled.div`
+export const Title = styled.div`
   padding: 2rem;
   font-size: 2rem;
   font-weight: 700;
@@ -62,7 +62,7 @@ export const GridContainer = styled.div`
   grid-template-columns: repeat(5, 1fr);
   gap: 1.2rem;
 `;
-export const Technology = styled.span`
+export const Element = styled.span`
   padding: 0.5rem 0.8rem;
   border: 2px solid ${(props) => props.theme.colors.button};
 `;

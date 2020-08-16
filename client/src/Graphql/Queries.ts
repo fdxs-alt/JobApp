@@ -43,3 +43,20 @@ export const ALL_USERS_OFFERS = gql`
     }
   }
 `;
+export const SPECIFIC_JOB_OFFER = gql`
+  query SpecificJobOffer($id: Float!) {
+    specificJobOffer(id: $id) {
+      benefitsInWork
+      extraSkills
+      mandatory
+      maxSalary
+      minSalary
+      onlineRecrutation
+      tasks
+      title
+      image {
+        id
+      }
+    }
+  }
+`;

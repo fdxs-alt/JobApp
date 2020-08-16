@@ -12,14 +12,14 @@ import {
   Container,
   CreateCompanyLink,
   Main,
-  CompanyName,
+  Title,
   BasicInfo,
   IconContainer,
   Description,
   ColumContainer,
   Used,
   GridContainer,
-  Technology,
+  Element,
   Text,
 } from '../../styles/CompanyProfileStyle';
 
@@ -32,7 +32,7 @@ const CompanyProfile = () => {
         <Navbars />
         <Container>
           <CreateCompanyLink to="/createCompany">
-            You don't have company yet, create it now!
+            You dont have company yet, create it now!
           </CreateCompanyLink>
         </Container>
       </>
@@ -42,7 +42,7 @@ const CompanyProfile = () => {
       <>
         <Navbars />
         <Main>
-          <CompanyName>{data.getUserCompany.companyName}</CompanyName>
+          <Title>{data.getUserCompany.companyName}</Title>
           <BasicInfo>
             <IconContainer>
               <Icon icon={faFlag} />
@@ -63,7 +63,7 @@ const CompanyProfile = () => {
             <GridContainer>
               {data.getUserCompany.technologies.map(
                 (tech: string, index: number) => (
-                  <Technology key={index}>{tech}</Technology>
+                  <Element key={index}>{tech}</Element>
                 ),
               )}
             </GridContainer>
@@ -74,7 +74,7 @@ const CompanyProfile = () => {
             <GridContainer>
               {data.getUserCompany.benefits.map(
                 (tech: string, index: number) => (
-                  <Technology key={index}>{tech}</Technology>
+                  <Element key={index}>{tech}</Element>
                 ),
               )}
             </GridContainer>
