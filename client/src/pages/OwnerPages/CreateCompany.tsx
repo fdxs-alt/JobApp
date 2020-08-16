@@ -181,10 +181,10 @@ const CreateCompany = () => {
               </Error>
             )}
             {errors.yearOfSetup?.type === 'number.min' && (
-              <Error>Year can't be lower than 1950</Error>
+              <Error>Year cant be lower than 1950</Error>
             )}
             {errors.yearOfSetup?.type === 'number.max' && (
-              <Error>Year can't be higher than {today.getFullYear()}</Error>
+              <Error>Year cant be higher than {today.getFullYear()}</Error>
             )}
           </Column>
 

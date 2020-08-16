@@ -28,7 +28,7 @@ const SingleJobOffer: React.FC<Props> = ({ title, id }) => {
   return (
     <Container>
       <Title>{title}</Title>
-      <IconLink to={`/job/${id}`}>
+      <IconLink to={`/job?id=/${id}`}>
         <FontAwesomeIcon icon={faInfoCircle} />
       </IconLink>
     </Container>

@@ -40,13 +40,6 @@ export const ALL_USERS_OFFERS = gql`
     allUsersOffers {
       id
       title
-      mandatory
-      extraSkills
-      tasks
-      benefitsInWork
-      minSalary
-      maxSalary
-      onlineRecrutation
     }
   }
 `;

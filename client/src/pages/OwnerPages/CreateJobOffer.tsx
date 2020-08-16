@@ -6,7 +6,6 @@ import {
   Column,
   Input,
   Button,
-  GridWrapper,
 } from '../../styles/CreateCompanyStyles';
 import { InputLabel, Error } from '../../styles/LoginPageStyles';
 import { JobOfferContext } from '../../context/JobOfferProvider';
@@ -174,7 +173,7 @@ const CreateJobOffer: React.FC = () => {
               ref={register}
             />
             {errors.minSalary?.type === 'number.base' && (
-              <Error>Minimum salary must be a number and can't be empty</Error>
+              <Error>Minimum salary must be a number and cant be empty</Error>
             )}
             {errors.minSalary?.type === 'number.min' && (
               <Error>Minimum salary must be at least one $</Error>
@@ -190,7 +189,7 @@ const CreateJobOffer: React.FC = () => {
               ref={register}
             />
             {errors.maxSalary?.type === 'number.base' && (
-              <Error>Maximum salary must be a number and can't be empty</Error>
+              <Error>Maximum salary must be a number and cant be empty</Error>
             )}
             {errors.maxSalary?.type === 'number.min' && (
               <Error>Maximum salary must be atleast one $</Error>

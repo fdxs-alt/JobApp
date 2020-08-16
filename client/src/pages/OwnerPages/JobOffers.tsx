@@ -7,13 +7,7 @@ import SingleJobOffer from '../../components/SingleJobOffer';
 import styled from 'styled-components';
 export type UserOfferResponseType = {
   id: number;
-  benefitsInWork: [string];
-  extraSkills: [string];
-  mandatory: [string];
-  tasks: [string];
   title: string;
-  maxSalary: number;
-  minSalary: number;
 };
 const JobOffersWrapper = styled.div`
   width: 80%;

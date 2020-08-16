@@ -38,6 +38,7 @@ const Register: React.FC<Props> = ({ active }: Props) => {
   const [registered, setRegistered] = useState<boolean>();
   const { register, handleSubmit, errors, reset } = useForm<RegisterProps>({
     resolver: joiResolver(schema),
+    defaultValues: { hasCompany: false },
   });
 
   const onSubmit = async ({
@@ -58,6 +59,7 @@ const Register: React.FC<Props> = ({ active }: Props) => {
     };
     try {
       await reg({ variables: { input } });
+      setisOwner(false);
       setRegistered(true);
       reset();
     } catch (error) {
