@@ -62,6 +62,7 @@ export const GET_ALL_JOB_IMAGES = gql`
     getAllJobOfferImages(id: $id) {
       id
       data
+      type
     }
   }
 `;

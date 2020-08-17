@@ -8,7 +8,7 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
   const { data, loading, error } = useQuery(GET_ALL_JOB_IMAGES, {
     variables: { id },
   });
-
+  console.log(data);
   const toBase64 = (element: number[]) => {
     return btoa(
       new Uint8Array(element).reduce(
@@ -21,9 +21,24 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
   else
     return (
       <div>
-        {data.getAllJobOfferImages.map((element: Buffer) => (
-          <img src={`data:image/png;base64`} />
-        ))}
+        {data.getAllJobOfferImages.map((element: any) => {
+          if (element.type === 'image/png')
+            return (
+              <img
+                key={element.id}
+                alt="Job offer"
+                src={`data:image/png;base64, ${toBase64(element.data)}`}
+              />
+            );
+          else
+            return (
+              <img
+                key={element.id}
+                alt="Job offer"
+                src={`data:image/jpeg;base64, ${toBase64(element.data)}`}
+              />
+            );
+        })}
       </div>
     );
 };
