@@ -14,3 +14,8 @@ export const CREATE_NEW_JOB_OFFER = gql`
     }
   }
 `;
+export const ADD_IMAGE = gql`
+  mutation AddImage($id: Float!, $file: Upload!) {
+    addImage(id: $id, file: $file)
+  }
+`;

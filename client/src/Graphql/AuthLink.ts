@@ -1,20 +1,23 @@
-import { createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import { createHttpLink, ApolloLink } from '@apollo/client';
 import { getToken } from '../AccessToken';
-
-const httpLink = createHttpLink({
+import { createUploadLink } from 'apollo-upload-client';
+export const httpLink = createHttpLink({
   uri: 'http://localhost:5000/graphql',
   credentials: 'include',
 });
 
-const authLink = setContext((_, { headers }) => {
+export const AuthLink = new ApolloLink((operation, forward) => {
   const token = getToken();
-  return {
+  operation.setContext({
     headers: {
-      ...headers,
       authorization: token ? `Bearer ${token}` : '',
     },
-  };
+  });
+
+  return forward(operation);
 });
 
-export default authLink.concat(httpLink);
+export const uploadLink = createUploadLink({
+  uri: 'http://localhost:5000/graphql',
+  credentials: 'include',
+});

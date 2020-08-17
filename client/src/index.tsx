@@ -10,13 +10,17 @@ import {
   ApolloProvider,
   ApolloLink,
 } from '@apollo/client';
-import AuthLink from './Graphql/AuthLink';
+import { uploadLink, httpLink, AuthLink } from './Graphql/AuthLink';
 import RefreshTokenLink from './Graphql/RefreshTokenLink';
 import isAuthenticated, { isOwner } from './Graphql/isAuth';
 import { TableProvider } from './context/TableProvider';
 import { JobProvider } from './context/JobOfferProvider';
 
-const links = ApolloLink.from([RefreshTokenLink, AuthLink]);
+const links = ApolloLink.from([
+  RefreshTokenLink,
+  AuthLink,
+  (uploadLink as unknown) as ApolloLink,
+]);
 
 const client = new ApolloClient({
   link: links,

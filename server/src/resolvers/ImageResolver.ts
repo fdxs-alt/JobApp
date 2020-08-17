@@ -12,10 +12,11 @@ export class ImageResolver {
   @UseMiddleware(EmployerAuthMiddleware)
   @Mutation(() => Boolean)
   async addImage(
-    @Arg('picture', () => GraphQLUpload)
-    { createReadStream, filename, mimetype }: FileUpload,
+    @Arg('file', () => GraphQLUpload)
+    file: FileUpload,
     @Arg('id', () => Number) id: number,
   ): Promise<boolean> {
+    const { createReadStream, filename, mimetype } = await file;
     const destination = path.join(
       __dirname + `../../../images/${Date.now() + filename}`,
     );
@@ -27,20 +28,24 @@ export class ImageResolver {
               const jobOffer = await JobOffer.findOne({ id });
 
               if (!jobOffer) return res(false);
-              const newImage = Images.create({
+
+              await Images.insert({
                 name: filename,
                 type: mimetype,
                 data: ('\\x' +
                   fs.readFileSync(destination, { encoding: 'hex' })) as any,
                 joboffer: jobOffer,
               });
-              await newImage.save();
               res(true);
             } catch (error) {
+              console.log(error);
               return res(false);
             }
           })
-          .on('error', () => rej(false)),
+          .on('error', (error) => {
+            console.log(error);
+            rej(false);
+          }),
       );
     });
     const result = await Promise.resolve(p);
