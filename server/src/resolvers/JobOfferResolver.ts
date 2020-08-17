@@ -85,7 +85,6 @@ export class JobOfferResolver {
     const jobOffers = await JobOffer.find({
       company: alreadyHasCreatedCompany,
     });
-
     return jobOffers;
   }
   @Query(() => JobOffer)

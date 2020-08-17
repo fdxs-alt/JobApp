@@ -54,9 +54,14 @@ export const SPECIFIC_JOB_OFFER = gql`
       onlineRecrutation
       tasks
       title
-      image {
-        id
-      }
+    }
+  }
+`;
+export const GET_ALL_JOB_IMAGES = gql`
+  query GetAllJobOfferImages($id: Float!) {
+    getAllJobOfferImages(id: $id) {
+      id
+      data
     }
   }
 `;

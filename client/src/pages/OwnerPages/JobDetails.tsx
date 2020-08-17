@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
 import { parse } from 'query-string';
 import { useQuery, useMutation } from '@apollo/client';
-import { SPECIFIC_JOB_OFFER } from '../../Graphql/Queries';
+import { SPECIFIC_JOB_OFFER, GET_ALL_JOB_IMAGES } from '../../Graphql/Queries';
 import { Redirect } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import { ADD_IMAGE } from '../../Graphql/CompanyMutations';
 import Navbars from '../../components/Navbars';
+import ImagesGallery from '../../components/ImagesGallery';
 import {
   Icon,
   Main,
@@ -24,11 +25,10 @@ const JobDetails = () => {
   const { data, loading, error } = useQuery(SPECIFIC_JOB_OFFER, {
     variables: { id },
   });
-
   const [add] = useMutation(ADD_IMAGE, {
     refetchQueries: [
       {
-        query: SPECIFIC_JOB_OFFER,
+        query: GET_ALL_JOB_IMAGES,
         variables: { id },
       },
     ],
@@ -37,7 +37,7 @@ const JobDetails = () => {
     async ([file]) => {
       await add({
         variables: {
-          id: parseInt((parse(window.location.search) as any).id),
+          id,
           file,
         },
       });
@@ -45,7 +45,6 @@ const JobDetails = () => {
 
     [add],
   );
-
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   if (loading) return <Navbars />;
@@ -107,7 +106,7 @@ const JobDetails = () => {
               )}
             </GridContainer>
           </ColumContainer>
-
+          <ImagesGallery id={id} />
           <div {...getRootProps()}>
             <input {...getInputProps()} />
             {isDragActive ? (
