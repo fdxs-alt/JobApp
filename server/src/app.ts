@@ -11,12 +11,13 @@ import { User } from './entity/User';
 import { createAccessToken, createRefreshToken } from './utils/createTokens';
 import { sendRefreshCookie } from './utils/sendRefreshCookie';
 import cors from 'cors';
-
+import helmet from 'helmet';
 const main = async () => {
   const app = express();
 
   await createConnection();
   app.use(cookieParser());
+  app.use(helmet());
   app.use(
     cors({
       origin: 'http://localhost:3000',

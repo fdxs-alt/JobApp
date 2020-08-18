@@ -67,7 +67,6 @@ export class CvResolver {
       const joboffer = await JobOffer.findOne({ id });
       if (!joboffer) throw new Error("Can't identify the offer");
       const cvs = await Cv.find({ joboffer });
-      if (cvs.length === 0) throw new Error('There are no cvs yet');
       return cvs;
     } catch (error) {
       throw new Error('An error occured');

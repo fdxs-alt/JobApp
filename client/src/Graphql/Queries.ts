@@ -66,3 +66,23 @@ export const GET_ALL_JOB_IMAGES = gql`
     }
   }
 `;
+export const GET_INFORMATION = gql`
+  query {
+    getUser {
+      fullName
+    }
+    getUserCompany {
+      benefits
+      companyName
+      description
+      yearOfSetUp
+      sizeOfCompany
+      localisation
+      technologies
+    }
+    allUsersOffers {
+      id
+      title
+    }
+  }
+`;

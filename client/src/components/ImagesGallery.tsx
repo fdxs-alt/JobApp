@@ -29,11 +29,11 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
     fetchPolicy: 'network-only',
   });
 
-  const [deleteImage] = useMutation(DELETE_IMAGE, {
+  const [deleteImage, { loading: deletingImage }] = useMutation(DELETE_IMAGE, {
     refetchQueries: [{ query: GET_ALL_JOB_IMAGES, variables: { id } }],
   });
 
-  const [addImage] = useMutation(ADD_IMAGE, {
+  const [addImage, { loading: addingImage }] = useMutation(ADD_IMAGE, {
     refetchQueries: [
       {
         query: GET_ALL_JOB_IMAGES,
@@ -126,16 +126,19 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
             </GridContainer>
           </ColumContainer>
         ) : null}
-        {(!data || data.getAllJobOfferImages.length < 9) && (
-          <ImageInputContainer {...getRootProps()}>
-            <input {...getInputProps()} />
-            {isDragActive ? (
-              <p>Drop the file here ...</p>
-            ) : (
-              <p>Drag 'n' drop images, to add image (max 9)</p>
-            )}
-          </ImageInputContainer>
-        )}
+        {data &&
+          data.getAllJobOfferImages.length < 9 &&
+          !deletingImage &&
+          !addingImage && (
+            <ImageInputContainer {...getRootProps()}>
+              <input {...getInputProps()} />
+              {isDragActive ? (
+                <p>Drop the file here ...</p>
+              ) : (
+                <p>Drag 'n' drop images, to add image (max 9)</p>
+              )}
+            </ImageInputContainer>
+          )}
       </>
     );
 };

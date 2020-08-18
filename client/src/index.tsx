@@ -17,8 +17,8 @@ import { TableProvider } from './context/TableProvider';
 import { JobProvider } from './context/JobOfferProvider';
 
 const links = ApolloLink.from([
-  RefreshTokenLink,
   AuthLink,
+  RefreshTokenLink,
   (uploadLink as unknown) as ApolloLink,
 ]);
 

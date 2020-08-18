@@ -30,6 +30,9 @@ const EmployerNavbar: React.FC<Props> = ({ handleClick }) => {
         <LeftElement>
           <MyLink to="/profile">Company</MyLink>
         </LeftElement>
+        <LeftElement>
+          <MyLink to="/createJobOffer">Create</MyLink>
+        </LeftElement>
       </LeftPanel>
       <RightPanel>
         <RightElement>
