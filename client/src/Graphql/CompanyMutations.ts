@@ -19,3 +19,8 @@ export const ADD_IMAGE = gql`
     addImage(id: $id, file: $file)
   }
 `;
+export const DELETE_IMAGE = gql`
+  mutation DeleteImage($id: Float!) {
+    deleteImage(id: $id)
+  }
+`;

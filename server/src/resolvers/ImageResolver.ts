@@ -36,6 +36,7 @@ export class ImageResolver {
                   fs.readFileSync(destination, { encoding: 'hex' })) as any,
                 joboffer: jobOffer,
               });
+              fs.unlinkSync(destination);
               res(true);
             } catch (error) {
               console.log(error);
@@ -79,6 +80,7 @@ export class ImageResolver {
                     fs.readFileSync(destination, { encoding: 'hex' })) as any,
                   joboffer: jobOffer,
                 });
+
                 res(true);
               } catch (error) {
                 res(false);
@@ -99,7 +101,7 @@ export class ImageResolver {
   async deleteImage(@Arg('id') id: number): Promise<boolean> {
     try {
       const imageToDelete = await Images.findOne({ id });
-      await Images.delete(imageToDelete);
+      await imageToDelete.remove();
       return true;
     } catch (error) {
       return false;
@@ -111,7 +113,7 @@ export class ImageResolver {
       const joboffer = await JobOffer.findOne({ id });
       if (!joboffer) throw new Error("Can't identify the offer");
       const images = await Images.find({ joboffer });
-      if (images.length === 0) throw new Error('There are no images yet');
+
       return images;
     } catch (error) {
       throw new Error('An error occured');

@@ -1,10 +1,8 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { parse } from 'query-string';
-import { useQuery, useMutation } from '@apollo/client';
-import { SPECIFIC_JOB_OFFER, GET_ALL_JOB_IMAGES } from '../../Graphql/Queries';
+import { useQuery } from '@apollo/client';
+import { SPECIFIC_JOB_OFFER } from '../../Graphql/Queries';
 import { Redirect } from 'react-router-dom';
-import { useDropzone } from 'react-dropzone';
-import { ADD_IMAGE } from '../../Graphql/CompanyMutations';
 import Navbars from '../../components/Navbars';
 import ImagesGallery from '../../components/ImagesGallery';
 import {
@@ -20,32 +18,12 @@ import {
   Text,
 } from '../../styles/CompanyProfileStyle';
 import { faMoneyBillAlt, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
+
 const JobDetails = () => {
   const id = parseInt((parse(window.location.search) as any).id);
   const { data, loading, error } = useQuery(SPECIFIC_JOB_OFFER, {
     variables: { id },
   });
-  const [add] = useMutation(ADD_IMAGE, {
-    refetchQueries: [
-      {
-        query: GET_ALL_JOB_IMAGES,
-        variables: { id },
-      },
-    ],
-  });
-  const onDrop = useCallback(
-    async ([file]) => {
-      await add({
-        variables: {
-          id,
-          file,
-        },
-      });
-    },
-
-    [add],
-  );
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   if (loading) return <Navbars />;
   else if (error) return <Redirect to="/joboffers" />;
@@ -107,14 +85,6 @@ const JobDetails = () => {
             </GridContainer>
           </ColumContainer>
           <ImagesGallery id={id} />
-          <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            {isDragActive ? (
-              <p>Drop the files here ...</p>
-            ) : (
-              <p>Drag 'n' drop some files here, or click to select files</p>
-            )}
-          </div>
         </Main>
       </>
     );

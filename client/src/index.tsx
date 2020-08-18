@@ -10,7 +10,7 @@ import {
   ApolloProvider,
   ApolloLink,
 } from '@apollo/client';
-import { uploadLink, httpLink, AuthLink } from './Graphql/AuthLink';
+import { uploadLink, AuthLink } from './Graphql/AuthLink';
 import RefreshTokenLink from './Graphql/RefreshTokenLink';
 import isAuthenticated, { isOwner } from './Graphql/isAuth';
 import { TableProvider } from './context/TableProvider';
@@ -28,6 +28,11 @@ const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
+          getAllJobOfferImages: {
+            merge(existing = [], incoming: any) {
+              return { ...incoming };
+            },
+          },
           isAuthenticated: {
             read() {
               return isAuthenticated();
