@@ -1,11 +1,11 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import { GET_USER } from '../Graphql/Queries';
+import Navbar from './Navbar';
+import { GET_USER } from '../../Graphql/Queries';
 import { useQuery, useMutation } from '@apollo/client';
-import EmployerNavbar from '../components/EmployerNavbar';
-import { LOGOUT } from '../Graphql/AuthMutations';
-import { setToken } from '../AccessToken';
-import isAuthenticated, { isOwner } from '../Graphql/isAuth';
+import EmployerNavbar from './EmployerNavbar';
+import { LOGOUT } from '../../Graphql/AuthMutations';
+import { setToken } from '../../AccessToken';
+import isAuthenticated, { isOwner } from '../../Graphql/isAuth';
 import { useHistory } from 'react-router-dom';
 const Navbars = () => {
   const history = useHistory();

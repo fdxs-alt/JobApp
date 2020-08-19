@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { MyButton } from '../styles/Button';
-import { RegisterForm, Checkbox, SuccessMessage } from '../styles/Register';
-import { InputLabel, Input } from '../styles/LoginPageStyles';
+import { MyButton } from '../../styles/Button';
+import { RegisterForm, Checkbox, SuccessMessage } from '../../styles/Register';
+import { InputLabel, Input } from '../../styles/LoginPageStyles';
 import { useForm } from 'react-hook-form';
 import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';
-import { Error } from '../styles/LoginPageStyles';
+import { Error } from '../../styles/LoginPageStyles';
 import { useMutation } from '@apollo/client';
-import { REGISTER } from '../Graphql/AuthMutations';
+import { REGISTER } from '../../Graphql/AuthMutations';
 
 interface Props {
   active: boolean;

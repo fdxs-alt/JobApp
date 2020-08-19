@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbars from '../../components/Navbars';
+import Navbars from '../../components/Navbars/Navbars';
 import {
   Container,
   GridContainer,

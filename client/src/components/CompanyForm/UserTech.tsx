@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { InputLabel } from '../styles/LoginPageStyles';
-import { GridWrapper } from '../styles/CreateCompanyStyles';
-import { TableContext } from '../context/TableProvider';
-import { DELETE_TECH } from '../context/Types';
+import { InputLabel } from '../../styles/LoginPageStyles';
+import { GridWrapper } from '../../styles/CreateCompanyStyles';
+import { TableContext } from '../../context/TableProvider';
+import { DELETE_TECH } from '../../context/Types';
 import Users from './Users';
 
 const Benefits = () => {

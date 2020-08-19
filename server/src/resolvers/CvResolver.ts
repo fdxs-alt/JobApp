@@ -16,6 +16,7 @@ import { Cv } from '../entity/Cv';
 import { MyContext } from '../types-graphql/MyContext';
 import { User } from '../entity/User';
 import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
+import { Company } from '../entity/CompanyDetails';
 
 @Resolver()
 export class CvResolver {
@@ -62,13 +63,20 @@ export class CvResolver {
   }
   @UseMiddleware(EmployerAuthMiddleware)
   @Query(() => [Cv])
-  async getAllCvs(@Arg('id') id: number): Promise<Cv[]> {
+  async getAllCvs(@Ctx() ctx: MyContext): Promise<Cv[] & JobOffer[]> {
     try {
-      const joboffer = await JobOffer.findOne({ id });
-      if (!joboffer) throw new Error("Can't identify the offer");
-      const cvs = await Cv.find({ joboffer });
+      const company = await Company.findOne({
+        employer: ctx.payload.userId as any,
+      });
+
+      const joboffers = await JobOffer.find({ where: { company: company.id } });
+      const cvs = [];
+      joboffers.forEach(async (joboffer) => {
+        cvs.push(await Cv.find({ where: { joboffer: joboffer.id } }));
+      });
       return cvs;
     } catch (error) {
+      console.log(error);
       throw new Error('An error occured');
     }
   }

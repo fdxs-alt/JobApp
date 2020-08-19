@@ -1,16 +1,16 @@
 import React from 'react';
-import { LoginForm } from '../styles/Register';
-import { MyButton } from '../styles/Button';
-import { InputLabel, Input } from '../styles/LoginPageStyles';
+import { LoginForm } from '../../styles/Register';
+import { MyButton } from '../../styles/Button';
+import { InputLabel, Input } from '../../styles/LoginPageStyles';
 import { useForm } from 'react-hook-form';
 import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';
-import { Error } from '../styles/LoginPageStyles';
-import { LOGIN } from '../Graphql/AuthMutations';
+import { Error } from '../../styles/LoginPageStyles';
+import { LOGIN } from '../../Graphql/AuthMutations';
 import { useMutation } from '@apollo/client';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { setToken } from '../AccessToken';
-import isAuth, { isOwner } from '../Graphql/isAuth';
+import { setToken } from '../../AccessToken';
+import isAuth, { isOwner } from '../../Graphql/isAuth';
 import { useHistory } from 'react-router-dom';
 type login = {
   email: string;

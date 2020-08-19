@@ -7,7 +7,7 @@ import {
   LeftPanel,
   RightPanel,
   Logout,
-} from '../styles/NavbarStyles';
+} from '../../styles/NavbarStyles';
 
 type Props = {
   fullName?: string | undefined;

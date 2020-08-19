@@ -7,7 +7,7 @@ import {
   RightElement,
   RightPanel,
   Logout,
-} from '../styles/NavbarStyles';
+} from '../../styles/NavbarStyles';
 type Props = {
   handleClick: () => void;
 };

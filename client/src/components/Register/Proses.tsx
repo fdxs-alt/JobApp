@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Time, Title, Proses } from '../styles/Register';
+import { Card, Time, Title, Proses } from '../../styles/Register';
 import {
   faWallet,
   faClock,
@@ -7,7 +7,7 @@ import {
   faAd,
   faCodeBranch,
 } from '@fortawesome/free-solid-svg-icons';
-import { Icon } from '../styles/LoginPageStyles';
+import { Icon } from '../../styles/LoginPageStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Pros = () => {
   return (

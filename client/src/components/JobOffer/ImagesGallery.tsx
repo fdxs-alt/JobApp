@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
-import { GET_ALL_JOB_IMAGES } from '../Graphql/Queries';
+import { GET_ALL_JOB_IMAGES } from '../../Graphql/Queries';
 import { useQuery, useMutation } from '@apollo/client';
-import { toBase64 } from '../utils/ToBase64';
+import { toBase64 } from '../../utils/ToBase64';
 import {
   Used,
   ColumContainer,
   Title,
   GridContainer,
-} from '../styles/CompanyProfileStyle';
+} from '../../styles/CompanyProfileStyle';
 import { useDropzone } from 'react-dropzone';
-import { ADD_IMAGE, DELETE_IMAGE } from '../Graphql/CompanyMutations';
+import { ADD_IMAGE, DELETE_IMAGE } from '../../Graphql/CompanyMutations';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import {
@@ -18,7 +18,7 @@ import {
   ButtonContainer,
   Button,
   Image,
-} from '../styles/ImagesGallery';
+} from '../../styles/ImagesGallery';
 
 type Props = {
   id: number;

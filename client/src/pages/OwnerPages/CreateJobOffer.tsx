@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import Navbars from '../../components/Navbars';
+import Navbars from '../../components/Navbars/Navbars';
 import {
   Container,
   Wrapper,
@@ -21,7 +21,7 @@ import { validateTable, ErrorStateType } from '../../utils/Validation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
-import MapTable from '../../components/MapTable';
+import MapTable from '../../components/JobOffer/MapTable';
 
 type CreateJobOfferTypes = {
   title: string;

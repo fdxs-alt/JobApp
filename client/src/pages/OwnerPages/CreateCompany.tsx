@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { TableContext } from '../../context/TableProvider';
-import Navbars from '../../components/Navbars';
+import Navbars from '../../components/Navbars/Navbars';
 import { useForm } from 'react-hook-form';
 import { InputLabel, Error } from '../../styles/LoginPageStyles';
 import { useMutation } from '@apollo/client';
@@ -18,9 +18,9 @@ import {
   Column,
   Button,
 } from '../../styles/CreateCompanyStyles';
-import UserBenefits from '../../components/UserBenefits';
-import UserTech from '../../components/UserTech';
-import Tech from '../../components/Tech';
+import UserBenefits from '../../components/CompanyForm/UserBenefits';
+import UserTech from '../../components/CompanyForm/UserTech';
+import Tech from '../../components/CompanyForm/Tech';
 import BenefitsComponent from '../../components/inputs/Benefits';
 const today = new Date();
 interface CreateCompanyProps {

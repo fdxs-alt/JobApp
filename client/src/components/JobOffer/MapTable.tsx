@@ -1,5 +1,5 @@
 import React from 'react';
-import { GridWrapper } from '../styles/CreateCompanyStyles';
+import { GridWrapper } from '../../styles/CreateCompanyStyles';
 import styled from 'styled-components';
 type Props = {
   table: string[];

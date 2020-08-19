@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { InputLabel } from '../styles/LoginPageStyles';
-import { GridWrapper } from '../styles/CreateCompanyStyles';
-import { TableContext } from '../context/TableProvider';
-import { ADD_TECH } from '../context/Types';
-import ToChooseFrom from './inputs/ToChooseFrom';
+import { InputLabel } from '../../styles/LoginPageStyles';
+import { GridWrapper } from '../../styles/CreateCompanyStyles';
+import { TableContext } from '../../context/TableProvider';
+import { ADD_TECH } from '../../context/Types';
+import ToChooseFrom from '../inputs/ToChooseFrom';
 
 const Benefits = () => {
   const {
