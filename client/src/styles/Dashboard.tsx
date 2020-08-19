@@ -35,10 +35,11 @@ export const JobOfferContainer = styled.div`
   display: flex;
 `;
 export const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
   background-color: white;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;
 export const CompanyInfoElement = styled.div`
   font-size: 1.3rem;
@@ -66,4 +67,19 @@ export const JobOfferColums = styled.div`
   font-size: 1.5rem;
   justify-content: center;
   align-items: center;
+`;
+export const NoJobOfferLinkContainer = styled.div`
+  background-color: white;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  grid-column: 1/3;
+`;
+
+export const NoCompanyLinkContainer = styled.div`
+  grid-column: 1/3;
+  background-color: white;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
 `;

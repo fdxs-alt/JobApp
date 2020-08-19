@@ -87,7 +87,7 @@ export class CompanyResolver {
     return allCorporations;
   }
   @UseMiddleware(EmployerAuthMiddleware)
-  @Query(() => Company)
+  @Query(() => Company, { nullable: true })
   async getUserCompany(@Ctx() ctx: MyContext): Promise<Company> {
     const userCorportion = await Company.findOne({
       employer: ctx.payload.userId as any,

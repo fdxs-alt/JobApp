@@ -10,7 +10,7 @@ import {
 import {
   Icon,
   Container,
-  CreateCompanyLink,
+  CreateLink,
   Main,
   Title,
   BasicInfo,
@@ -25,15 +25,16 @@ import {
 
 const CompanyProfile = () => {
   const { data, loading } = useQuery(GET_USER_COMPANY);
+  console.log(data);
   if (loading) return null;
-  else if (!data)
+  else if (!data.getUserCompany)
     return (
       <>
         <Navbars />
         <Container>
-          <CreateCompanyLink to="/createCompany">
+          <CreateLink to="/createCompany">
             You dont have company yet, create it now!
-          </CreateCompanyLink>
+          </CreateLink>
         </Container>
       </>
     );

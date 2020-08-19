@@ -23,7 +23,15 @@ const CreateJobOfferInput: React.FC<CreateJobOfferInputProps> = ({
   const [error, setError] = useState<null | string>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   return (
-    <>
+    <form
+      style={{
+        width: '90%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <InputLabel htmlFor={labelText} width={90}>
         {labelText}
       </InputLabel>
@@ -63,7 +71,7 @@ const CreateJobOfferInput: React.FC<CreateJobOfferInputProps> = ({
         {buttonText}
       </Button>
       {error && <Error>{error}</Error>}
-    </>
+    </form>
   );
 };
 

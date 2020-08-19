@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbars from '../../components/Navbars';
-import { Container, CreateCompanyLink } from '../../styles/CompanyProfileStyle';
+import { Container, CreateLink } from '../../styles/CompanyProfileStyle';
 import { ALL_USERS_OFFERS } from '../../Graphql/Queries';
 import { useQuery } from '@apollo/client';
 import SingleJobOffer from '../../components/SingleJobOffer';
@@ -23,9 +23,9 @@ const JobOffers = () => {
       <>
         <Navbars />
         <Container>
-          <CreateCompanyLink to="/createCompany">
+          <CreateLink to="/createCompany">
             You need to create company first!
-          </CreateCompanyLink>
+          </CreateLink>
         </Container>
       </>
     );
@@ -35,9 +35,9 @@ const JobOffers = () => {
         <Navbars />
         <Container>
           {data.allUsersOffers.length === 0 ? (
-            <CreateCompanyLink to="/createJobOffer">
+            <CreateLink to="/createJobOffer">
               Create first job offer!
-            </CreateCompanyLink>
+            </CreateLink>
           ) : (
             <JobOffersWrapper>
               {data.allUsersOffers.map((offer: UserOfferResponseType) => (

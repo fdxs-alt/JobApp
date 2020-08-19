@@ -15,6 +15,7 @@ const Container = styled.div`
   align-items: center;
   font-size: 1.5rem;
   border: 1px solid ${(props) => props.theme.colors.lightBorder};
+  margin-bottom: 1.2rem;
 `;
 const Title = styled.h4`
   flex: 5;

@@ -8,7 +8,7 @@ export const Icon = styled(FontAwesomeIcon)`
   border: '1px solid black';
   box-sizing: 'content-box';
 `;
-export const CreateCompanyLink = styled(Link)`
+export const CreateLink = styled(Link)`
   text-decoration: none;
   font-size: 2rem;
   text-align: center;

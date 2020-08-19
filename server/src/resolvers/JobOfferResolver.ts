@@ -79,9 +79,6 @@ export class JobOfferResolver {
       employer: ctx.payload.userId as any,
     });
 
-    if (!alreadyHasCreatedCompany)
-      throw new Error('You need to create your company first');
-
     const jobOffers = await JobOffer.find({
       company: alreadyHasCreatedCompany,
     });
