@@ -51,11 +51,9 @@ export class Company extends BaseEntity {
   @JoinColumn()
   employer: User;
 
-  @Field(() => [JobOffer])
   @OneToMany(() => JobOffer, (joboffer) => joboffer.company)
   joboffers: JobOffer;
 
-  @Field(() => [Opinion])
   @OneToMany(() => Opinion, (opinion) => opinion.company)
   opinions: Opinion;
 }

@@ -93,3 +93,18 @@ export const GET_ALL_CVS = gql`
     }
   }
 `;
+
+export const GET_ALL_JOB_OFFERS = gql`
+  query AllUsersOffers {
+    allUsersOffers {
+      benefitsInWork
+      extraSkills
+      mandatory
+      maxSalary
+      minSalary
+      onlineRecrutation
+      tasks
+      title
+    }
+  }
+`;

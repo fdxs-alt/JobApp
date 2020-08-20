@@ -105,7 +105,7 @@ const CreateJobOffer: React.FC = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>,) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   const resetValue = (e: React.ChangeEvent<HTMLInputElement>) => {

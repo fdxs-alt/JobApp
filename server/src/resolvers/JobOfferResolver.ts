@@ -66,12 +66,14 @@ export class JobOfferResolver {
       return [false, error];
     }
   }
+
   @Query(() => [JobOffer])
   async allJobOffers(): Promise<JobOffer[]> {
     const jobOffers = await JobOffer.find({});
 
     return jobOffers;
   }
+
   @UseMiddleware(EmployerAuthMiddleware)
   @Query(() => [JobOffer])
   async allUsersOffers(@Ctx() ctx: MyContext): Promise<JobOffer[]> {
@@ -84,6 +86,7 @@ export class JobOfferResolver {
     });
     return jobOffers;
   }
+
   @Query(() => JobOffer)
   async specificJobOffer(@Arg('id') id: number): Promise<JobOffer> {
     const offer = await JobOffer.findOne({ id });

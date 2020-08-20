@@ -55,9 +55,9 @@ export class User extends BaseEntity {
   @OneToMany(() => Cv, (cv) => cv.user)
   cvs: Cv;
 
-  @Field(() => [Opinion])
   @OneToMany(() => Opinion, (opinion) => opinion.user)
   opinions: Opinion;
+
   @BeforeInsert()
   createIdandName(): void {
     this.id = uuidv4();
