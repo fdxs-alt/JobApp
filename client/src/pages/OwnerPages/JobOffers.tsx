@@ -4,16 +4,12 @@ import { Container, CreateLink } from '../../styles/CompanyProfileStyle';
 import { ALL_USERS_OFFERS } from '../../Graphql/Queries';
 import { useQuery } from '@apollo/client';
 import SingleJobOffer from '../../components/JobOffer/SingleJobOffer';
-import styled from 'styled-components';
+import { JobOffersWrapper } from '../../styles/JobOffersStyles';
 export type UserOfferResponseType = {
   id: number;
   title: string;
 };
-const JobOffersWrapper = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  padding: 2rem;
-`;
+
 const JobOffers = () => {
   const { data, loading } = useQuery(ALL_USERS_OFFERS);
   console.log(data);

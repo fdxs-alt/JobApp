@@ -54,7 +54,7 @@ const CreateJobOffer: React.FC = () => {
 
   const [tableErrors, setTableErrors] = useState<ErrorStateType | null>(null);
 
-  const { handleSubmit, reset, errors, register } = useForm<
+  const { handleSubmit, reset, errors, register, setValue } = useForm<
     CreateJobOfferTypes
   >({ resolver: joiResolver(schema) });
   const history = useHistory();
@@ -97,6 +97,9 @@ const CreateJobOffer: React.FC = () => {
         draggable: true,
         progress: undefined,
       });
+      setValue('title', '');
+      setValue('minSalary', undefined);
+      setValue('maxSalary', undefined);
       setTimeout(() => {
         history.push('/joboffers');
       }, 3500);
@@ -105,7 +108,7 @@ const CreateJobOffer: React.FC = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>,) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   const resetValue = (e: React.ChangeEvent<HTMLInputElement>) => {

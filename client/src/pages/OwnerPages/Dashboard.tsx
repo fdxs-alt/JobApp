@@ -14,13 +14,12 @@ import {
   JobOfferColums,
   NoCompanyLinkContainer,
   NoJobOfferLinkContainer,
+  JobOfferElement,
 } from '../../styles/Dashboard';
 import { GET_INFORMATION } from '../../Graphql/Queries';
 import { useQuery } from '@apollo/client';
-import styled from 'styled-components';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
 import { CreateLink } from '../../styles/CompanyProfileStyle';
 type Offer = {
   id: number;
@@ -28,7 +27,7 @@ type Offer = {
 };
 
 const Dashboard = () => {
-  const { data, loading, error } = useQuery(GET_INFORMATION);
+  const { data, loading } = useQuery(GET_INFORMATION);
   if (loading)
     return (
       <>
@@ -88,9 +87,7 @@ const Dashboard = () => {
                 <JobOfferColums style={{ letterSpacing: '2px' }}>
                   Offers:
                   {data.allUsersOffers.map((t: Offer) => (
-                    <CompanyInfoElement key={t.id}>
-                      {t.title}
-                    </CompanyInfoElement>
+                    <JobOfferElement key={t.id}>{t.title}</JobOfferElement>
                   ))}
                 </JobOfferColums>
               </JobOfferContainer>

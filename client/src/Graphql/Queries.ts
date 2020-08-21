@@ -117,3 +117,24 @@ export const GET_COMPANY_LOGO = gql`
     }
   }
 `;
+export const GET_ALL_INFO = gql`
+  query GetAllInfo {
+    getAllInfo {
+      company {
+        companyName
+        localisation
+      }
+      offers {
+        id
+        title
+        mandatory
+        minSalary
+        maxSalary
+      }
+      logo {
+        data
+        type
+      }
+    }
+  }
+`;
