@@ -25,6 +25,7 @@ export const IS_OWNER = gql`
 export const GET_USER_COMPANY = gql`
   query GetUserCompany {
     getUserCompany {
+      id
       benefits
       companyName
       description
@@ -105,6 +106,14 @@ export const GET_ALL_JOB_OFFERS = gql`
       onlineRecrutation
       tasks
       title
+    }
+  }
+`;
+export const GET_COMPANY_LOGO = gql`
+  query GetCompanyLogo($id: Float!) {
+    getCompanyLogo(id: $id) {
+      type
+      data
     }
   }
 `;

@@ -16,20 +16,21 @@ type allUsersOffers = {
   allUsersOffers: JobQuery[];
 };
 const AllCompanies = () => {
-  const { data, loading } = useQuery<allUsersOffers>(GET_ALL_JOB_OFFERS);
-  console.log(data);
-  if (loading) return null;
-  else
-    return (
-      <div>
-        <h1>Offers:</h1>
-        {data?.allUsersOffers.map((element) => (
-          <div>
-            {element.title} {element.minSalary + `-` + element.maxSalary}
-          </div>
-        ))}
-      </div>
-    );
+  // const { data, loading } = useQuery<allUsersOffers>(GET_ALL_JOB_OFFERS);
+  // console.log(data);
+  // if (loading) return null;
+  // else
+  //   return (
+  //     <div>
+  //       <h1>Offers:</h1>
+  //       {data?.allUsersOffers.map((element) => (
+  //         <div>
+  //           {element.title} {element.minSalary + `-` + element.maxSalary}
+  //         </div>
+  //       ))}
+  //     </div>
+  //   );
+  return <div>ss</div>
 };
 
 export default AllCompanies;

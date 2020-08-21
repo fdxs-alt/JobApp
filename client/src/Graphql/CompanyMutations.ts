@@ -24,3 +24,13 @@ export const DELETE_IMAGE = gql`
     deleteImage(id: $id)
   }
 `;
+export const ADD_LOGO = gql`
+  mutation AddLogo($id: Float!, $file: Upload!) {
+    addLogo(id: $id, file: $file)
+  }
+`;
+export const DELETE_LOGO = gql`
+  mutation DeleteLogo($id: Float!) {
+    deleteLogo(id: $id)
+  }
+`;

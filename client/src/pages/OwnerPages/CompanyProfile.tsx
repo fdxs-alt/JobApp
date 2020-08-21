@@ -22,10 +22,10 @@ import {
   Element,
   Text,
 } from '../../styles/CompanyProfileStyle';
+import Logo from '../../components/JobOffer/Logo';
 
 const CompanyProfile = () => {
   const { data, loading } = useQuery(GET_USER_COMPANY);
-  console.log(data);
   if (loading) return null;
   else if (!data.getUserCompany)
     return (
@@ -43,7 +43,10 @@ const CompanyProfile = () => {
       <>
         <Navbars />
         <Main>
-          <Title>{data.getUserCompany.companyName}</Title>
+          <Title>
+            {data.getUserCompany.companyName}{' '}
+            <Logo id={data.getUserCompany.id} />
+          </Title>
           <BasicInfo>
             <IconContainer>
               <Icon icon={faFlag} />

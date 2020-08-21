@@ -34,9 +34,12 @@ export const Main = styled.section`
 `;
 export const Title = styled.div`
   padding: 2rem;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   border-top: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 export const BasicInfo = styled.div`
   padding: 2rem;
@@ -73,4 +76,21 @@ export const ColumContainer = styled.div`
 export const Used = styled.p`
   padding: 1rem 0rem 0rem 2rem;
   font-size: 1.5rem;
+`;
+export const ImageInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-width: 2px;
+  border-radius: 2px;
+  border-color: #00e676;
+  border-style: dashed;
+  background-color: #fafafa;
+  color: #bdbdbd;
+  outline: none;
+  transition: border 0.24s ease-in-out;
+`;
+export const LogoImage = styled.img`
+  height: 250px;
 `;

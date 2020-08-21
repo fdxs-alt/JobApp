@@ -52,13 +52,23 @@ export class LogoResolver {
     const result = await Promise.resolve(addLogoPromise);
     return result;
   }
-
-  @Query(() => Logo)
+  @UseMiddleware(EmployerAuthMiddleware)
+  @Mutation(() => Boolean)
+  async deleteLogo(@Arg('id') id: number): Promise<Boolean> {
+    try {
+      const logo = await Logo.findOne({ where: { company: id } });
+      await logo.remove();
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+  @Query(() => Logo, { nullable: true })
   async getCompanyLogo(@Arg('id') id: number): Promise<Logo> {
     try {
       const doesCompanyExist = await Company.findOne({ where: { id } });
 
-      if (!doesCompanyExist) throw new Error('Comapny does not exists');
+      if (!doesCompanyExist) throw new Error('Company does not exists');
 
       const logo = await Logo.findOne({ where: { company: id } });
 

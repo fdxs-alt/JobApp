@@ -11,6 +11,9 @@ import { CompanyInput } from '../types-graphql/CompanyInput';
 import { MyContext } from '../types-graphql/MyContext';
 import { User } from '../entity/User';
 import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
+import { AllInfoResponse, AllInfo } from '../types-graphql/AllInfoResonse';
+import { JobOffer } from '../entity/JobOffer';
+import { Logo } from '../entity/Logo';
 
 @Resolver()
 export class CompanyResolver {
@@ -93,5 +96,20 @@ export class CompanyResolver {
       employer: ctx.payload.userId as any,
     });
     return userCorportion;
+  }
+  @Query(() => [AllInfoResponse])
+  async getAllInfo(): Promise<AllInfo[]> {
+    const allCompanies = await Company.find({});
+    const result: AllInfo[] = [];
+    await Promise.all(
+      allCompanies.map(async (element) => {
+        const jobOffers = await JobOffer.find({
+          where: { company: element.id },
+        });
+        const logo = await Logo.findOne({ where: { company: element.id } });
+        result.push({ company: element, offers: jobOffers, logo: logo });
+      }),
+    );
+    return result;
   }
 }
