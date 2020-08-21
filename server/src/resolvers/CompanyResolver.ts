@@ -12,8 +12,8 @@ import { MyContext } from '../types-graphql/MyContext';
 import { User } from '../entity/User';
 import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
 import { AllInfoResponse, AllInfo } from '../types-graphql/AllInfoResonse';
-import { JobOffer } from '../entity/JobOffer';
 import { Logo } from '../entity/Logo';
+import { getConnection } from 'typeorm';
 
 @Resolver()
 export class CompanyResolver {
@@ -99,17 +99,25 @@ export class CompanyResolver {
   }
   @Query(() => [AllInfoResponse])
   async getAllInfo(): Promise<AllInfo[]> {
-    const allCompanies = await Company.find({});
-    const result: AllInfo[] = [];
-    await Promise.all(
-      allCompanies.map(async (element) => {
-        const jobOffers = await JobOffer.find({
-          where: { company: element.id },
-        });
-        const logo = await Logo.findOne({ where: { company: element.id } });
-        result.push({ company: element, offers: jobOffers, logo: logo });
-      }),
-    );
-    return result;
+    try {
+      const jobOffersWithCompanies = await getConnection()
+        .getRepository(Company)
+        .createQueryBuilder('company')
+        .leftJoinAndSelect('company.joboffers', 'joboffer')
+        .getMany();
+
+      const result: AllInfo[] = [];
+
+      await Promise.all(
+        jobOffersWithCompanies.map(async (element) => {
+          const logo = await Logo.findOne({ where: { company: element.id } });
+          result.push({ company: element, logo });
+        }),
+      );
+
+      return result;
+    } catch (error) {
+      throw new Error('An error occured');
+    }
   }
 }

@@ -123,13 +123,13 @@ export const GET_ALL_INFO = gql`
       company {
         companyName
         localisation
-      }
-      offers {
-        id
-        title
-        mandatory
-        minSalary
-        maxSalary
+        joboffers {
+          id
+          title
+          mandatory
+          minSalary
+          maxSalary
+        }
       }
       logo {
         data

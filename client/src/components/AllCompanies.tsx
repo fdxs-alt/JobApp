@@ -54,7 +54,7 @@ const AllCompanies = () => {
     return (
       <Container>
         {data.getAllInfo.map((element: any) =>
-          element.offers.map((offer: any) => (
+          element.company.joboffers.map((offer: any) => (
             <JobInfromation key={offer.id}>
               <Column>
                 <Logo
