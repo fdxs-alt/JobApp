@@ -88,6 +88,7 @@ const CreateCompany = () => {
         variables: { input },
         refetchQueries: [{ query: GET_USER_COMPANY }],
       });
+
       toast.success('Company created succesfully, you will be redirected!', {
         position: 'top-right',
         autoClose: 3000,
@@ -97,11 +98,22 @@ const CreateCompany = () => {
         draggable: true,
         progress: undefined,
       });
+
       reset();
+
       setTimeout(() => {
         history.push('/profile');
       }, 3500);
     } catch (error) {
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       return;
     }
   };
@@ -217,7 +229,6 @@ const CreateCompany = () => {
             )}
           </Column>
 
-          {error && <Error>{error.message}</Error>}
           {loading ? null : (
             <Button onClick={handleSubmit(onSubmit)}>Save and create</Button>
           )}

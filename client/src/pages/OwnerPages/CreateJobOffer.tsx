@@ -14,7 +14,7 @@ import CreateJobOfferInput from '../../components/inputs/CreateJobOfferInput';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { CREATE_NEW_JOB_OFFER } from '../../Graphql/CompanyMutations';
-import { ALL_USERS_OFFERS } from '../../Graphql/Queries';
+import { ALL_USERS_OFFERS, GET_ALL_INFO } from '../../Graphql/Queries';
 import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';
 import { validateTable, ErrorStateType } from '../../utils/Validation';
@@ -50,7 +50,7 @@ const CreateJobOffer: React.FC = () => {
 
   const [values, setValues] = useState(initalState);
 
-  const [createJob, { error, loading }] = useMutation(CREATE_NEW_JOB_OFFER);
+  const [createJob, { loading }] = useMutation(CREATE_NEW_JOB_OFFER);
 
   const [tableErrors, setTableErrors] = useState<ErrorStateType | null>(null);
 
@@ -71,6 +71,7 @@ const CreateJobOffer: React.FC = () => {
     )
       return;
     setTableErrors(null);
+
     const input = {
       title: data.title,
       minSalary: data.minSalary,
@@ -81,13 +82,16 @@ const CreateJobOffer: React.FC = () => {
       tasks,
       mandatory,
     };
+
     try {
       await createJob({
         variables: { input },
         refetchQueries: [{ query: ALL_USERS_OFFERS }],
       });
       reset();
+
       dispatch({ type: 'RESET_VALUES' });
+
       toast.success('Job offer created succesfully, you will be redirected!', {
         position: 'top-right',
         autoClose: 3000,
@@ -97,13 +101,24 @@ const CreateJobOffer: React.FC = () => {
         draggable: true,
         progress: undefined,
       });
+
       setValue('title', '');
       setValue('minSalary', undefined);
       setValue('maxSalary', undefined);
+
       setTimeout(() => {
         history.push('/joboffers');
       }, 3500);
     } catch (error) {
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       return;
     }
   };
@@ -274,9 +289,6 @@ const CreateJobOffer: React.FC = () => {
 
           {!loading && (
             <Button onClick={handleSubmit(onSubmit)}>Save and create</Button>
-          )}
-          {error && (
-            <Error style={{ textAlign: 'center' }}>{error.message}</Error>
           )}
         </Container>
       </Wrapper>

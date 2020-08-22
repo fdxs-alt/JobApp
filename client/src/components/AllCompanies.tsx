@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_ALL_INFO } from '../Graphql/Queries';
 import styled from 'styled-components';
 import { toBase64 } from '../utils/ToBase64';
+import { Waypoint } from 'react-waypoint';
 const Container = styled.div`
   width: 80%;
   margin: 2.3rem auto;
@@ -46,34 +47,55 @@ const ColumWithSalary = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-const AllCompanies = () => {
-  const { data, loading } = useQuery(GET_ALL_INFO);
-  console.log(data);
+let page = 0;
+const AllJobOffers = () => {
+  const { data, loading, fetchMore } = useQuery(GET_ALL_INFO, {
+    variables: { cursor: page },
+  });
+  const checkIfPossible = (data: any, index: number) => {
+    return data.getAllInfo.hasMore && index === data.getAllInfo.info.length - 5;
+  };
   if (loading) return null;
   else
     return (
       <Container>
-        {data.getAllInfo.map((element: any) =>
-          element.company.joboffers.map((offer: any) => (
-            <JobInfromation key={offer.id}>
+        {data.getAllInfo.info.map((element: any, index: number) => (
+          <React.Fragment key={element.jobOffer.id}>
+            <JobInfromation>
               <Column>
                 <Logo
                   src={`data:image/png;base64, ${toBase64(element.logo.data)}`}
                 />
-                <Title>{offer.title}</Title>
-                <LightInfo>in {element.company.companyName}</LightInfo>
+
+                <Title>{element.jobOffer.title}</Title>
+                <LightInfo>in {element.jobOffer.company.companyName}</LightInfo>
               </Column>
+
               <ColumWithSalary>
                 <Salary>
-                  {offer.minSalary + ' - ' + offer.maxSalary + ' PLN'}
+                  {element.jobOffer.minSalary +
+                    ' - ' +
+                    element.jobOffer.maxSalary +
+                    ' PLN'}
                 </Salary>
-                <LightInfo>{element.company.localisation}</LightInfo>
+                <LightInfo>{element.jobOffer.company.localisation}</LightInfo>
               </ColumWithSalary>
             </JobInfromation>
-          )),
-        )}
+            {checkIfPossible(data, index) ? (
+              <>
+                <Waypoint
+                  onEnter={() => {
+                    fetchMore({
+                      variables: { cursor: data.getAllInfo.info.length },
+                    });
+                  }}
+                />
+              </>
+            ) : null}
+          </React.Fragment>
+        ))}
       </Container>
     );
 };
 
-export default AllCompanies;
+export default AllJobOffers;

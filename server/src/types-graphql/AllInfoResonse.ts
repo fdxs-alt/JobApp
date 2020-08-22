@@ -1,16 +1,24 @@
 import { Field, ObjectType } from 'type-graphql';
-import { Company } from '../entity/CompanyDetails';
 import { Logo } from '../entity/Logo';
+import { JobOffer } from '../entity/JobOffer';
 
 export type AllInfo = {
-  company: Company;
+  jobOffer: JobOffer;
   logo: Logo;
 };
 
 @ObjectType()
-export class AllInfoResponse {
-  @Field(() => Company)
-  company: Company;
+export class InfoTable {
+  @Field(() => JobOffer)
+  jobOffer: JobOffer;
   @Field(() => Logo, { nullable: true })
   logo: Logo;
+}
+
+@ObjectType()
+export class ResponseTable {
+  @Field(() => [InfoTable])
+  info: InfoTable[];
+  @Field()
+  hasMore: boolean;
 }

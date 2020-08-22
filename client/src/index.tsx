@@ -15,6 +15,7 @@ import RefreshTokenLink from './Graphql/RefreshTokenLink';
 import isAuthenticated, { isOwner } from './Graphql/isAuth';
 import { TableProvider } from './context/TableProvider';
 import { JobProvider } from './context/JobOfferProvider';
+import { concatPagination } from '@apollo/client/utilities';
 
 const links = ApolloLink.from([
   AuthLink,
@@ -31,6 +32,20 @@ const client = new ApolloClient({
           getAllJobOfferImages: {
             merge(existing = [], incoming: any) {
               return { ...incoming };
+            },
+          },
+          getAllInfo: {
+            merge(existing = {}, incoming: any) {
+              return {
+                __typename: 'ResponseTable',
+                hasMore: incoming.hasMore,
+                info: existing.info
+                  ? [...existing.info, ...incoming.info]
+                  : [...incoming.info],
+              };
+            },
+            read(existing: any[]) {
+              return existing;
             },
           },
           isAuthenticated: {

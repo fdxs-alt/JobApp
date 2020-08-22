@@ -118,23 +118,26 @@ export const GET_COMPANY_LOGO = gql`
   }
 `;
 export const GET_ALL_INFO = gql`
-  query GetAllInfo {
-    getAllInfo {
-      company {
-        companyName
-        localisation
-        joboffers {
+  query GetAllInfo($cursor: Float!) {
+    getAllInfo(cursor: $cursor) {
+      info {
+        jobOffer {
           id
           title
-          mandatory
           minSalary
           maxSalary
+          onlineRecrutation
+          company {
+            companyName
+            localisation
+          }
+        }
+        logo {
+          data
+          type
         }
       }
-      logo {
-        data
-        type
-      }
+      hasMore
     }
   }
 `;
