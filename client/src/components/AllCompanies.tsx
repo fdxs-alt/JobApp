@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_ALL_INFO } from '../Graphql/Queries';
 import styled from 'styled-components';
-import { toBase64 } from '../utils/ToBase64';
 import { Waypoint } from 'react-waypoint';
+import { length } from '../Graphql/isAuth';
+
 const Container = styled.div`
   width: 80%;
   margin: 2.3rem auto;
@@ -50,47 +51,42 @@ const ColumWithSalary = styled.div`
 let page = 0;
 const AllJobOffers = () => {
   const { data, loading, fetchMore } = useQuery(GET_ALL_INFO, {
-    variables: { cursor: page },
+    variables: { cursor: 0 },
   });
+  console.log(data);
   const checkIfPossible = (data: any, index: number) => {
-    return data.getAllInfo.hasMore && index === data.getAllInfo.info.length - 5;
+    return data.getAllInfo.hasMore && index === data.getAllInfo.info.length - 1;
   };
   if (loading) return null;
   else
     return (
       <Container>
         {data.getAllInfo.info.map((element: any, index: number) => (
-          <React.Fragment key={element.jobOffer.id}>
+          <React.Fragment key={element.id}>
             <JobInfromation>
               <Column>
-                <Logo
-                  src={`data:image/png;base64, ${toBase64(element.logo.data)}`}
-                />
-
-                <Title>{element.jobOffer.title}</Title>
-                <LightInfo>in {element.jobOffer.company.companyName}</LightInfo>
+                <Title>{element.title}</Title>
+                <LightInfo>in {element.company.companyName}</LightInfo>
               </Column>
 
               <ColumWithSalary>
                 <Salary>
-                  {element.jobOffer.minSalary +
-                    ' - ' +
-                    element.jobOffer.maxSalary +
-                    ' PLN'}
+                  {element.minSalary + ' - ' + element.maxSalary + ' PLN'}
                 </Salary>
-                <LightInfo>{element.jobOffer.company.localisation}</LightInfo>
+                <LightInfo>{element.company.localisation}</LightInfo>
               </ColumWithSalary>
             </JobInfromation>
             {checkIfPossible(data, index) ? (
-              <>
-                <Waypoint
-                  onEnter={() => {
-                    fetchMore({
-                      variables: { cursor: data.getAllInfo.info.length },
-                    });
-                  }}
-                />
-              </>
+              <Waypoint
+                onEnter={() => {
+                  page = data.getAllInfo.info.length;
+                  length(data.getAllInfo.info.length);
+
+                  fetchMore({
+                    variables: { cursor: page },
+                  });
+                }}
+              />
             ) : null}
           </React.Fragment>
         ))}

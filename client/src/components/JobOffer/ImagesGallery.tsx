@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { GET_ALL_JOB_IMAGES } from '../../Graphql/Queries';
 import { useQuery, useMutation } from '@apollo/client';
-import { toBase64 } from '../../utils/ToBase64';
+import { encode } from 'base64-arraybuffer';
 import {
   Used,
   ColumContainer,
@@ -51,7 +51,7 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
         },
       });
     },
-    [addImage],
+    [addImage, id],
   );
 
   const handleSubmit = (imageId: number) => {
@@ -104,7 +104,7 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
                     >
                       <Image
                         alt="Job offer"
-                        src={`data:image/png;base64, ${toBase64(element.data)}`}
+                        src={`data:image/png;base64, ${encode(element.data)}`}
                       />
                     </div>
                   );
@@ -116,9 +116,7 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
                     >
                       <Image
                         alt="Job offer"
-                        src={`data:image/jpeg;base64, ${toBase64(
-                          element.data,
-                        )}`}
+                        src={`data:image/jpeg;base64, ${encode(element.data)}`}
                       />
                     </div>
                   );

@@ -51,6 +51,7 @@ export class JobOfferResolver {
     await newJobOffer.save();
     return newJobOffer;
   }
+  @UseMiddleware(EmployerAuthMiddleware)
   @Mutation(() => Boolean)
   async deleteJobOffer(
     @Arg('id') id: number,
@@ -84,6 +85,7 @@ export class JobOfferResolver {
     const jobOffers = await JobOffer.find({
       company: alreadyHasCreatedCompany,
     });
+
     return jobOffers;
   }
 

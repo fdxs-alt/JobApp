@@ -24,3 +24,9 @@ export const IconLink = styled(Link)`
   border: 1px solid ${(props) => props.theme.colors.fontColor};
   padding: 1rem 1.2rem;
 `;
+export const DeleteButton = styled.button`
+  color: black;
+  border: 1px solid ${(props) => props.theme.colors.fontColor};
+  padding: 1rem 1.2rem;
+  background-color: inherit;
+`;

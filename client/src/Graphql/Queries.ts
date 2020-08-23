@@ -121,22 +121,17 @@ export const GET_ALL_INFO = gql`
   query GetAllInfo($cursor: Float!) {
     getAllInfo(cursor: $cursor) {
       info {
-        jobOffer {
-          id
-          title
-          minSalary
-          maxSalary
-          onlineRecrutation
-          company {
-            companyName
-            localisation
-          }
-        }
-        logo {
-          data
-          type
+        id
+        title
+        minSalary
+        maxSalary
+        onlineRecrutation
+        company {
+          companyName
+          localisation
         }
       }
+
       hasMore
     }
   }

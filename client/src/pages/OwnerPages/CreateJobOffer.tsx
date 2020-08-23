@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Navbars from '../../components/Navbars/Navbars';
 import {
   Container,
@@ -22,6 +22,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
 import MapTable from '../../components/JobOffer/MapTable';
+import { length } from '../../Graphql/isAuth';
 
 type CreateJobOfferTypes = {
   title: string;
@@ -86,11 +87,12 @@ const CreateJobOffer: React.FC = () => {
     try {
       await createJob({
         variables: { input },
-        refetchQueries: [{ query: ALL_USERS_OFFERS }],
+        refetchQueries: [
+          { query: ALL_USERS_OFFERS },
+          { query: GET_ALL_INFO, variables: { cursor: length() } },
+        ],
       });
       reset();
-
-      dispatch({ type: 'RESET_VALUES' });
 
       toast.success('Job offer created succesfully, you will be redirected!', {
         position: 'top-right',
@@ -108,7 +110,7 @@ const CreateJobOffer: React.FC = () => {
 
       setTimeout(() => {
         history.push('/joboffers');
-      }, 3500);
+      }, 3000);
     } catch (error) {
       toast.error(error.message, {
         position: 'top-right',
@@ -154,6 +156,10 @@ const CreateJobOffer: React.FC = () => {
   const handleDeletingMandatorySkill = (mandatory: string) => {
     dispatch({ type: 'DELETE_MANDATORY', payload: mandatory });
   };
+
+  useEffect(() => {
+    return dispatch({ type: 'RESET_VALUES' });
+  }, []);
   return (
     <>
       <Navbars />

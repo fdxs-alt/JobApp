@@ -11,8 +11,7 @@ import { CompanyInput } from '../types-graphql/CompanyInput';
 import { MyContext } from '../types-graphql/MyContext';
 import { User } from '../entity/User';
 import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
-import { ResponseTable, InfoTable } from '../types-graphql/AllInfoResonse';
-import { Logo } from '../entity/Logo';
+import { ResponseTable } from '../types-graphql/AllInfoResonse';
 import { getConnection } from 'typeorm';
 import { JobOffer } from '../entity/JobOffer';
 
@@ -109,18 +108,7 @@ export class CompanyResolver {
         .take(9)
         .getMany();
 
-      const result: InfoTable[] = [];
-
-      await Promise.all(
-        joboffers.map(async (element) => {
-          const logo = await Logo.findOne({
-            where: { company: element.company.id },
-          });
-          result.push({ jobOffer: element, logo });
-        }),
-      );
-
-      return { info: result, hasMore: result.length === 9 };
+      return { info: joboffers, hasMore: joboffers.length === 9 };
     } catch (error) {
       throw new Error('An error occured');
     }

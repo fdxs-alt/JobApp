@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { GET_COMPANY_LOGO } from '../../Graphql/Queries';
 import { useDropzone } from 'react-dropzone';
 import { ADD_LOGO, DELETE_LOGO } from '../../Graphql/CompanyMutations';
-import { toBase64 } from '../../utils/ToBase64';
+import { encode } from 'base64-arraybuffer';
 import { confirmAlert } from 'react-confirm-alert';
 import { Title } from '../../styles/SearchBarStyles';
 import { Confirmation } from '../../styles/ImagesGallery';
@@ -35,7 +35,7 @@ const Logo: React.FC<Props> = ({ id }) => {
         refetchQueries: [{ query: GET_COMPANY_LOGO, variables: { id } }],
       });
     },
-    [addLogo],
+    [addLogo, id],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -88,7 +88,7 @@ const Logo: React.FC<Props> = ({ id }) => {
               <div onClick={handleSubmit}>
                 <LogoImage
                   alt="Job offer"
-                  src={`data:image/png;base64, ${toBase64(
+                  src={`data:image/png;base64, ${encode(
                     data.getCompanyLogo.data,
                   )}`}
                 />
@@ -98,7 +98,7 @@ const Logo: React.FC<Props> = ({ id }) => {
               <div onClick={handleSubmit}>
                 <LogoImage
                   alt="Job offer"
-                  src={`data:image/jpeg;base64, ${toBase64(
+                  src={`data:image/jpeg;base64, ${encode(
                     data.getCompanyLogo.data,
                   )}`}
                 />

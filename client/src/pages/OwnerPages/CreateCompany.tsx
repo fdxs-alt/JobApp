@@ -47,7 +47,7 @@ const CreateCompany = () => {
     state: { userTechnology, userBenefits },
   } = useContext(TableContext);
 
-  const [createCompany, { error, loading }] = useMutation(ADD_COMPANY);
+  const [createCompany, { loading }] = useMutation(ADD_COMPANY);
   const [tableError, setTableError] = useState<TableErrorProps>({});
   const history = useHistory();
   const { register, handleSubmit, errors, reset } = useForm<CreateCompanyProps>(

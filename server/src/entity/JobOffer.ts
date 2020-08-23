@@ -10,6 +10,7 @@ import { Company } from './CompanyDetails';
 import { Field, ObjectType } from 'type-graphql';
 import { Images } from './Images';
 import { Cv } from './Cv';
+import moment from 'moment';
 @ObjectType()
 @Entity()
 export class JobOffer extends BaseEntity {
@@ -48,6 +49,14 @@ export class JobOffer extends BaseEntity {
   @Field()
   @Column('boolean', { default: false })
   onlineRecrutation: boolean;
+
+  @Field()
+  @Column({ type: 'varchar', default: moment().format('DD-MM-YYYY') })
+  date: string;
+
+  @Field()
+  @Column({ type: 'varchar', nullable: true })
+  main: string;
 
   @Field(() => Company)
   @ManyToOne(() => Company, (company) => company.joboffers, {

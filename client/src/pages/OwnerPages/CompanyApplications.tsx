@@ -3,7 +3,7 @@ import Navbars from '../../components/Navbars/Navbars';
 import { useQuery } from '@apollo/client';
 import { GET_ALL_CVS } from '../../Graphql/Queries';
 const CompanyApplications = () => {
-  const { data, loading, error } = useQuery(GET_ALL_CVS);
+  const { data, loading } = useQuery(GET_ALL_CVS);
   if (loading) return null;
   return (
     <>

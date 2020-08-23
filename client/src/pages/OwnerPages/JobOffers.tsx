@@ -12,7 +12,7 @@ export type UserOfferResponseType = {
 
 const JobOffers = () => {
   const { data, loading } = useQuery(ALL_USERS_OFFERS);
-  console.log(data);
+
   if (loading) return null;
   if (!data)
     return (

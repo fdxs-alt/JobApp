@@ -34,3 +34,8 @@ export const DELETE_LOGO = gql`
     deleteLogo(id: $id)
   }
 `;
+export const DELETE_JOB_OFFER = gql`
+  mutation DeleteJobOffer($id: Float!) {
+    deleteJobOffer(id: $id)
+  }
+`;
