@@ -19,15 +19,25 @@ import {
   Button,
   Image,
 } from '../../styles/ImagesGallery';
-
+type Response = {
+  id: number;
+  data: Buffer;
+  type: string;
+};
+type getAllJobOfferImagesResponse = {
+  getAllJobOfferImages: Response[];
+};
 type Props = {
   id: number;
 };
 const ImagesGallery: React.FC<Props> = ({ id }) => {
-  const { data, loading } = useQuery(GET_ALL_JOB_IMAGES, {
-    variables: { id },
-    fetchPolicy: 'network-only',
-  });
+  const { data, loading } = useQuery<getAllJobOfferImagesResponse>(
+    GET_ALL_JOB_IMAGES,
+    {
+      variables: { id },
+      fetchPolicy: 'network-only',
+    },
+  );
 
   const [deleteImage, { loading: deletingImage }] = useMutation(DELETE_IMAGE, {
     refetchQueries: [{ query: GET_ALL_JOB_IMAGES, variables: { id } }],
@@ -91,11 +101,11 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
   else
     return (
       <>
-        {data.getAllJobOfferImages.length !== 0 ? (
+        {data!.getAllJobOfferImages.length !== 0 ? (
           <ColumContainer>
             <Used>Gallery: (click to delete an image)</Used>
             <GridContainer>
-              {data.getAllJobOfferImages.map((element: any) => {
+              {data!.getAllJobOfferImages.map((element) => {
                 if (element.type === 'image/png')
                   return (
                     <div

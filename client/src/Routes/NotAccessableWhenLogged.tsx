@@ -7,9 +7,14 @@ const NotAccessableWhenLogged: React.FC<{
   path: string;
   exact?: boolean;
 }> = (props) => {
-  const { data } = useQuery(IS_AUTH, { fetchPolicy: 'cache-and-network' });
+  type Response = {
+    isAuthenticated: boolean;
+  };
+  const { data } = useQuery<Response>(IS_AUTH, {
+    fetchPolicy: 'cache-and-network',
+  });
 
-  return data.isAuthenticated ? (
+  return data!.isAuthenticated ? (
     <Redirect to="/" />
   ) : (
     <Route path={props.path} exact={props.exact} component={props.component} />

@@ -7,10 +7,22 @@ import { LOGOUT } from '../../Graphql/AuthMutations';
 import { setToken } from '../../AccessToken';
 import isAuthenticated, { isOwner } from '../../Graphql/isAuth';
 import { useHistory } from 'react-router-dom';
+
+type Response = {
+  getUser: {
+    id: number;
+    email: string;
+    confirmed: boolean;
+    hasCompany: boolean;
+    fullName: string;
+    companyName: string;
+  };
+};
+
 const Navbars = () => {
   const history = useHistory();
   const [logout, { client }] = useMutation(LOGOUT);
-  const { data, loading } = useQuery(GET_USER);
+  const { data, loading } = useQuery<Response>(GET_USER);
   const handleClick = async (): Promise<void> => {
     await logout();
     isAuthenticated(false);

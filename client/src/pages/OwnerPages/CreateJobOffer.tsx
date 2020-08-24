@@ -96,7 +96,7 @@ const CreateJobOffer: React.FC = () => {
 
       toast.success('Job offer created succesfully, you will be redirected!', {
         position: 'top-right',
-        autoClose: 3000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -110,7 +110,7 @@ const CreateJobOffer: React.FC = () => {
 
       setTimeout(() => {
         history.push('/joboffers');
-      }, 3000);
+      }, 2500);
     } catch (error) {
       toast.error(error.message, {
         position: 'top-right',

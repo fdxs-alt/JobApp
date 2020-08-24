@@ -11,6 +11,7 @@ import { JobOfferInput } from '../types-graphql/JobOfferInput';
 import { MyContext } from '../types-graphql/MyContext';
 import { Company } from '../entity/CompanyDetails';
 import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
+import moment from 'moment';
 
 @Resolver()
 export class JobOfferResolver {
@@ -46,6 +47,7 @@ export class JobOfferResolver {
       onlineRecrutation,
       tasks,
       title,
+      date: moment().format('DD-MM-YYYY'),
       company: alreadyHasCreatedCompany,
     });
     await newJobOffer.save();

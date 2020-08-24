@@ -24,10 +24,25 @@ import {
 } from '../../styles/CompanyProfileStyle';
 import Logo from '../../components/JobOffer/Logo';
 
+type Response = {
+  id: number;
+  benefits: string[];
+  companyName: string;
+  description: string;
+  yearOfSetUp: number;
+  sizeOfCompany: number;
+  localisation: string;
+  technologies: string[];
+};
+
+type getUserCompanyResponse = {
+  getUserCompany: Response;
+};
+
 const CompanyProfile = () => {
-  const { data, loading } = useQuery(GET_USER_COMPANY);
+  const { data, loading } = useQuery<getUserCompanyResponse>(GET_USER_COMPANY);
   if (loading) return null;
-  else if (!data.getUserCompany)
+  else if (!data!.getUserCompany)
     return (
       <>
         <Navbars />
@@ -44,28 +59,28 @@ const CompanyProfile = () => {
         <Navbars />
         <Main>
           <Title>
-            {data.getUserCompany.companyName}{' '}
-            <Logo id={data.getUserCompany.id} />
+            {data!.getUserCompany.companyName}{' '}
+            <Logo id={data!.getUserCompany.id} />
           </Title>
           <BasicInfo>
             <IconContainer>
               <Icon icon={faFlag} />
-              <Text>Set in: {data.getUserCompany.yearOfSetUp}</Text>
+              <Text>Set in: {data!.getUserCompany.yearOfSetUp}</Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faHome} />
-              <Text>Localisation: {data.getUserCompany.localisation}</Text>
+              <Text>Localisation: {data!.getUserCompany.localisation}</Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faUserFriends} />
-              <Text>Size of company: {data.getUserCompany.sizeOfCompany}</Text>
+              <Text>Size of company: {data!.getUserCompany.sizeOfCompany}</Text>
             </IconContainer>
           </BasicInfo>
-          <Description>{data.getUserCompany.description}</Description>
+          <Description>{data!.getUserCompany.description}</Description>
           <ColumContainer>
             <Used>Technologies used:</Used>
             <GridContainer>
-              {data.getUserCompany.technologies.map(
+              {data!.getUserCompany.technologies.map(
                 (tech: string, index: number) => (
                   <Element key={index}>{tech}</Element>
                 ),
@@ -76,7 +91,7 @@ const CompanyProfile = () => {
           <ColumContainer>
             <Used>Benefits in your company:</Used>
             <GridContainer>
-              {data.getUserCompany.benefits.map(
+              {data!.getUserCompany.benefits.map(
                 (tech: string, index: number) => (
                   <Element key={index}>{tech}</Element>
                 ),

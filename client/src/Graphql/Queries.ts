@@ -41,6 +41,7 @@ export const ALL_USERS_OFFERS = gql`
     allUsersOffers {
       id
       title
+      date
     }
   }
 `;
@@ -126,6 +127,7 @@ export const GET_ALL_INFO = gql`
         minSalary
         maxSalary
         onlineRecrutation
+        date
         company {
           companyName
           localisation

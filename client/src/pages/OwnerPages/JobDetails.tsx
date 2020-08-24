@@ -19,9 +19,22 @@ import {
 } from '../../styles/CompanyProfileStyle';
 import { faMoneyBillAlt, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 
+type Response = {
+  specificJobOffer: {
+    benefitsInWork: string[];
+    extraSkills: string[];
+    mandatory: string[];
+    maxSalary: number;
+    minSalary: number;
+    onlineRecrutation: boolean;
+    tasks: string[];
+    title: string[];
+  };
+};
+
 const JobDetails = () => {
   const id = parseInt((parse(window.location.search) as any).id);
-  const { data, loading, error } = useQuery(SPECIFIC_JOB_OFFER, {
+  const { data, loading, error } = useQuery<Response>(SPECIFIC_JOB_OFFER, {
     variables: { id },
   });
 
@@ -32,22 +45,22 @@ const JobDetails = () => {
       <>
         <Navbars />
         <Main>
-          <Title>{data.specificJobOffer.title}</Title>
+          <Title>{data!.specificJobOffer.title}</Title>
           <BasicInfo>
             <IconContainer>
               <Icon icon={faMoneyBillAlt} />
-              <Text>Minimum salary: {data.specificJobOffer.minSalary}</Text>
+              <Text>Minimum salary: {data!.specificJobOffer.minSalary}</Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faMoneyBill} />
-              <Text>Maximum salary: {data.specificJobOffer.maxSalary}</Text>
+              <Text>Maximum salary: {data!.specificJobOffer.maxSalary}</Text>
             </IconContainer>
           </BasicInfo>
 
           <ColumContainer>
             <Used>Mandatory skills:</Used>
             <GridContainer>
-              {data.specificJobOffer.mandatory.map(
+              {data!.specificJobOffer.mandatory.map(
                 (mandatory: string, index: number) => (
                   <Element key={index}>{mandatory}</Element>
                 ),
@@ -57,7 +70,7 @@ const JobDetails = () => {
           <ColumContainer>
             <Used>Extra skills: </Used>
             <GridContainer>
-              {data.specificJobOffer.extraSkills.map(
+              {data!.specificJobOffer.extraSkills.map(
                 (skill: string, index: number) => (
                   <Element key={index}>{skill}</Element>
                 ),
@@ -67,7 +80,7 @@ const JobDetails = () => {
           <ColumContainer>
             <Used>Tasks during employment:</Used>
             <GridContainer>
-              {data.specificJobOffer.tasks.map(
+              {data!.specificJobOffer.tasks.map(
                 (task: string, index: number) => (
                   <Element key={index}>{task}</Element>
                 ),
@@ -77,7 +90,7 @@ const JobDetails = () => {
           <ColumContainer>
             <Used>Benefits:</Used>
             <GridContainer>
-              {data.specificJobOffer.benefitsInWork.map(
+              {data!.specificJobOffer.benefitsInWork.map(
                 (benefit: string, index: number) => (
                   <Element key={index}>{benefit}</Element>
                 ),

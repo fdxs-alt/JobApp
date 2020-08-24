@@ -1,5 +1,5 @@
 import React from 'react';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   IconLink,
@@ -13,17 +13,19 @@ import { ALL_USERS_OFFERS } from '../../Graphql/Queries';
 type Props = {
   title: string;
   id: number;
+  date: string;
 };
 type ArrayProp = {
   __typename: string;
   title: string;
   id: number;
+  date: string;
 };
 type QueryProps = {
   allUsersOffers: ArrayProp[];
 };
 
-const SingleJobOffer: React.FC<Props> = ({ title, id }) => {
+const SingleJobOffer: React.FC<Props> = ({ title, id, date }) => {
   const [deleteJobOffer, { loading }] = useMutation(DELETE_JOB_OFFER, {
     variables: { id },
     update: (store) => {
@@ -46,11 +48,12 @@ const SingleJobOffer: React.FC<Props> = ({ title, id }) => {
   return (
     <Container>
       <Title>{title}</Title>
+      <Title>{date}</Title>
       <IconLink to={`/job?id=${id}`}>
         <FontAwesomeIcon icon={faInfoCircle} />
       </IconLink>
-      <DeleteButton onClick={() => deleteJobOffer()}>
-        <FontAwesomeIcon icon={faInfoCircle} />
+      <DeleteButton onClick={() => deleteJobOffer()} tabIndex={0}>
+        <FontAwesomeIcon icon={faTrashAlt} />
       </DeleteButton>
     </Container>
   );

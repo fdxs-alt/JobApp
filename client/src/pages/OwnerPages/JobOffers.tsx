@@ -8,10 +8,13 @@ import { JobOffersWrapper } from '../../styles/JobOffersStyles';
 export type UserOfferResponseType = {
   id: number;
   title: string;
+  date: string;
 };
-
+type Response = {
+  allUsersOffers: UserOfferResponseType[];
+};
 const JobOffers = () => {
-  const { data, loading } = useQuery(ALL_USERS_OFFERS);
+  const { data, loading } = useQuery<Response>(ALL_USERS_OFFERS);
 
   if (loading) return null;
   if (!data)
@@ -41,6 +44,7 @@ const JobOffers = () => {
                   key={offer.id}
                   title={offer.title}
                   id={offer.id}
+                  date={offer.date}
                 />
               ))}
             </JobOffersWrapper>

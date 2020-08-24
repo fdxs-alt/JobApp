@@ -21,13 +21,33 @@ import { useQuery } from '@apollo/client';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CreateLink } from '../../styles/CompanyProfileStyle';
+
 type Offer = {
   id: number;
   title: string;
 };
 
+type Response = {
+  getUser: {
+    fullName: string;
+  };
+
+  getUserCompany: {
+    benefits: string[];
+    companyName: string;
+    description: string;
+    yearOfSetUp: number;
+    sizeOfCompany: number;
+    localisation: string;
+    technologies: string[];
+  };
+
+  allUsersOffers: Offer[];
+};
+
 const Dashboard = () => {
-  const { data, loading } = useQuery(GET_INFORMATION);
+  const { data, loading } = useQuery<Response>(GET_INFORMATION);
+  console.log(data);
   if (loading)
     return (
       <>
@@ -45,35 +65,35 @@ const Dashboard = () => {
               <Title>Dashboard</Title>
             </DashboardTitle>
 
-            {!data.getUserCompany ? (
+            {!data!.getUserCompany ? (
               <NoCompanyLinkContainer>
                 <CreateLink to="/createCompany">Create company!</CreateLink>
               </NoCompanyLinkContainer>
             ) : (
               <CompanyInfoContainer>
                 <CompanyInfoElement>
-                  <b>Owner:</b> {data.getUser.fullName}
+                  <b>Owner:</b> {data!.getUser.fullName}
                 </CompanyInfoElement>
                 <CompanyInfoElement>
-                  <b>Company name</b> {data.getUserCompany.companyName}
+                  <b>Company name</b> {data!.getUserCompany.companyName}
                 </CompanyInfoElement>
                 <CompanyInfoElement>
-                  <b>Localisation:</b> {data.getUserCompany.localisation}
+                  <b>Localisation:</b> {data!.getUserCompany.localisation}
                 </CompanyInfoElement>
                 <CompanyInfoElement>
-                  <b>Size of company:</b> {data.getUserCompany.sizeOfCompany}
+                  <b>Size of company:</b> {data!.getUserCompany.sizeOfCompany}
                 </CompanyInfoElement>
                 <CompanyInfoElement>
                   <b> Technologies:</b>{' '}
-                  {data.getUserCompany.technologies.join(', ')}
+                  {data!.getUserCompany.technologies.join(', ')}
                 </CompanyInfoElement>
                 <CompanyInfoElement>
-                  <b>Benefits:</b> {data.getUserCompany.benefits.join(', ')}
+                  <b>Benefits:</b> {data!.getUserCompany.benefits.join(', ')}
                 </CompanyInfoElement>
               </CompanyInfoContainer>
             )}
 
-            {data.allUsersOffers.length !== 0 ? (
+            {data!.allUsersOffers.length !== 0 ? (
               <JobOfferContainer>
                 <Column>
                   <FontAwesomeIcon
@@ -81,12 +101,12 @@ const Dashboard = () => {
                     style={{ fontSize: '12vh' }}
                   />
                   <JobOffersQuantity>
-                    Your job offers: {data.allUsersOffers.length}
+                    Your job offers: {data!.allUsersOffers.length}
                   </JobOffersQuantity>
                 </Column>
                 <JobOfferColums style={{ letterSpacing: '2px' }}>
                   Offers:
-                  {data.allUsersOffers.map((t: Offer) => (
+                  {data!.allUsersOffers.map((t: Offer) => (
                     <JobOfferElement key={t.id}>{t.title}</JobOfferElement>
                   ))}
                 </JobOfferColums>
@@ -98,7 +118,7 @@ const Dashboard = () => {
               </NoJobOfferLinkContainer>
             )}
 
-            {data.allUsersOffers.length !== 0 && data.getUserCompany && (
+            {data!.allUsersOffers.length !== 0 && data!.getUserCompany && (
               <ButtonContainer>
                 <CreateLink
                   to="/createJobOffer"
