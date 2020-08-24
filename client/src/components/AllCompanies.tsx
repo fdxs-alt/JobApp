@@ -25,6 +25,7 @@ type infoObjectType = {
       date: string;
       main: string;
       company: {
+        id: number;
         companyName: string;
         localisation: string;
       };

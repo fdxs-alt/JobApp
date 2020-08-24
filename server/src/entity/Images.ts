@@ -1,4 +1,4 @@
-import { Field, ObjectType, ID } from 'type-graphql';
+import { Field, ObjectType } from 'type-graphql';
 import {
   Column,
   PrimaryGeneratedColumn,

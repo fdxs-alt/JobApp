@@ -135,12 +135,50 @@ export const GET_ALL_INFO = gql`
         date
         main
         company {
+          id
           companyName
           localisation
         }
       }
 
       hasMore
+    }
+  }
+`;
+export const GET_ALL_SPECIFIC_INFO = gql`
+  query getSpecificInfo($id: Float!) {
+    getSpecificInfo(id: $id) {
+      offer {
+        title
+        mandatory
+        extraSkills
+        tasks
+        benefitsInWork
+        minSalary
+        maxSalary
+        onlineRecrutation
+        description
+        main
+        date
+        company {
+          companyName
+          yearOfSetUp
+          sizeOfCompany
+          localisation
+          description
+          technologies
+          benefits
+        }
+      }
+      logo {
+        type
+        data
+      }
+      images {
+        id
+        type
+        data
+      }
     }
   }
 `;

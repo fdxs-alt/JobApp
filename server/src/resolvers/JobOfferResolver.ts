@@ -12,6 +12,10 @@ import { MyContext } from '../types-graphql/MyContext';
 import { Company } from '../entity/CompanyDetails';
 import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
 import moment from 'moment';
+import { Images } from '../entity/Images';
+import { Logo } from '../entity/Logo';
+import { SpecificOfferResponse } from '../types-graphql/SpecificOfferResponse';
+import { getConnection } from 'typeorm';
 
 @Resolver()
 export class JobOfferResolver {
@@ -102,5 +106,20 @@ export class JobOfferResolver {
     if (!offer) throw new Error("Offer with given id doesn't exist");
 
     return offer;
+  }
+
+  @Query(() => SpecificOfferResponse)
+  async getSpecificInfo(@Arg('id') id: number): Promise<SpecificOfferResponse> {
+    const offer = await getConnection()
+      .getRepository(JobOffer)
+      .createQueryBuilder('joboffer')
+      .leftJoinAndSelect('joboffer.company', 'company')
+      .where('joboffer.id = :id', { id })
+      .getOne();
+
+    const logo = await Logo.findOne({ where: { company: offer.company.id } });
+    const images = await Images.find({ where: { joboffer: offer.id } });
+
+    return { offer, images, logo };
   }
 }

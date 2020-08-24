@@ -20,7 +20,7 @@ import JobOffers from '../pages/OwnerPages/JobOffers';
 import CreateJobOffer from '../pages/OwnerPages/CreateJobOffer';
 import JobDetails from '../pages/OwnerPages/JobDetails';
 import CompanyApplications from '../pages/OwnerPages/CompanyApplications';
-import SpecificJobOffer from '../pages/OwnerPages/SpecificJobOffer';
+import SpecificJobOffer from '../pages/SpecificJobOffer';
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
