@@ -71,7 +71,6 @@ const AllJobOffers = () => {
                 onEnter={() => {
                   page = data!.getAllInfo.info.length;
                   length(data!.getAllInfo.info.length);
-
                   fetchMore({
                     variables: { cursor: page },
                   });

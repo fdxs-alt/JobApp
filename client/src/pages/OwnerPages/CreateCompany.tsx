@@ -114,6 +114,7 @@ const CreateCompany = () => {
         draggable: true,
         progress: undefined,
       });
+      reset();
       return;
     }
   };

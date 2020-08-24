@@ -10,6 +10,10 @@ import {
 import { DELETE_JOB_OFFER } from '../../Graphql/CompanyMutations';
 import { useMutation } from '@apollo/client';
 import { ALL_USERS_OFFERS } from '../../Graphql/Queries';
+import { confirmAlert } from 'react-confirm-alert';
+import { Confirmation } from '../../styles/ImagesGallery';
+import { ButtonContainer, Button } from '../../styles/ImagesGallery';
+import { Title as ConfrimationTitle } from '../../styles/SearchBarStyles';
 type Props = {
   title: string;
   id: number;
@@ -26,7 +30,7 @@ type QueryProps = {
 };
 
 const SingleJobOffer: React.FC<Props> = ({ title, id, date }) => {
-  const [deleteJobOffer, { loading }] = useMutation(DELETE_JOB_OFFER, {
+  const [deleteJobOffer] = useMutation(DELETE_JOB_OFFER, {
     variables: { id },
     update: (store) => {
       const jobOffers = store.readQuery<QueryProps>({
@@ -44,6 +48,33 @@ const SingleJobOffer: React.FC<Props> = ({ title, id, date }) => {
       });
     },
   });
+  const handleClick = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div>
+            <ConfrimationTitle>Are you sure?</ConfrimationTitle>
+            <Confirmation>
+              Do you really want to delete this job offer?{' '}
+              <b>You can't undo this action</b>
+            </Confirmation>
+
+            <ButtonContainer>
+              <Button onClick={onClose}>No</Button>
+              <Button
+                onClick={async () => {
+                  await deleteJobOffer();
+                  onClose();
+                }}
+              >
+                Yes
+              </Button>
+            </ButtonContainer>
+          </div>
+        );
+      },
+    });
+  };
 
   return (
     <Container>
@@ -52,7 +83,7 @@ const SingleJobOffer: React.FC<Props> = ({ title, id, date }) => {
       <IconLink to={`/job?id=${id}`}>
         <FontAwesomeIcon icon={faInfoCircle} />
       </IconLink>
-      <DeleteButton onClick={() => deleteJobOffer()} tabIndex={0}>
+      <DeleteButton onClick={() => handleClick()} tabIndex={0}>
         <FontAwesomeIcon icon={faTrashAlt} />
       </DeleteButton>
     </Container>
