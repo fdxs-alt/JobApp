@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: auto;
   display: grid;
   background-color: ${(props) => props.theme.colors.border};
-  grid-template-columns: 0.4fr 1fr;
+  grid-template-columns: 0.5fr 1fr;
   align-items: center;
   &:last-child {
     grid-column: 1/3;
@@ -24,12 +24,21 @@ export const Input = styled.input<InputProps>`
   height: ${(props) => (props.height ? props.height + 'vh' : '50px')};
   padding: 0.8rem 0.6rem;
   font-size: 1rem;
-  margin-bottom: 0.8rem;
-  margin-top: 0.2rem;
+
   border: 3px solid ${(props) => props.theme.colors.border2};
   &::placeholder {
     color: ${(props) => props.theme.colors.fontColor};
   }
+`;
+export const TextArea = styled.textarea<InputProps>`
+  width: ${(props) => (props.width ? props.width + '%' : '30%')};
+  padding: 0.8rem 0.6rem;
+  font-family: inherit;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  margin-top: 0.2rem;
+  border: 3px solid ${(props) => props.theme.colors.border2};
+  resize: none;
 `;
 export const Column = styled.div`
   padding: 2rem;
@@ -44,24 +53,29 @@ export const GridWrapper = styled.div`
   gap: 1.2rem;
   padding: 1.2rem;
 `;
-export const AddOwn = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: ${(props) => props.theme.colors.button};
-  font-size: 0.9rem;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid ${(props) => props.theme.colors.lightBorder};
-  color: white;
-  cursor: pointer;
-`;
+
 export const Button = styled.button`
   grid-column: 1/3;
-  width: 20%;
+  width: 30%;
   justify-self: center;
   background-color: ${(props) => props.theme.colors.button};
   font-size: 1.2rem;
   padding: 0.6rem;
   border: 1px solid white;
   color: white;
+  border-radius: 5px;
   cursor: pointer;
+`;
+
+export const AddButton = styled.button`
+  width: 20%;
+  background-color: ${(props) => props.theme.colors.button};
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+  padding: 0.8rem 0.6rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 5%;
+  border: 3px solid ${(props) => props.theme.colors.border2};
 `;

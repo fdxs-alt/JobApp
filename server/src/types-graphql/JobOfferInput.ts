@@ -33,4 +33,12 @@ export class JobOfferInput {
   @Field()
   @IsBoolean({ message: 'Value of fild must be true or false' })
   onlineRecrutation: boolean;
+
+  @Field()
+  @IsNotEmpty({ message: "Maximum salary field can't be empty" })
+  main: string;
+
+  @Field()
+  @IsNotEmpty({ message: "Maximum salary field can't be empty" })
+  description: string;
 }

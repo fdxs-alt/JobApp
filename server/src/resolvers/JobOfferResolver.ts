@@ -28,6 +28,8 @@ export class JobOfferResolver {
       onlineRecrutation,
       tasks,
       title,
+      description,
+      main,
     }: JobOfferInput,
     @Ctx() ctx: MyContext,
   ): Promise<JobOffer> {
@@ -46,10 +48,13 @@ export class JobOfferResolver {
       minSalary,
       onlineRecrutation,
       tasks,
+      description,
+      main,
       title,
       date: moment().format('DD-MM-YYYY'),
       company: alreadyHasCreatedCompany,
     });
+
     await newJobOffer.save();
     return newJobOffer;
   }

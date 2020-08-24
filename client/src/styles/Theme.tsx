@@ -9,7 +9,8 @@ const theme = {
     fontColor: '#bbb1b1',
     darkish: '#191919',
     lightBorder: '#313439',
-    lightGray: "#dedede"
+    lightGray: "#dedede",
+    secondary: "#3b5bb3"
   },
 };
 

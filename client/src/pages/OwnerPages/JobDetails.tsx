@@ -16,8 +16,13 @@ import {
   GridContainer,
   Element,
   Text,
+  Description,
 } from '../../styles/CompanyProfileStyle';
-import { faMoneyBillAlt, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
+import {
+  faMoneyBillAlt,
+  faMoneyBill,
+  faMicrochip,
+} from '@fortawesome/free-solid-svg-icons';
 
 type Response = {
   specificJobOffer: {
@@ -29,6 +34,9 @@ type Response = {
     onlineRecrutation: boolean;
     tasks: string[];
     title: string[];
+    main: string;
+    description: string;
+    date: string;
   };
 };
 
@@ -49,14 +57,33 @@ const JobDetails = () => {
           <BasicInfo>
             <IconContainer>
               <Icon icon={faMoneyBillAlt} />
-              <Text>Minimum salary: {data!.specificJobOffer.minSalary}</Text>
+              <Text>
+                Minimum salary: <b>{data!.specificJobOffer.minSalary}</b>
+              </Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faMoneyBill} />
-              <Text>Maximum salary: {data!.specificJobOffer.maxSalary}</Text>
+              <Text>
+                Maximum salary: <b>{data!.specificJobOffer.maxSalary}</b>
+              </Text>
+            </IconContainer>
+            <IconContainer>
+              <Icon icon={faMicrochip} />
+              <Text>
+                Main technology: <b>{data!.specificJobOffer.main}</b>
+              </Text>
+            </IconContainer>
+            <IconContainer>
+              <Icon icon={faMicrochip} />
+              <Text>
+                Date of publish: <b>{data!.specificJobOffer.date}</b>
+              </Text>
             </IconContainer>
           </BasicInfo>
-
+          <Description>
+            <h3>Description:</h3>
+            {data!.specificJobOffer.description}
+          </Description>
           <ColumContainer>
             <Used>Mandatory skills:</Used>
             <GridContainer>

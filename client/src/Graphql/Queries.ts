@@ -56,6 +56,9 @@ export const SPECIFIC_JOB_OFFER = gql`
       onlineRecrutation
       tasks
       title
+      date
+      main
+      description
     }
   }
 `;
@@ -107,6 +110,8 @@ export const GET_ALL_JOB_OFFERS = gql`
       onlineRecrutation
       tasks
       title
+      main
+      description
     }
   }
 `;
@@ -128,6 +133,7 @@ export const GET_ALL_INFO = gql`
         maxSalary
         onlineRecrutation
         date
+        main
         company {
           companyName
           localisation

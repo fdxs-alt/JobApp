@@ -6,6 +6,7 @@ import {
   Column,
   Input,
   Button,
+  TextArea,
 } from '../../styles/CreateCompanyStyles';
 import { InputLabel, Error } from '../../styles/LoginPageStyles';
 import { JobOfferContext } from '../../context/JobOfferProvider';
@@ -29,6 +30,8 @@ type CreateJobOfferTypes = {
   minSalary: number;
   maxSalary: number;
   onlineRecrutation: boolean;
+  main: string;
+  description: string;
 };
 const initalState = {
   task: '',
@@ -42,6 +45,8 @@ const schema = Joi.object({
   minSalary: Joi.number().min(1).required(),
   maxSalary: Joi.number().min(1).required(),
   onlineRecrutation: Joi.boolean().required(),
+  main: Joi.string().required(),
+  description: Joi.string().required(),
 });
 const CreateJobOffer: React.FC = () => {
   const {
@@ -81,6 +86,8 @@ const CreateJobOffer: React.FC = () => {
       benefitsInWork,
       extraSkills,
       tasks,
+      main: data.main,
+      description: data.description,
       mandatory,
     };
 
@@ -227,6 +234,27 @@ const CreateJobOffer: React.FC = () => {
                 ref={register}
               />
             </InputLabel>
+
+            <InputLabel htmlFor="Main tech" width={80}>
+              Main technology used in your company:
+            </InputLabel>
+            <Input name="main" width={80} type="text" ref={register} />
+            {errors.main?.type === 'string.empty' && (
+              <Error>Main tech cannot be empty</Error>
+            )}
+            <InputLabel htmlFor="Description" width={80}>
+              Description of job offer:
+            </InputLabel>
+            <TextArea
+              rows={7}
+              cols={80}
+              name="description"
+              width={80}
+              ref={register}
+            />
+            {errors.description?.type === 'string.empty' && (
+              <Error>Description field cannot be empty</Error>
+            )}
           </Column>
           <Column>
             <CreateJobOfferInput
@@ -235,9 +263,9 @@ const CreateJobOffer: React.FC = () => {
               handleClick={handleAddingTask}
               handleReset={resetValue}
               value={values.task}
-              buttonText="Add task"
               labelText="Task in work"
             />
+
             <MapTable handleClick={handleDeletingTask} table={tasks} />
 
             {tableErrors?.type === 'tasks.empty' && (
@@ -249,7 +277,6 @@ const CreateJobOffer: React.FC = () => {
               handleClick={handleAddingMandatorySkill}
               handleReset={resetValue}
               value={values.mandatory}
-              buttonText="Add mandatory skill"
               labelText="Mandatory skill in work"
             />
             <MapTable
@@ -265,7 +292,6 @@ const CreateJobOffer: React.FC = () => {
               handleClick={handleAddingExtraSkill}
               handleReset={resetValue}
               value={values.extra}
-              buttonText="Add extra skill"
               labelText="Add extra skill"
             />
             <MapTable
@@ -281,7 +307,6 @@ const CreateJobOffer: React.FC = () => {
               handleClick={handleAddingBenefit}
               handleReset={resetValue}
               value={values.benefit}
-              buttonText="Add benefit"
               labelText="Benefit in work"
             />
             <MapTable

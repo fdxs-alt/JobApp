@@ -23,6 +23,7 @@ type infoObjectType = {
       maxSalary: number;
       onlineRecrutation: boolean;
       date: string;
+      main: string;
       company: {
         companyName: string;
         localisation: string;
@@ -54,7 +55,7 @@ const AllJobOffers = () => {
           <React.Fragment key={element.id}>
             <JobInfromation>
               <Column>
-                <Title>{element.title}</Title>
+                <Title to={`/specific?id=${element.id}`}>{element.title}</Title>
                 <LightInfo>in {element.company.companyName}</LightInfo>
                 <LightInfo> {element.date}</LightInfo>
               </Column>
@@ -63,6 +64,7 @@ const AllJobOffers = () => {
                 <Salary>
                   {element.minSalary + ' - ' + element.maxSalary + ' PLN'}
                 </Salary>
+                <Salary>{element.main}</Salary>
                 <LightInfo>{element.company.localisation}</LightInfo>
               </ColumWithSalary>
             </JobInfromation>

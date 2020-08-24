@@ -55,8 +55,12 @@ export class JobOffer extends BaseEntity {
   date: string;
 
   @Field()
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar' })
   main: string;
+
+  @Field()
+  @Column({ type: 'text' })
+  description: string;
 
   @Field(() => Company)
   @ManyToOne(() => Company, (company) => company.joboffers, {

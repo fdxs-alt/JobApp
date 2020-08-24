@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export const Icon = styled(FontAwesomeIcon)`
-  font-size: '1.5rem';
+  font-size: '1.6rem';
   margin-bottom: '10px';
-  padding: '0.5rem';
+  padding: '0.2rem';
   border: '1px solid black';
   box-sizing: 'content-box';
 `;
@@ -49,7 +49,7 @@ export const IconContainer = styled.span`
   align-items: center;
 `;
 export const Text = styled.span`
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   padding: 0.6rem;
 `;
 export const Description = styled.div`
@@ -93,4 +93,11 @@ export const ImageInputContainer = styled.div`
 `;
 export const LogoImage = styled.img`
   height: 250px;
+`;
+export const NoAppsInformation = styled.p`
+  font-size: 2rem;
+  text-align: center;
+  align-self: center;
+  font-weight: 500;
+  color: ${(props) => props.theme.colors.darkish};
 `;

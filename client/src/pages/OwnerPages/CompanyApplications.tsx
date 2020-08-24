@@ -2,6 +2,7 @@ import React from 'react';
 import Navbars from '../../components/Navbars/Navbars';
 import { useQuery } from '@apollo/client';
 import { GET_ALL_CVS } from '../../Graphql/Queries';
+import { Container, NoAppsInformation } from '../../styles/CompanyProfileStyle';
 const CompanyApplications = () => {
   const { data, loading } = useQuery(GET_ALL_CVS);
   if (loading) return null;
@@ -9,7 +10,11 @@ const CompanyApplications = () => {
     <>
       <Navbars />
       {data.getAllCvs.length === 0 && (
-        <h1 style={{ textAlign: 'center' }}>You have got no feedback</h1>
+        <Container>
+          <NoAppsInformation>
+            You have got no feedback
+          </NoAppsInformation>
+        </Container>
       )}
     </>
   );

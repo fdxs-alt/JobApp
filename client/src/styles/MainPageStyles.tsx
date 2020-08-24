@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
 export const Container = styled.div`
   width: 80%;
   margin: 2.3rem auto;
@@ -14,12 +14,17 @@ export const JobInfromation = styled.div`
 `;
 export const Column = styled.div`
   display: flex;
-  width: 50%;
+  width: 60%;
   align-items: center;
 `;
-export const Title = styled.p`
-  font-size: 1.5rem;
+export const Title = styled(Link)`
+  font-size: 1.4rem;
   padding: 0.4rem;
+  text-decoration: none;
+  color: ${(props) => props.theme.colors.darkish};
+  &:hover {
+    color: red;
+  }
 `;
 export const Logo = styled.img`
   width: 50px;
@@ -34,12 +39,12 @@ export const Salary = styled.div`
 `;
 export const LightInfo = styled.p`
   color: ${(props) => props.theme.colors.fontColor};
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   padding: 0.5rem;
 `;
 export const ColumWithSalary = styled.div`
   display: flex;
-  width: 50%;
+  width: 40%;
   align-items: center;
   justify-content: space-between;
 `;
