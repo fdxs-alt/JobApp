@@ -1,5 +1,8 @@
 import React, { useCallback } from 'react';
-import { GET_ALL_JOB_IMAGES } from '../../Graphql/Queries';
+import {
+  GET_ALL_JOB_IMAGES,
+  GET_ALL_SPECIFIC_INFO,
+} from '../../Graphql/Queries';
 import { useQuery, useMutation } from '@apollo/client';
 import { encode } from 'base64-arraybuffer';
 import {
@@ -40,7 +43,10 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
   );
 
   const [deleteImage, { loading: deletingImage }] = useMutation(DELETE_IMAGE, {
-    refetchQueries: [{ query: GET_ALL_JOB_IMAGES, variables: { id } }],
+    refetchQueries: [
+      { query: GET_ALL_JOB_IMAGES, variables: { id } },
+      { query: GET_ALL_SPECIFIC_INFO, variables: { id } },
+    ],
   });
 
   const [addImage, { loading: addingImage }] = useMutation(ADD_IMAGE, {
@@ -49,6 +55,7 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
         query: GET_ALL_JOB_IMAGES,
         variables: { id },
       },
+      { query: GET_ALL_SPECIFIC_INFO, variables: { id } },
     ],
   });
 

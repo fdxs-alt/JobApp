@@ -110,16 +110,35 @@ export class JobOfferResolver {
 
   @Query(() => SpecificOfferResponse)
   async getSpecificInfo(@Arg('id') id: number): Promise<SpecificOfferResponse> {
-    const offer = await getConnection()
-      .getRepository(JobOffer)
-      .createQueryBuilder('joboffer')
-      .leftJoinAndSelect('joboffer.company', 'company')
-      .where('joboffer.id = :id', { id })
-      .getOne();
+    try {
+      const offer = await getConnection()
+        .getRepository(JobOffer)
+        .createQueryBuilder('joboffer')
+        .leftJoinAndSelect('joboffer.company', 'company')
+        .where('joboffer.id = :id', { id })
+        .getOne();
 
-    const logo = await Logo.findOne({ where: { company: offer.company.id } });
-    const images = await Images.find({ where: { joboffer: offer.id } });
+      const logo = await Logo.findOne({ where: { company: offer.company.id } });
+      const images = await Images.find({ where: { joboffer: offer.id } });
 
-    return { offer, images, logo };
+      return { offer, images, logo };
+    } catch (error) {
+      throw new Error('An error occured');
+    }
+  }
+  @Query(() => [JobOffer])
+  async getRandomJobOffers(): Promise<JobOffer[]> {
+    try {
+      const randomJobOffers = await getConnection()
+        .getRepository(JobOffer)
+        .createQueryBuilder()
+        .orderBy('RANDOM()')
+        .limit(5)
+        .getMany();
+
+      return randomJobOffers;
+    } catch (error) {
+      throw new Error('An error occured');
+    }
   }
 }

@@ -16,8 +16,12 @@ export const MainSectionColumn = styled.div`
     border-top: none;
   }
 `;
-export const SecondaryColumn = styled.div`
-  width: 25%;
+export const SecondaryColumn = styled.section`
+  width: 33%;
+  position: sticky;
+  height: 20vh;
+  top: 40px;
+
   & > div {
     border: 1px solid ${(props) => props.theme.colors.lightGray};
   }
@@ -122,4 +126,21 @@ export const IconContainer = styled.div`
 export const Icon = styled(FontAwesomeIcon)`
   color: ${(props) => props.theme.colors.secondaryFont};
   font-size: 1.6rem;
+`;
+export const Image = styled.img`
+  width: 100%;
+`;
+export const AboutCompanyContainer = styled.div`
+  padding: 1.5rem;
+`;
+export const ComapnyInfoIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  width: 100%;
+  border-bottom: 1px solid ${(props) => props.theme.colors.secondaryFont};
+  padding: 0.4rem 0;
+`;
+export const CompanyInfoIcon = styled(FontAwesomeIcon)`
+  color: ${(props) => props.theme.colors.secondaryFont};
 `;
