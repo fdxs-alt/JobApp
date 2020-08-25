@@ -57,6 +57,7 @@ export const Description = styled.div`
   line-height: 1.8rem;
   padding: 2rem;
   text-align: justify;
+  word-break: break-all;
 `;
 export const GridContainer = styled.div`
   font-size: 1rem;

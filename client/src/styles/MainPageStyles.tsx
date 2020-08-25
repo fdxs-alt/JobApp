@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 export const Container = styled.div`
-  width: 80%;
+  width: 85%;
   margin: 2.3rem auto;
 `;
 export const JobInfromation = styled.div`
@@ -14,7 +14,7 @@ export const JobInfromation = styled.div`
 `;
 export const Column = styled.div`
   display: flex;
-  width: 60%;
+  width: 45%;
   align-items: center;
 `;
 export const Title = styled(Link)`
@@ -44,7 +44,7 @@ export const LightInfo = styled.p`
 `;
 export const ColumWithSalary = styled.div`
   display: flex;
-  width: 40%;
+  width: 55%;
   align-items: center;
   justify-content: space-between;
 `;

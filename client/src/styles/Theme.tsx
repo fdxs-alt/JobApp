@@ -9,10 +9,10 @@ const theme = {
     fontColor: '#bbb1b1',
     darkish: '#191919',
     lightBorder: '#313439',
-    lightGray: "#dedede",
-    secondary: "#3b5bb3"
+    lightGray: '#dedede',
+    secondary: '#3b5bb3',
+    secondaryFont: '#888888',
   },
 };
 
 export default theme;
-
