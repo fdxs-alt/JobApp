@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Navbars from '../components/Navbars/Navbars';
 import { parse } from 'query-string';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { Redirect } from 'react-router-dom';
 import { GET_ALL_SPECIFIC_INFO } from '../Graphql/Queries';
 import { encode } from 'base64-arraybuffer';
@@ -11,7 +11,6 @@ import {
   faUser,
   faHome,
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   MainSectionColumn,
   TitleWithLogo,
@@ -41,21 +40,95 @@ import {
 } from '../styles/SpecificJobStyles';
 import styled from 'styled-components';
 import RandomJobOffers from '../components/RandomJobOffers';
+import { useDropzone } from 'react-dropzone';
+import { ADD_CV } from '../Graphql/CompanyMutations';
+import { isOwner } from '../Graphql/isAuth';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const OnlineRecrutationField = styled.div`
   width: 100%;
   padding: 1.5rem;
+`;
+export const PaddedDiv = styled.div`
+  padding: 1.5rem;
+`;
+export const Salary = styled.h2`
+  color: ${(props) => props.theme.colors.darkish};
+`;
+export const StyledParagraph = styled.p`
+  color: ${(props) => props.theme.colors.fontColor};
+  padding: 0.4rem 0;
+`;
+export const ApplyButton = styled.div`
+  padding: 1.8rem;
+  width: 95%;
+  color: white;
+  border-radius: 5px;
+  background-color: ${(props) => props.theme.colors.button};
+  border: none;
+  font-size: 1.3rem;
+  text-align: center;
 `;
 const SpecificJobOffer = () => {
   const id = parseInt((parse(window.location.search) as any).id);
   const { data, loading, error } = useQuery(GET_ALL_SPECIFIC_INFO, {
     variables: { id },
   });
-  console.log(data);
+  const [addCV, { error: addCvError }] = useMutation(ADD_CV);
+  const onDrop = useCallback(
+    async ([file]) => {
+      if (isOwner()) {
+        return toast.error('Being an owner unables you to add any cv', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+
+      const res = await addCV({
+        variables: {
+          id,
+          file,
+        },
+      });
+      if (!res || addCvError)
+        toast.error('Error occured', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+    },
+    [id],
+  );
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: 'application/pdf, application/vnd.ms-excel',
+  });
+
   if (loading) return null;
   else if (error) return <Redirect to="/" />;
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: '30%' }}
+      />
       <Navbars />
       <Container>
         <MainSectionColumn>
@@ -183,6 +256,27 @@ const SpecificJobOffer = () => {
         </MainSectionColumn>
         <SecondaryColumn>
           <OnlineRecrutationField>Online recruitment</OnlineRecrutationField>
+          <PaddedDiv>
+            <Salary>
+              {' '}
+              {data.getSpecificInfo.offer.minSalary +
+                ' - ' +
+                data.getSpecificInfo.offer.maxSalary}{' '}
+              PLN
+            </Salary>
+            <StyledParagraph>+vat per month</StyledParagraph>
+          </PaddedDiv>
+          <PaddedDiv>
+            <StyledParagraph>
+              Possible job locations:{' '}
+              {data.getSpecificInfo.offer.company.localisation}
+            </StyledParagraph>
+
+            <ApplyButton {...getRootProps()}>
+              <input {...getInputProps()} />
+              Apply
+            </ApplyButton>
+          </PaddedDiv>
         </SecondaryColumn>
       </Container>
     </>

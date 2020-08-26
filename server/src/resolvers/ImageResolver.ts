@@ -17,6 +17,8 @@ export class ImageResolver {
     @Arg('id', () => Number) id: number,
   ): Promise<boolean> {
     const { createReadStream, filename, mimetype } = await file;
+    if (mimetype !== 'image/png' && mimetype !== 'image/jpeg')
+      throw new Error('Specifiy right format!');
     const destination = path.join(
       __dirname + `../../../images/${Date.now() + filename}`,
     );

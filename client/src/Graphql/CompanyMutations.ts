@@ -39,3 +39,8 @@ export const DELETE_JOB_OFFER = gql`
     deleteJobOffer(id: $id)
   }
 `;
+export const ADD_CV = gql`
+  mutation AddCv($id: Float!, $file: Upload!) {
+    addCv(id: $id, file: $file)
+  }
+`;
