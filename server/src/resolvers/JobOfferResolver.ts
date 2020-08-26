@@ -131,7 +131,8 @@ export class JobOfferResolver {
     try {
       const randomJobOffers = await getConnection()
         .getRepository(JobOffer)
-        .createQueryBuilder()
+        .createQueryBuilder('joboffer')
+        .leftJoinAndSelect('joboffer.company', 'company')
         .orderBy('RANDOM()')
         .limit(5)
         .getMany();

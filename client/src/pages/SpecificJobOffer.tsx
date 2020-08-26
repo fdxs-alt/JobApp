@@ -42,8 +42,8 @@ import styled from 'styled-components';
 import RandomJobOffers from '../components/RandomJobOffers';
 import { useDropzone } from 'react-dropzone';
 import { ADD_CV } from '../Graphql/CompanyMutations';
-import { isOwner } from '../Graphql/isAuth';
 import { ToastContainer, toast } from 'react-toastify';
+import isAuthenticated, { isOwner } from '../Graphql/isAuth';
 
 export const OnlineRecrutationField = styled.div`
   width: 100%;
@@ -60,7 +60,7 @@ export const StyledParagraph = styled.p`
   padding: 0.4rem 0;
 `;
 export const ApplyButton = styled.div`
-  padding: 1.8rem;
+  padding: 0.8rem 0;
   width: 95%;
   color: white;
   border-radius: 5px;
@@ -74,11 +74,24 @@ const SpecificJobOffer = () => {
   const { data, loading, error } = useQuery(GET_ALL_SPECIFIC_INFO, {
     variables: { id },
   });
+
   const [addCV, { error: addCvError }] = useMutation(ADD_CV);
   const onDrop = useCallback(
     async ([file]) => {
+      if (!isAuthenticated()) {
+        return toast.error('Log in to send CV', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+
       if (isOwner()) {
-        return toast.error('Being an owner unables you to add any cv', {
+        return toast.error('Being an owner unables you to send any cv', {
           position: 'top-right',
           autoClose: 3000,
           hideProgressBar: false,
@@ -95,8 +108,23 @@ const SpecificJobOffer = () => {
           file,
         },
       });
+
       if (!res || addCvError)
-        toast.error('Error occured', {
+        toast.error(
+          'You have probably provided wrong format, or you have already sent the CV',
+          {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          },
+        );
+
+      if (res)
+        toast.success('Cv has been sent succesfully', {
           position: 'top-right',
           autoClose: 3000,
           hideProgressBar: false,
@@ -110,6 +138,7 @@ const SpecificJobOffer = () => {
   );
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
+    noDrag: true,
     accept: 'application/pdf, application/vnd.ms-excel',
   });
 
@@ -186,7 +215,7 @@ const SpecificJobOffer = () => {
             <Label>Your daily tasks on the job</Label>
             {data.getSpecificInfo.offer.tasks.map(
               (element: string, index: number) => (
-                <TaskContainer>
+                <TaskContainer key={index}>
                   <Circle>{index + 1}</Circle>
                   <Task>{element}</Task>
                 </TaskContainer>
@@ -272,7 +301,7 @@ const SpecificJobOffer = () => {
               {data.getSpecificInfo.offer.company.localisation}
             </StyledParagraph>
 
-            <ApplyButton {...getRootProps()}>
+            <ApplyButton {...getRootProps()} tabIndex={0}>
               <input {...getInputProps()} />
               Apply
             </ApplyButton>

@@ -33,8 +33,8 @@ export const Main = styled.section`
   padding: 1.2rem 0;
 `;
 export const Title = styled.div`
-  padding: 2rem;
-  font-size: 2.5rem;
+  padding: 1.4rem;
+  font-size: 2.2rem;
   font-weight: 700;
   border-top: none;
   display: flex;

@@ -182,3 +182,16 @@ export const GET_ALL_SPECIFIC_INFO = gql`
     }
   }
 `;
+export const GET_RANDOM_OFFERS = gql`
+  query GetRandomJobOffers {
+    getRandomJobOffers {
+      id
+      title
+      onlineRecrutation
+      company {
+        localisation
+        companyName
+      }
+    }
+  }
+`;
