@@ -17,8 +17,8 @@ export const EmployerAuthMiddleware: MiddlewareFn<MyContext> = async (
     const user = await User.findOne({ id: (payload as any).userId });
     if (!user.hasCompany) throw new AuthenticationError('User unauthorized');
     context.payload = payload as any;
-    return next();
   } catch (error) {
     throw new AuthenticationError('User unauthorized');
   }
+  return next();
 };

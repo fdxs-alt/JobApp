@@ -42,8 +42,9 @@ import styled from 'styled-components';
 import RandomJobOffers from '../components/RandomJobOffers';
 import { useDropzone } from 'react-dropzone';
 import { ADD_CV } from '../Graphql/CompanyMutations';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import isAuthenticated, { isOwner } from '../Graphql/isAuth';
+import { CustomToast } from '../utils/CustomToast';
 
 export const OnlineRecrutationField = styled.div`
   width: 100%;
@@ -69,37 +70,25 @@ export const ApplyButton = styled.div`
   font-size: 1.3rem;
   text-align: center;
 `;
+
 const SpecificJobOffer = () => {
   const id = parseInt((parse(window.location.search) as any).id);
   const { data, loading, error } = useQuery(GET_ALL_SPECIFIC_INFO, {
     variables: { id },
   });
 
-  const [addCV, { error: addCvError }] = useMutation(ADD_CV);
+  const [addCV] = useMutation(ADD_CV);
   const onDrop = useCallback(
     async ([file]) => {
       if (!isAuthenticated()) {
-        return toast.error('Log in to send CV', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        return CustomToast('Log in to send CV', 'error');
       }
 
       if (isOwner()) {
-        return toast.error('Being an owner unables you to send any cv', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        return CustomToast(
+          'Being an owner unables you to send any cv',
+          'error',
+        );
       }
 
       const res = await addCV({
@@ -108,31 +97,13 @@ const SpecificJobOffer = () => {
           file,
         },
       });
-
-      if (!res || addCvError)
-        toast.error(
-          'You have probably provided wrong format, or you have already sent the CV',
-          {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          },
-        );
-
-      if (res)
-        toast.success('Cv has been sent succesfully', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+      console.log(res.data);
+      (res.data as any).addCv
+        ? CustomToast('Cv was sent succesfully', 'success')
+        : CustomToast(
+            'You have aleady sent your cv, or provided wrong format',
+            'error',
+          );
     },
     [id],
   );
@@ -158,6 +129,7 @@ const SpecificJobOffer = () => {
         pauseOnHover
         style={{ width: '30%' }}
       />
+
       <Navbars />
       <Container>
         <MainSectionColumn>

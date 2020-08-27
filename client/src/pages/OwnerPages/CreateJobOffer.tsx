@@ -24,6 +24,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
 import MapTable from '../../components/JobOffer/MapTable';
 import { length } from '../../Graphql/isAuth';
+import { CustomToast } from '../../utils/CustomToast';
 
 type CreateJobOfferTypes = {
   title: string;
@@ -101,15 +102,10 @@ const CreateJobOffer: React.FC = () => {
       });
       reset();
 
-      toast.success('Job offer created succesfully, you will be redirected!', {
-        position: 'top-right',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      CustomToast(
+        'Job offer created succesfully, you will be redirected!',
+        'success',
+      );
 
       setValue('title', '');
       setValue('minSalary', undefined);
@@ -119,15 +115,7 @@ const CreateJobOffer: React.FC = () => {
         history.push('/joboffers');
       }, 2500);
     } catch (error) {
-      toast.error(error.message, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      CustomToast(error.message, 'error');
       return;
     }
   };

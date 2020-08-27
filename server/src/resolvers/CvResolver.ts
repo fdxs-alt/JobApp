@@ -26,13 +26,13 @@ export class CvResolver {
     @Arg('file', () => GraphQLUpload)
     { createReadStream, filename, mimetype }: FileUpload,
     @Arg('id', () => Number) id: number,
-    @Ctx('ctx') ctx: MyContext,
+    @Ctx() ctx: MyContext,
   ): Promise<boolean> {
     if (
       mimetype !== 'application/pdf' &&
       mimetype !== 'application/vnd.ms-excel'
     )
-      throw new Error('Specifiy right format!');
+      return false;
 
     const destination = path.join(
       __dirname + `../../../cv/${Date.now() + filename}`,
@@ -42,44 +42,51 @@ export class CvResolver {
         createWriteStream(destination)
           .on('finish', async () => {
             try {
-              const user = await User.findOne({ id: ctx.payload.userId });
+              const user = await User.findOne({
+                id: ctx.payload.userId as any,
+              });
+              console.log(user);
               if (!user) {
                 unlinkSync(destination);
-                res(false);
+                return res(false);
               }
 
               const jobOffer = await JobOffer.findOne({ id });
+              console.log(jobOffer);
               if (!jobOffer) {
                 unlinkSync(destination);
-                res(false);
+                return res(false);
               }
 
               const cv = await Cv.findOne({
                 where: { joboffer: jobOffer, user },
               });
+
               if (cv) {
                 unlinkSync(destination);
-                res(false);
+                return res(false);
               }
+              console.log(cv);
               const newCV = Cv.create({
                 name: filename,
                 type: mimetype,
                 data: ('\\x' +
-                  readFileSync(
-                    __dirname + `../../../images/${Date.now() + filename}`,
-                    { encoding: 'hex' },
-                  )) as any,
+                  readFileSync(destination, { encoding: 'hex' })) as any,
                 joboffer: jobOffer,
                 user,
               });
 
               await newCV.save();
-              res(true);
+              console.log(newCV.name);
+              return res(true);
             } catch (error) {
+              console.log(error);
               return res(false);
             }
           })
-          .on('error', () => rej(false)),
+          .on('error', () => {
+            rej(false);
+          }),
       );
     });
     const result = await Promise.resolve(p);
@@ -87,7 +94,7 @@ export class CvResolver {
   }
   @UseMiddleware(EmployerAuthMiddleware)
   @Query(() => [Cv])
-  async getAllCvs(@Ctx() ctx: MyContext): Promise<Cv[] & JobOffer[]> {
+  async getAllCvs(@Ctx() ctx: MyContext): Promise<Cv[]> {
     try {
       const company = await Company.findOne({
         employer: ctx.payload.userId as any,
@@ -95,9 +102,14 @@ export class CvResolver {
 
       const joboffers = await JobOffer.find({ where: { company: company.id } });
       const cvs = [];
-      joboffers.forEach(async (joboffer) => {
-        cvs.push(await Cv.find({ where: { joboffer: joboffer.id } }));
-      });
+
+      await Promise.all(
+        joboffers.map(async (joboffer) => {
+          const cv = await Cv.find({ where: { joboffer } });
+          cvs.push(cv);
+        }),
+      );
+      console.log(cvs);
       return cvs;
     } catch (error) {
       console.log(error);

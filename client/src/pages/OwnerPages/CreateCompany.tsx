@@ -22,6 +22,7 @@ import UserBenefits from '../../components/CompanyForm/UserBenefits';
 import UserTech from '../../components/CompanyForm/UserTech';
 import Tech from '../../components/CompanyForm/Tech';
 import BenefitsComponent from '../../components/inputs/Benefits';
+import { CustomToast } from '../../utils/CustomToast';
 const today = new Date();
 interface CreateCompanyProps {
   companyName: string;
@@ -89,15 +90,10 @@ const CreateCompany = () => {
         refetchQueries: [{ query: GET_USER_COMPANY }],
       });
 
-      toast.success('Company created succesfully, you will be redirected!', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      CustomToast(
+        'Company created succesfully, you will be redirected!',
+        'success',
+      );
 
       reset();
 
@@ -105,15 +101,7 @@ const CreateCompany = () => {
         history.push('/profile');
       }, 3500);
     } catch (error) {
-      toast.error(error.message, {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      CustomToast(error.message, 'error');
       reset();
       return;
     }
