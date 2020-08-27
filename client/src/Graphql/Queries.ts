@@ -94,7 +94,15 @@ export const GET_INFORMATION = gql`
 export const GET_ALL_CVS = gql`
   query GetAllCvs {
     getAllCvs {
-      id
+      joboffer {
+        id
+        title
+        date
+      }
+      cvs {
+        id
+        name
+      }
     }
   }
 `;

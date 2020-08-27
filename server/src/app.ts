@@ -11,6 +11,7 @@ import { User } from './entity/User';
 import { createAccessToken, createRefreshToken } from './utils/createTokens';
 import { sendRefreshCookie } from './utils/sendRefreshCookie';
 import cors from 'cors';
+import { join } from 'path';
 import helmet from 'helmet';
 const main = async () => {
   const app = express();
@@ -64,6 +65,7 @@ const main = async () => {
   });
 
   app.use(graphqlUploadExpress({ maxFileSize: 1000000000, maxFiles: 10 }));
+  app.use('/cv', express.static(join(__dirname, '../cv')));
 
   apolloServer.applyMiddleware({ app, cors: false });
   const PORT = process.env.PORT || 5000;

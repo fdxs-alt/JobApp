@@ -17,6 +17,7 @@ import { MyContext } from '../types-graphql/MyContext';
 import { User } from '../entity/User';
 import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
 import { Company } from '../entity/CompanyDetails';
+import { CvResponse } from '../types-graphql/CvResponse';
 
 @Resolver()
 export class CvResolver {
@@ -33,10 +34,8 @@ export class CvResolver {
       mimetype !== 'application/vnd.ms-excel'
     )
       return false;
-
-    const destination = path.join(
-      __dirname + `../../../cv/${Date.now() + filename}`,
-    );
+    const time = Date.now();
+    const destination = path.join(__dirname + `../../../cv/${time + filename}`);
     const p = new Promise<boolean>((res, rej) => {
       createReadStream().pipe(
         createWriteStream(destination)
@@ -45,14 +44,14 @@ export class CvResolver {
               const user = await User.findOne({
                 id: ctx.payload.userId as any,
               });
-              console.log(user);
+
               if (!user) {
                 unlinkSync(destination);
                 return res(false);
               }
 
               const jobOffer = await JobOffer.findOne({ id });
-              console.log(jobOffer);
+
               if (!jobOffer) {
                 unlinkSync(destination);
                 return res(false);
@@ -66,9 +65,9 @@ export class CvResolver {
                 unlinkSync(destination);
                 return res(false);
               }
-              console.log(cv);
+
               const newCV = Cv.create({
-                name: filename,
+                name: time + filename,
                 type: mimetype,
                 data: ('\\x' +
                   readFileSync(destination, { encoding: 'hex' })) as any,
@@ -77,7 +76,7 @@ export class CvResolver {
               });
 
               await newCV.save();
-              console.log(newCV.name);
+
               return res(true);
             } catch (error) {
               console.log(error);
@@ -93,24 +92,24 @@ export class CvResolver {
     return result;
   }
   @UseMiddleware(EmployerAuthMiddleware)
-  @Query(() => [Cv])
-  async getAllCvs(@Ctx() ctx: MyContext): Promise<Cv[]> {
+  @Query(() => [CvResponse])
+  async getAllCvs(@Ctx() ctx: MyContext): Promise<CvResponse[]> {
     try {
       const company = await Company.findOne({
         employer: ctx.payload.userId as any,
       });
 
       const joboffers = await JobOffer.find({ where: { company: company.id } });
-      const cvs = [];
 
-      await Promise.all(
+      const c = await Promise.all(
         joboffers.map(async (joboffer) => {
-          const cv = await Cv.find({ where: { joboffer } });
-          cvs.push(cv);
+          const cvs = await Cv.find({ where: { joboffer } });
+
+          return { cvs, joboffer };
         }),
       );
-      console.log(cvs);
-      return cvs;
+
+      return c;
     } catch (error) {
       console.log(error);
       throw new Error('An error occured');

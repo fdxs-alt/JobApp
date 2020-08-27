@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client';
 import { joiResolver } from '@hookform/resolvers';
 import Joi from '@hapi/joi';
 import { ADD_COMPANY } from '../../Graphql/CompanyMutations';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
 import { GET_USER_COMPANY } from '../../Graphql/Queries';
