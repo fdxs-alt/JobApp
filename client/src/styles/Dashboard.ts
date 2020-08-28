@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 export const Container = styled.div`
   background-color: ${(props) => props.theme.colors.border};
   width: 100%;
@@ -65,11 +66,10 @@ export const JobOffersQuantity = styled.p`
 export const JobOfferColums = styled.div`
   padding: 2rem;
   width: 70%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   font-size: 1.5rem;
-  justify-content: center;
-  align-items: center;
+  gap: 1rem;
 `;
 export const NoJobOfferLinkContainer = styled.div`
   background-color: white;
@@ -86,7 +86,13 @@ export const NoCompanyLinkContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
-export const JobOfferElement = styled.div`
+export const JobOfferElement = styled(Link)`
+  text-align: center;
   font-size: 1rem;
   letter-spacing: 1px;
+  text-decoration: none;
+  color: ${(props) => props.theme.colors.darkish};
+  &:hover {
+    color: red;
+  }
 `;

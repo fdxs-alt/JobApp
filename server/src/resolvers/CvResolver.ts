@@ -19,6 +19,7 @@ import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
 import { Company } from '../entity/CompanyDetails';
 import { CvResponse } from '../types-graphql/CvResponse';
 import moment from 'moment';
+import { getConnection } from 'typeorm';
 
 @Resolver()
 export class CvResolver {
@@ -102,15 +103,19 @@ export class CvResolver {
 
       const joboffers = await JobOffer.find({ where: { company: company.id } });
 
-      const c = await Promise.all(
+      const cvs = await Promise.all(
         joboffers.map(async (joboffer) => {
-          const cvs = await Cv.find({ where: { joboffer } });
-
+          const cvs = await getConnection()
+            .getRepository(Cv)
+            .createQueryBuilder('cv')
+            .leftJoinAndSelect('cv.user', 'user')
+            .where('cv.joboffer = :id', { id: joboffer.id })
+            .getMany();
           return { cvs, joboffer };
         }),
       );
 
-      return c;
+      return cvs;
     } catch (error) {
       throw new Error('An error occured');
     }
@@ -126,10 +131,15 @@ export class CvResolver {
       const company = await Company.findOne({
         where: { employer: ctx.payload.userId as any },
       });
+
       const job = await JobOffer.findOne({ where: { id: jobId, company } });
+
       if (!job) throw new Error('You are not allowed to do this action');
 
       const cvToDelete = await Cv.findOne({ where: { id } });
+
+      unlinkSync(cvToDelete.name);
+
       await cvToDelete.remove();
       return true;
     } catch (error) {

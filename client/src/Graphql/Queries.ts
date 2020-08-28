@@ -102,6 +102,9 @@ export const GET_ALL_CVS = gql`
       cvs {
         id
         name
+        user {
+          fullName
+        }
       }
     }
   }

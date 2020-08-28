@@ -7,7 +7,7 @@ import { encode } from 'base64-arraybuffer';
 import { confirmAlert } from 'react-confirm-alert';
 import { Title } from '../../styles/SearchBarStyles';
 import { Confirmation } from '../../styles/ImagesGallery';
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import { ButtonContainer, Button } from '../../styles/ImagesGallery';
 import {
   ImageInputContainer,

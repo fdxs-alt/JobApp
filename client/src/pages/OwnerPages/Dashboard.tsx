@@ -47,7 +47,6 @@ type Response = {
 
 const Dashboard = () => {
   const { data, loading } = useQuery<Response>(GET_INFORMATION);
-  console.log(data);
   if (loading)
     return (
       <>
@@ -105,9 +104,13 @@ const Dashboard = () => {
                   </JobOffersQuantity>
                 </Column>
                 <JobOfferColums style={{ letterSpacing: '2px' }}>
-                  Offers:
-                  {data!.allUsersOffers.map((t: Offer) => (
-                    <JobOfferElement key={t.id}>{t.title}</JobOfferElement>
+                  <h5 style={{ gridColumn: '1/3', textAlign: 'center' }}>
+                    Offers:
+                  </h5>
+                  {data!.allUsersOffers.map((t: Offer, index: number) => (
+                    <JobOfferElement to={`/job?id=${t.id}`} key={t.id}>
+                      <b>{index + 1}</b>. {t.title}
+                    </JobOfferElement>
                   ))}
                 </JobOfferColums>
               </JobOfferContainer>

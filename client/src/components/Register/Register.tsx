@@ -67,7 +67,7 @@ const Register: React.FC<Props> = ({ active }: Props) => {
       );
       reset();
     } catch (error) {
-      CustomToast(error.message, 'error');
+      CustomToast('Email is already in use, try another email', 'error');
     }
   };
 
@@ -117,11 +117,6 @@ const Register: React.FC<Props> = ({ active }: Props) => {
             onClick={() => setisOwner(!isOwner)}
           />
         </InputLabel>
-        {error && (
-          <Error style={{ textAlign: 'center', fontSize: '1.5rem' }}>
-            Email is already in use, try another email
-          </Error>
-        )}
 
         {isOwner && (
           <>

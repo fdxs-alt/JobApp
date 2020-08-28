@@ -36,6 +36,7 @@ export class Cv extends BaseEntity {
   })
   joboffer: JobOffer;
 
+  @Field(() => User)
   @ManyToOne(() => User, (user) => user.cvs, { onDelete: 'CASCADE' })
   user: User;
 }
