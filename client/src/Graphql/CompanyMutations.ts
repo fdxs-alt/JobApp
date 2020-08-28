@@ -44,3 +44,8 @@ export const ADD_CV = gql`
     addCv(id: $id, file: $file)
   }
 `;
+export const DELETE_CV = gql`
+  mutation DeleteCv($id: Float!, $jobId: Float!) {
+    deleteCv(id: $id, jobId: $jobId)
+  }
+`;

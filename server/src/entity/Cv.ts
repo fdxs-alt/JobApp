@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { JobOffer } from './JobOffer';
 import { User } from './User';
-
+import moment from 'moment';
 @ObjectType()
 @Entity()
 export class Cv extends BaseEntity {
@@ -27,6 +27,9 @@ export class Cv extends BaseEntity {
   @Field(() => [String])
   @Column('bytea')
   data: Buffer;
+
+  @Field(() => String, { defaultValue: moment().format('DD-MM-YYYY') })
+  date: string;
 
   @ManyToOne(() => JobOffer, (joboffer) => joboffer.cvs, {
     onDelete: 'CASCADE',

@@ -18,6 +18,7 @@ import { User } from '../entity/User';
 import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
 import { Company } from '../entity/CompanyDetails';
 import { CvResponse } from '../types-graphql/CvResponse';
+import moment from 'moment';
 
 @Resolver()
 export class CvResolver {
@@ -69,6 +70,7 @@ export class CvResolver {
               const newCV = Cv.create({
                 name: time + filename,
                 type: mimetype,
+                date: moment().format('DD-MM-YYYY'),
                 data: ('\\x' +
                   readFileSync(destination, { encoding: 'hex' })) as any,
                 joboffer: jobOffer,
@@ -110,7 +112,27 @@ export class CvResolver {
 
       return c;
     } catch (error) {
-      console.log(error);
+      throw new Error('An error occured');
+    }
+  }
+  @UseMiddleware(EmployerAuthMiddleware)
+  @Mutation(() => Boolean)
+  async deleteCv(
+    @Arg('id') id: number,
+    @Arg('jobId') jobId: number,
+    @Ctx() ctx: MyContext,
+  ): Promise<boolean> {
+    try {
+      const company = await Company.findOne({
+        where: { employer: ctx.payload.userId as any },
+      });
+      const job = await JobOffer.findOne({ where: { id: jobId, company } });
+      if (!job) throw new Error('You are not allowed to do this action');
+
+      const cvToDelete = await Cv.findOne({ where: { id } });
+      await cvToDelete.remove();
+      return true;
+    } catch (error) {
       throw new Error('An error occured');
     }
   }
