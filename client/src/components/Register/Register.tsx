@@ -35,7 +35,7 @@ const schema = Joi.object({
 
 const Register: React.FC<Props> = ({ active }: Props) => {
   const [isOwner, setisOwner] = useState(false);
-  const [reg, { error, loading }] = useMutation(REGISTER);
+  const [reg, { loading }] = useMutation(REGISTER);
 
   const { register, handleSubmit, errors, reset } = useForm<RegisterProps>({
     resolver: joiResolver(schema),

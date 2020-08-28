@@ -144,3 +144,27 @@ export const ComapnyInfoIconContainer = styled.div`
 export const CompanyInfoIcon = styled(FontAwesomeIcon)`
   color: ${(props) => props.theme.colors.secondaryFont};
 `;
+export const OnlineRecrutationField = styled.div`
+  width: 100%;
+  padding: 1.5rem;
+`;
+export const PaddedDiv = styled.div`
+  padding: 1.5rem;
+`;
+export const Salary = styled.h2`
+  color: ${(props) => props.theme.colors.darkish};
+`;
+export const StyledParagraph = styled.p`
+  color: ${(props) => props.theme.colors.fontColor};
+  padding: 0.4rem 0;
+`;
+export const ApplyButton = styled.div`
+  padding: 0.8rem 0;
+  width: 95%;
+  color: white;
+  border-radius: 5px;
+  background-color: ${(props) => props.theme.colors.button};
+  border: none;
+  font-size: 1.3rem;
+  text-align: center;
+`;

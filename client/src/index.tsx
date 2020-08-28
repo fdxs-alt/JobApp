@@ -15,7 +15,7 @@ import RefreshTokenLink from './Graphql/RefreshTokenLink';
 import isAuthenticated, { isOwner, length } from './Graphql/isAuth';
 import { TableProvider } from './context/TableProvider';
 import { JobProvider } from './context/JobOfferProvider';
-import { isEqual, slice } from 'lodash';
+import { isEqual } from 'lodash';
 const links = ApolloLink.from([
   AuthLink,
   RefreshTokenLink,

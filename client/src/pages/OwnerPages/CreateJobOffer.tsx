@@ -19,7 +19,7 @@ import { ALL_USERS_OFFERS, GET_ALL_INFO } from '../../Graphql/Queries';
 import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';
 import { validateTable, ErrorStateType } from '../../utils/Validation';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
 import MapTable from '../../components/JobOffer/MapTable';

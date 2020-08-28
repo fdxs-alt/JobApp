@@ -37,8 +37,12 @@ import {
   ComapnyInfoIconContainer,
   CompanyInfoIcon,
   Image,
+  PaddedDiv,
+  Salary,
+  StyledParagraph,
+  ApplyButton,
+  OnlineRecrutationField,
 } from '../styles/SpecificJobStyles';
-import styled from 'styled-components';
 import RandomJobOffers from '../components/RandomJobOffers';
 import { useDropzone } from 'react-dropzone';
 import { ADD_CV } from '../Graphql/CompanyMutations';
@@ -46,34 +50,48 @@ import { ToastContainer } from 'react-toastify';
 import isAuthenticated, { isOwner } from '../Graphql/isAuth';
 import { CustomToast } from '../utils/CustomToast';
 
-export const OnlineRecrutationField = styled.div`
-  width: 100%;
-  padding: 1.5rem;
-`;
-export const PaddedDiv = styled.div`
-  padding: 1.5rem;
-`;
-export const Salary = styled.h2`
-  color: ${(props) => props.theme.colors.darkish};
-`;
-export const StyledParagraph = styled.p`
-  color: ${(props) => props.theme.colors.fontColor};
-  padding: 0.4rem 0;
-`;
-export const ApplyButton = styled.div`
-  padding: 0.8rem 0;
-  width: 95%;
-  color: white;
-  border-radius: 5px;
-  background-color: ${(props) => props.theme.colors.button};
-  border: none;
-  font-size: 1.3rem;
-  text-align: center;
-`;
+type SpecificInfoType = {
+  offer: {
+    title: string;
+    mandatory: string[];
+    extraSkills: string[];
+    tasks: string[];
+    benefitsInWork: string[];
+    minSalary: number;
+    maxSalary: number;
+    onlineRecrutation: boolean;
+    description: string;
+    main: string;
+    date: string;
+    company: {
+      companyName: string;
+      yearOfSetUp: number;
+      sizeOfCompany: number;
+      localisation: string;
+      description: string;
+      technologies: string[];
+      benefits: string[];
+    };
+  };
+  logo: {
+    type: string;
+    data: Buffer;
+  };
+  images: [
+    {
+      id: number;
+      type: string;
+      data: Buffer;
+    },
+  ];
+};
+type Response = {
+  getSpecificInfo: SpecificInfoType;
+};
 
 const SpecificJobOffer = () => {
   const id = parseInt((parse(window.location.search) as any).id);
-  const { data, loading, error } = useQuery(GET_ALL_SPECIFIC_INFO, {
+  const { data, loading, error } = useQuery<Response>(GET_ALL_SPECIFIC_INFO, {
     variables: { id },
   });
 
@@ -115,173 +133,181 @@ const SpecificJobOffer = () => {
 
   if (loading) return null;
   else if (error) return <Redirect to="/" />;
-  return (
-    <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        style={{ width: '30%' }}
-      />
+  else
+    return (
+      <>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          style={{ width: '30%' }}
+        />
 
-      <Navbars />
-      <Container>
-        <MainSectionColumn>
-          <TitleWithLogo>
-            {data.getSpecificInfo.logo.type === 'image/png' ? (
-              <Logo
-                alt="Job offer"
-                src={`data:image/png;base64, ${encode(
-                  data.getSpecificInfo.logo.data,
-                )}`}
-              />
-            ) : (
-              <Logo
-                alt="Job offer"
-                src={`data:image/jpeg;base64, ${encode(
-                  data.getSpecificInfo.logo.data,
-                )}`}
-              />
-            )}
+        <Navbars />
+        {data && (
+          <Container>
+            <MainSectionColumn>
+              <TitleWithLogo>
+                {data.getSpecificInfo.logo.type === 'image/png' ? (
+                  <Logo
+                    alt="Job offer"
+                    src={`data:image/png;base64, ${encode(
+                      data.getSpecificInfo.logo.data,
+                    )}`}
+                  />
+                ) : (
+                  <Logo
+                    alt="Job offer"
+                    src={`data:image/jpeg;base64, ${encode(
+                      data.getSpecificInfo.logo.data,
+                    )}`}
+                  />
+                )}
 
-            <InfoSection>
-              <Title>{data.getSpecificInfo.offer.title}</Title>
-              <Info>
-                Company: {data.getSpecificInfo.offer.company.companyName}
-              </Info>
-              <Info>
-                Company size: {data.getSpecificInfo.offer.company.sizeOfCompany}
-              </Info>
-            </InfoSection>
-          </TitleWithLogo>
-          <Description>
-            <Label>Brief job description</Label>
-            {data.getSpecificInfo.offer.description}
-          </Description>
-          <SkillsContainer>
-            <Label>Must have</Label>
-            <GridContainer>
-              {data.getSpecificInfo.offer.mandatory.map(
-                (element: string, index: number) => (
-                  <Element key={index}>{element}</Element>
-                ),
-              )}
-            </GridContainer>
-            <Label>Nice to have</Label>
-            <ExtraSkillsGrid>
-              {data.getSpecificInfo.offer.extraSkills.map(
-                (element: string, index: number) => (
-                  <Element key={index}>{element}</Element>
-                ),
-              )}
-            </ExtraSkillsGrid>
-          </SkillsContainer>
+                <InfoSection>
+                  <Title>{data.getSpecificInfo.offer.title}</Title>
+                  <Info>
+                    Company: {data.getSpecificInfo.offer.company.companyName}
+                  </Info>
+                  <Info>
+                    Company size:{' '}
+                    {data.getSpecificInfo.offer.company.sizeOfCompany}
+                  </Info>
+                </InfoSection>
+              </TitleWithLogo>
+              <Description>
+                <Label>Brief job description</Label>
+                {data.getSpecificInfo.offer.description}
+              </Description>
+              <SkillsContainer>
+                <Label>Must have</Label>
+                <GridContainer>
+                  {data.getSpecificInfo.offer.mandatory.map(
+                    (element: string, index: number) => (
+                      <Element key={index}>{element}</Element>
+                    ),
+                  )}
+                </GridContainer>
+                <Label>Nice to have</Label>
+                <ExtraSkillsGrid>
+                  {data.getSpecificInfo.offer.extraSkills.map(
+                    (element: string, index: number) => (
+                      <Element key={index}>{element}</Element>
+                    ),
+                  )}
+                </ExtraSkillsGrid>
+              </SkillsContainer>
 
-          <DailyTasks>
-            <Label>Your daily tasks on the job</Label>
-            {data.getSpecificInfo.offer.tasks.map(
-              (element: string, index: number) => (
-                <TaskContainer key={index}>
-                  <Circle>{index + 1}</Circle>
-                  <Task>{element}</Task>
-                </TaskContainer>
-              ),
-            )}
-          </DailyTasks>
-          <div style={{ padding: '1.5rem' }}>
-            <Label>Benefits</Label>
-            <BenefitGrid>
-              {data.getSpecificInfo.offer.benefitsInWork.map(
-                (element: string, index: number) => (
-                  <IconContainer key={index}>
-                    <Icon icon={faCheckSquare} />
-                    <p style={{ padding: '0.8rem' }}>{element}</p>
-                  </IconContainer>
-                ),
-              )}
-            </BenefitGrid>
-          </div>
-
-          <AboutCompanyContainer>
-            <Label>About Company</Label>
-            <ComapnyInfoIconContainer>
-              <CompanyInfoIcon icon={faFlag} />
-              <p style={{ padding: '0.8rem' }}>
-                {' '}
-                Founded in: {data.getSpecificInfo.offer.company.yearOfSetUp}
-              </p>
-            </ComapnyInfoIconContainer>
-            <ComapnyInfoIconContainer>
-              <CompanyInfoIcon icon={faUser} />
-              <p style={{ padding: '0.8rem' }}>
-                {' '}
-                Company size: {data.getSpecificInfo.offer.company.sizeOfCompany}
-              </p>
-            </ComapnyInfoIconContainer>
-            <ComapnyInfoIconContainer>
-              <CompanyInfoIcon icon={faHome} />
-              <p style={{ padding: '0.8rem' }}>
-                {' '}
-                Main location: {data.getSpecificInfo.offer.company.localisation}
-              </p>
-            </ComapnyInfoIconContainer>
-
-            <Description>
-              {data.getSpecificInfo.offer.company.description}
-            </Description>
-          </AboutCompanyContainer>
-          <div style={{ padding: '1.5rem' }}>
-            <Label>See us working!</Label>
-            {data.getSpecificInfo.images.length !== 0 ? (
-              <BenefitGrid>
-                {data.getSpecificInfo.images.map(
-                  (image: any, index: number) => (
-                    <Image
-                      key={index}
-                      alt="Job offer"
-                      src={`data:image/png;base64, ${encode(image.data)}`}
-                    />
+              <DailyTasks>
+                <Label>Your daily tasks on the job</Label>
+                {data.getSpecificInfo.offer.tasks.map(
+                  (element: string, index: number) => (
+                    <TaskContainer key={index}>
+                      <Circle>{index + 1}</Circle>
+                      <Task>{element}</Task>
+                    </TaskContainer>
                   ),
                 )}
-              </BenefitGrid>
-            ) : null}
-          </div>
-          <Label>SEE ALSO SIMILAR ADS!</Label>
-          <RandomJobOffers />
-        </MainSectionColumn>
-        <SecondaryColumn>
-          <OnlineRecrutationField>Online recruitment</OnlineRecrutationField>
-          <PaddedDiv>
-            <Salary>
-              {' '}
-              {data.getSpecificInfo.offer.minSalary +
-                ' - ' +
-                data.getSpecificInfo.offer.maxSalary}{' '}
-              PLN
-            </Salary>
-            <StyledParagraph>+vat per month</StyledParagraph>
-          </PaddedDiv>
-          <PaddedDiv>
-            <StyledParagraph>
-              Possible job locations:{' '}
-              {data.getSpecificInfo.offer.company.localisation}
-            </StyledParagraph>
+              </DailyTasks>
+              <div style={{ padding: '1.5rem' }}>
+                <Label>Benefits</Label>
+                <BenefitGrid>
+                  {data.getSpecificInfo.offer.benefitsInWork.map(
+                    (element: string, index: number) => (
+                      <IconContainer key={index}>
+                        <Icon icon={faCheckSquare} />
+                        <p style={{ padding: '0.8rem' }}>{element}</p>
+                      </IconContainer>
+                    ),
+                  )}
+                </BenefitGrid>
+              </div>
 
-            <ApplyButton {...getRootProps()} tabIndex={0}>
-              <input {...getInputProps()} />
-              Apply
-            </ApplyButton>
-          </PaddedDiv>
-        </SecondaryColumn>
-      </Container>
-    </>
-  );
+              <AboutCompanyContainer>
+                <Label>About Company</Label>
+                <ComapnyInfoIconContainer>
+                  <CompanyInfoIcon icon={faFlag} />
+                  <p style={{ padding: '0.8rem' }}>
+                    {' '}
+                    Founded in: {data.getSpecificInfo.offer.company.yearOfSetUp}
+                  </p>
+                </ComapnyInfoIconContainer>
+                <ComapnyInfoIconContainer>
+                  <CompanyInfoIcon icon={faUser} />
+                  <p style={{ padding: '0.8rem' }}>
+                    {' '}
+                    Company size:{' '}
+                    {data.getSpecificInfo.offer.company.sizeOfCompany}
+                  </p>
+                </ComapnyInfoIconContainer>
+                <ComapnyInfoIconContainer>
+                  <CompanyInfoIcon icon={faHome} />
+                  <p style={{ padding: '0.8rem' }}>
+                    {' '}
+                    Main location:{' '}
+                    {data.getSpecificInfo.offer.company.localisation}
+                  </p>
+                </ComapnyInfoIconContainer>
+
+                <Description>
+                  {data.getSpecificInfo.offer.company.description}
+                </Description>
+              </AboutCompanyContainer>
+              <div style={{ padding: '1.5rem' }}>
+                <Label>See us working!</Label>
+                {(data.getSpecificInfo.images.length as number) !== 0 ? (
+                  <BenefitGrid>
+                    {data.getSpecificInfo.images.map(
+                      (image: any, index: number) => (
+                        <Image
+                          key={index}
+                          alt="Job offer"
+                          src={`data:image/png;base64, ${encode(image.data)}`}
+                        />
+                      ),
+                    )}
+                  </BenefitGrid>
+                ) : null}
+              </div>
+              <Label>SEE ALSO SIMILAR ADS!</Label>
+              <RandomJobOffers />
+            </MainSectionColumn>
+            <SecondaryColumn>
+              <OnlineRecrutationField>
+                Online recruitment
+              </OnlineRecrutationField>
+              <PaddedDiv>
+                <Salary>
+                  {' '}
+                  {data.getSpecificInfo.offer.minSalary +
+                    ' - ' +
+                    data.getSpecificInfo.offer.maxSalary}{' '}
+                  PLN
+                </Salary>
+                <StyledParagraph>+vat per month</StyledParagraph>
+              </PaddedDiv>
+              <PaddedDiv>
+                <StyledParagraph>
+                  Possible job locations:{' '}
+                  {data.getSpecificInfo.offer.company.localisation}
+                </StyledParagraph>
+
+                <ApplyButton {...getRootProps()} tabIndex={0}>
+                  <input {...getInputProps()} />
+                  Apply
+                </ApplyButton>
+              </PaddedDiv>
+            </SecondaryColumn>
+          </Container>
+        )}
+      </>
+    );
 };
 
 export default SpecificJobOffer;
