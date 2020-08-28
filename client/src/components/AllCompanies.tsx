@@ -43,6 +43,7 @@ const AllJobOffers = () => {
     GET_ALL_INFO,
     {
       variables: { cursor: 0 },
+      fetchPolicy: 'network-only',
     },
   );
   const checkIfPossible = (data: any, index: number) => {
@@ -52,36 +53,39 @@ const AllJobOffers = () => {
   else
     return (
       <Container>
-        {data!.getAllInfo.info.map((element, index: number) => (
-          <React.Fragment key={element.id}>
-            <JobInfromation>
-              <Column>
-                <Title to={`/specific?id=${element.id}`}>{element.title}</Title>
-                <LightInfo>in {element.company.companyName}</LightInfo>
-                <LightInfo> {element.date}</LightInfo>
-              </Column>
+        {data &&
+          data.getAllInfo.info.map((element, index: number) => (
+            <React.Fragment key={element.id}>
+              <JobInfromation>
+                <Column>
+                  <Title to={`/specific?id=${element.id}`}>
+                    {element.title}
+                  </Title>
+                  <LightInfo>in {element.company.companyName}</LightInfo>
+                  <LightInfo> {element.date}</LightInfo>
+                </Column>
 
-              <ColumWithSalary>
-                <Salary>
-                  {element.minSalary + ' - ' + element.maxSalary + ' PLN'}
-                </Salary>
-                <Salary>{element.main}</Salary>
-                <LightInfo>{element.company.localisation}</LightInfo>
-              </ColumWithSalary>
-            </JobInfromation>
-            {checkIfPossible(data, index) ? (
-              <Waypoint
-                onEnter={() => {
-                  page = data!.getAllInfo.info.length;
-                  length(data!.getAllInfo.info.length);
-                  fetchMore({
-                    variables: { cursor: page },
-                  });
-                }}
-              />
-            ) : null}
-          </React.Fragment>
-        ))}
+                <ColumWithSalary>
+                  <Salary>
+                    {element.minSalary + ' - ' + element.maxSalary + ' PLN'}
+                  </Salary>
+                  <Salary>{element.main}</Salary>
+                  <LightInfo>{element.company.localisation}</LightInfo>
+                </ColumWithSalary>
+              </JobInfromation>
+              {checkIfPossible(data, index) ? (
+                <Waypoint
+                  onEnter={() => {
+                    page = data!.getAllInfo.info.length;
+                    length(data!.getAllInfo.info.length);
+                    fetchMore({
+                      variables: { cursor: page },
+                    });
+                  }}
+                />
+              ) : null}
+            </React.Fragment>
+          ))}
       </Container>
     );
 };

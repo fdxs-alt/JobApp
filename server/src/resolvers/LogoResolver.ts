@@ -39,12 +39,10 @@ export class LogoResolver {
               unlinkSync(destination);
               res(true);
             } catch (error) {
-              console.log(error);
               return res(false);
             }
           })
-          .on('error', (error) => {
-            console.log(error);
+          .on('error', () => {
             rej(false);
           }),
       );

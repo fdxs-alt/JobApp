@@ -110,10 +110,11 @@ const CreateJobOffer: React.FC = () => {
       setValue('title', '');
       setValue('minSalary', undefined);
       setValue('maxSalary', undefined);
-
+      setValue('description', undefined);
+      setValue('main', undefined);
       setTimeout(() => {
         history.push('/joboffers');
-      }, 2500);
+      }, 3000);
     } catch (error) {
       CustomToast(error.message, 'error');
       return;
@@ -160,7 +161,7 @@ const CreateJobOffer: React.FC = () => {
       <Navbars />
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

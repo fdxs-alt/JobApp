@@ -79,7 +79,6 @@ export class CvResolver {
 
               return res(true);
             } catch (error) {
-              console.log(error);
               return res(false);
             }
           })

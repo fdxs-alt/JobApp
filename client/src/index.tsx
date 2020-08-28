@@ -15,7 +15,7 @@ import RefreshTokenLink from './Graphql/RefreshTokenLink';
 import isAuthenticated, { isOwner, length } from './Graphql/isAuth';
 import { TableProvider } from './context/TableProvider';
 import { JobProvider } from './context/JobOfferProvider';
-
+import { isEqual, slice } from 'lodash';
 const links = ApolloLink.from([
   AuthLink,
   RefreshTokenLink,
@@ -40,15 +40,36 @@ const client = new ApolloClient({
             merge: false,
           },
           getAllInfo: {
-            merge(existing = {}, incoming: any) {
-              const result = {
-                __typename: 'ResponseTable',
-                hasMore: incoming.hasMore,
-                info: existing.info
-                  ? [...existing.info, ...incoming.info]
-                  : [...incoming.info],
-              };
+            merge(existing: any, incoming: any, { args, cache }) {
+              let result: any;
+              if (args!.cursor === 0) {
+                result = {
+                  __typename: 'ResponseTable',
+                  hasMore: incoming.hasMore,
+                  info: [...incoming.info],
+                };
+              }
+              if (existing) {
+                if (existing?.hasMore)
+                  result = {
+                    __typename: 'ResponseTable',
+                    hasMore: incoming.hasMore,
+                    info: isEqual(existing.info, incoming.info)
+                      ? [...incoming.info]
+                      : [...existing.info, ...incoming.info],
+                  };
+                if (!incoming.hasMore && !existing.hasMore)
+                  result = {
+                    __typename: 'ResponseTable',
+                    hasMore: existing.hasMore,
+                    info: isEqual(existing.info, incoming.info)
+                      ? [...incoming.info]
+                      : [...existing.info],
+                  };
+              }
+
               length(result.info.length);
+
               return result;
             },
             read(existing: any[]) {

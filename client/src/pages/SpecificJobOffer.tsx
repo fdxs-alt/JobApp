@@ -97,7 +97,7 @@ const SpecificJobOffer = () => {
           file,
         },
       });
-      console.log(res.data);
+
       (res.data as any).addCv
         ? CustomToast('Cv was sent succesfully', 'success')
         : CustomToast(

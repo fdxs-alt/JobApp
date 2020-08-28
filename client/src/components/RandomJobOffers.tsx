@@ -16,7 +16,6 @@ const RandomJobOffers = () => {
   const { data, loading, error } = useQuery(GET_RANDOM_OFFERS, {
     fetchPolicy: 'network-only',
   });
-  console.log(data);
   if (loading || error) return null;
   else
     return (
