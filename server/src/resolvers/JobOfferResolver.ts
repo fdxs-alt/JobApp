@@ -143,7 +143,7 @@ export class JobOfferResolver {
       throw new Error('An error occured');
     }
   }
-  @Mutation(() => [JobOffer])
+  @Query(() => [JobOffer])
   async searchJobOffers(@Arg('input') input: string): Promise<JobOffer[]> {
     try {
       const joboffers = await getConnection()

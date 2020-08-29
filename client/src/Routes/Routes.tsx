@@ -47,7 +47,6 @@ const Routes: React.FC = () => {
         <OwnerRoutes exact path="/createJobOffer" component={CreateJobOffer} />
         <OwnerRoutes path="/job" component={JobDetails} />
         <OwnerRoutes path="/application" component={CompanyApplications} />
-
         <Redirect to="/" />
       </Switch>
     </BrowserRouter>

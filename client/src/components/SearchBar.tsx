@@ -27,6 +27,8 @@ const SearchBar = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setSearchValue(e.target.value)
           }
+          required
+          placeholder="What are you looking for?"
         />
         <MyButton width={25} type="submit">
           Search job
