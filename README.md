@@ -1,3 +1,3 @@
 # JobApp
 ##### backend (done)
-##### frontend - work in progress
+##### frontend - work in progress (70%)
