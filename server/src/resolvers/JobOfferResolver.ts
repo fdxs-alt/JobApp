@@ -5,7 +5,6 @@ import {
   Mutation,
   UseMiddleware,
   Query,
-  Args,
 } from 'type-graphql';
 import { JobOffer } from '../entity/JobOffer';
 import { JobOfferInput } from '../types-graphql/JobOfferInput';
@@ -176,8 +175,46 @@ export class JobOfferResolver {
       throw new Error('An error occured');
     }
   }
-  //   @Query(() => [JobOffer])
-  //   async findJobOffers(
-  //     @Args('input') input: findJobOfferInput,
-  //   ): Promise<JobOffer> {}
+  @Query(() => [JobOffer])
+  async findJobOffers(
+    @Arg('input')
+    input: findJobOfferInput,
+  ): Promise<JobOffer[]> {
+    const { localisation, main, minSalary, onlineRecrutation, title } = input;
+
+    const Query = await getConnection()
+      .getRepository(JobOffer)
+      .createQueryBuilder('q');
+
+    if (localisation) {
+      Query.andWhere('q.localisation ilike :localisation', {
+        localisation: `%${localisation}%`,
+      });
+      Query.andWhere('q.localisation ilike :localisation', {
+        localisation: `%${capitalize(localisation)}%`,
+      });
+    }
+
+    if (main) {
+      Query.andWhere('q.main ilike :main', { main: `%${main}%` });
+      Query.andWhere('q.main ilike :main', { main: `%${capitalize(main)}%` });
+    }
+
+    if (onlineRecrutation) {
+      Query.andWhere('q.onlineRecrutation = :onlineRecrutation', {
+        onlineRecrutation,
+      });
+    }
+
+    if (title) {
+      Query.andWhere('q.title ilike :title', { title: `%${title}%` });
+      Query.andWhere('q.title ilike :title', {
+        title: `%${capitalize(title)}%`,
+      });
+    }
+
+    if (minSalary) Query.andWhere('q.minSalary < :minSalary', { minSalary });
+
+    return Query.getMany();
+  }
 }

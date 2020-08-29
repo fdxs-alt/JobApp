@@ -8,7 +8,7 @@ export class findJobOfferInput {
   title?: string;
 
   @Field({ nullable: true })
-  localistion?: string;
+  localisation?: string;
 
   @Field({ nullable: true })
   minSalary?: number;
