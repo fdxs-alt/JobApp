@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import MainPage from '../pages/MainPage';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
@@ -21,6 +21,7 @@ import CreateJobOffer from '../pages/OwnerPages/CreateJobOffer';
 import JobDetails from '../pages/OwnerPages/JobDetails';
 import CompanyApplications from '../pages/OwnerPages/CompanyApplications';
 import SpecificJobOffer from '../pages/SpecificJobOffer';
+import SearchPage from '../pages/SearchPage';
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
@@ -29,6 +30,7 @@ const Routes: React.FC = () => {
         <ForbbidenWhenLogged exact path="/login" component={Login} />
         <ForbbidenWhenLogged exact path="/register" component={Register} />
         <Route exact path="/company" component={Companies} />
+        <Route path="/searchjob" component={SearchPage} />
         <Route exact path="/employers" component={ForEmployers} />
         <Route exact path="/employers/pricing" component={Pricing} />
         <Route exact path="/employers/clients" component={Clients} />
@@ -45,6 +47,8 @@ const Routes: React.FC = () => {
         <OwnerRoutes exact path="/createJobOffer" component={CreateJobOffer} />
         <OwnerRoutes path="/job" component={JobDetails} />
         <OwnerRoutes path="/application" component={CompanyApplications} />
+
+        <Redirect to="/" />
       </Switch>
     </BrowserRouter>
   );

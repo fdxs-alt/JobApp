@@ -11,6 +11,11 @@ export const Header = styled.header`
   font-weight: 600;
   justify-content: space-between;
   border-bottom: 1px solid ${(props) => props.theme.colors.lightBorder};
+  position: sticky;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
 `;
 export const LeftPanel = styled.ul`
   list-style-type: none;

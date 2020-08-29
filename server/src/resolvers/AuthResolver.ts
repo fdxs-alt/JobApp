@@ -11,6 +11,7 @@ import { sendEmail } from '../utils/sendEmail';
 import { confirmEmailSubject } from '../constants/Contants';
 import { createAccessToken, createRefreshToken } from '../utils/createTokens';
 import { sendRefreshCookie } from '../utils/sendRefreshCookie';
+import { capitalize } from 'lodash';
 @Resolver()
 export class AuthResolver {
   @Mutation(() => Boolean)
@@ -28,10 +29,10 @@ export class AuthResolver {
     const user = User.create({
       email,
       password: bcryptedPassword,
-      companyName,
+      companyName: capitalize(companyName),
       hasCompany,
-      name,
-      surname,
+      name: capitalize(name),
+      surname: capitalize(surname),
     });
     await user.save();
     const confirmEmailLink = await createConfirmationLink(url, user.id);

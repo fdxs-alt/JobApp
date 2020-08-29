@@ -8,6 +8,8 @@ import {
   RightPanel,
   Logout,
 } from '../../styles/NavbarStyles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserAlt, faPowerOff } from '@fortawesome/free-solid-svg-icons';
 type Props = {
   handleClick: () => void;
 };
@@ -36,7 +38,14 @@ const EmployerNavbar: React.FC<Props> = ({ handleClick }) => {
       </LeftPanel>
       <RightPanel>
         <RightElement>
-          <Logout onClick={handleClick}>LOGOUT</Logout>
+          <MyLink to="/user">
+            <FontAwesomeIcon icon={faUserAlt} style={{ fontSize: '1.4rem' }} />
+          </MyLink>
+        </RightElement>
+        <RightElement>
+          <Logout onClick={handleClick}>
+            <FontAwesomeIcon icon={faPowerOff} style={{ fontSize: '1.4rem' }} />
+          </Logout>
         </RightElement>
       </RightPanel>
     </Header>

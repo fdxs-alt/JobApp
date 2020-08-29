@@ -13,6 +13,9 @@ export const GridContainer = styled.div`
   grid-template-rows: 0.25fr 1fr 1fr;
   margin: auto;
   gap: 2rem;
+  & > * {
+    border: 1px solid ${(props) => props.theme.colors.lightGray};
+  }
 `;
 export const DashboardTitle = styled.div`
   grid-column: 1/3;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Section,
   SearchInput,
@@ -6,14 +6,31 @@ import {
   Container,
 } from '../styles/SearchBarStyles';
 import { MyButton } from '../styles/Button';
-
+import { useHistory } from 'react-router-dom';
 const SearchBar = () => {
+  const [searchValue, setSearchValue] = useState('');
+  const history = useHistory();
   return (
-    <Section>
+    <Section
+      onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        history.push(`/searchjob?input=${searchValue}`);
+        setSearchValue('');
+      }}
+    >
       <Title>Top employers. Best IT talents. Transparent salaries.</Title>
       <Container>
-        <SearchInput />
-        <MyButton width={25}>Search job</MyButton>
+        <SearchInput
+          name="search"
+          type="text"
+          value={searchValue}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setSearchValue(e.target.value)
+          }
+        />
+        <MyButton width={25} type="submit">
+          Search job
+        </MyButton>
       </Container>
     </Section>
   );

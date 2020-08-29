@@ -17,7 +17,7 @@ const PrivateRoutes: React.FC<{
   return data!.isAuthenticated ? (
     <Route path={props.path} exact={props.exact} component={props.component} />
   ) : (
-    <Redirect to="/" />
+    <Redirect to="/login" />
   );
 };
 

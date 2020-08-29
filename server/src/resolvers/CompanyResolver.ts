@@ -14,6 +14,7 @@ import { EmployerAuthMiddleware } from '../utils/EmployerAuthMiddleware';
 import { ResponseTable } from '../types-graphql/AllInfoResonse';
 import { getConnection } from 'typeorm';
 import { JobOffer } from '../entity/JobOffer';
+import { capitalize } from 'lodash';
 
 @Resolver()
 export class CompanyResolver {
@@ -47,11 +48,11 @@ export class CompanyResolver {
       );
     const newCompany = Company.create({
       benefits,
-      companyName,
-      description,
+      companyName: capitalize(companyName),
+      description: capitalize(description),
       yearOfSetUp,
       sizeOfCompany,
-      localisation,
+      localisation: capitalize(localisation),
       technologies,
       employer: user,
     });

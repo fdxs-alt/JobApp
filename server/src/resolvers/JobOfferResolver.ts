@@ -15,7 +15,8 @@ import moment from 'moment';
 import { Images } from '../entity/Images';
 import { Logo } from '../entity/Logo';
 import { SpecificOfferResponse } from '../types-graphql/SpecificOfferResponse';
-import { getConnection } from 'typeorm';
+import { getConnection, Like } from 'typeorm';
+import { capitalize } from 'lodash';
 
 @Resolver()
 export class JobOfferResolver {
@@ -52,9 +53,9 @@ export class JobOfferResolver {
       minSalary,
       onlineRecrutation,
       tasks,
-      description,
-      main,
-      title,
+      description: capitalize(description),
+      main: capitalize(main),
+      title: capitalize(title),
       date: moment().format('DD-MM-YYYY'),
       company: alreadyHasCreatedCompany,
     });
@@ -138,6 +139,33 @@ export class JobOfferResolver {
         .getMany();
 
       return randomJobOffers;
+    } catch (error) {
+      throw new Error('An error occured');
+    }
+  }
+  @Mutation(() => [JobOffer])
+  async searchJobOffers(@Arg('input') input: string): Promise<JobOffer[]> {
+    try {
+      const joboffers = await getConnection()
+        .getRepository(JobOffer)
+        .find({
+          where: [
+            { title: Like('%' + capitalize(input) + '%') },
+            { title: Like('%' + input + '%') },
+            { main: input },
+            { main: capitalize(input) },
+            { description: Like('%' + input + '%') },
+            { description: Like('%' + capitalize(input) + '%') },
+          ],
+          join: {
+            alias: 'j',
+            leftJoinAndSelect: {
+              company: 'j.company',
+            },
+          },
+        });
+
+      return joboffers;
     } catch (error) {
       throw new Error('An error occured');
     }

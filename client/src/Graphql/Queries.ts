@@ -206,3 +206,31 @@ export const GET_RANDOM_OFFERS = gql`
     }
   }
 `;
+export const SEARCH_JOB_OFFERS = gql`
+  mutation SearchJobOffers($input: String!) {
+    searchJobOffers(input: $input) {
+      offer {
+        title
+        mandatory
+        extraSkills
+        tasks
+        benefitsInWork
+        minSalary
+        maxSalary
+        onlineRecrutation
+        description
+        main
+        date
+        company {
+          companyName
+          yearOfSetUp
+          sizeOfCompany
+          localisation
+          description
+          technologies
+          benefits
+        }
+      }
+    }
+  }
+`;

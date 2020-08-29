@@ -21,7 +21,7 @@ const OwnerRoutes: React.FC<{
   return authData.data!.isAuthenticated && ownerData.data!.isOwner ? (
     <Route path={props.path} exact={props.exact} component={props.component} />
   ) : (
-    <Redirect to="/" />
+    <Redirect to="/login" />
   );
 };
 

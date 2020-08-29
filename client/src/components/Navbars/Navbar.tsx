@@ -8,12 +8,15 @@ import {
   RightPanel,
   Logout,
 } from '../../styles/NavbarStyles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPowerOff, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
   fullName?: string | undefined;
   handleClick: () => void;
 };
 const Navbar: React.FC<Props> = ({ fullName, handleClick }) => {
+  
   return (
     <Header>
       <LeftPanel>
@@ -39,14 +42,30 @@ const Navbar: React.FC<Props> = ({ fullName, handleClick }) => {
           )}
         </RightElement>
         <RightElement>
-          <MyLink to="/">Post a job</MyLink>
-        </RightElement>
-        <RightElement>
-          {fullName ? <>{fullName}</> : <MyLink to="/login">Log in</MyLink>}
+          <MyLink to="/createJobOffer">Post a job</MyLink>
         </RightElement>
         <RightElement>
           {fullName ? (
-            <Logout onClick={handleClick}>LOGOUT</Logout>
+            <>{fullName}</>
+          ) : (
+            <MyLink to="/login">
+              Login {'    '}
+              <FontAwesomeIcon
+                icon={faSignInAlt}
+                style={{ fontSize: '1.4rem' }}
+              />
+            </MyLink>
+          )}
+        </RightElement>
+        <RightElement>
+          {fullName ? (
+            <Logout onClick={handleClick}>
+              {' '}
+              <FontAwesomeIcon
+                icon={faPowerOff}
+                style={{ fontSize: '1.4rem' }}
+              />
+            </Logout>
           ) : (
             <MyLink to="/register">Register</MyLink>
           )}
