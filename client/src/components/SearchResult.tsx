@@ -31,14 +31,14 @@ const SearchResult = () => {
             <Title to={`/specific?id=${element.id}`}>{element.title}</Title>
             <LightInfo>in {element.company.companyName}</LightInfo>
             <LightInfo> {element.date}</LightInfo>
-          </Column> 
+          </Column>
 
           <ColumWithSalary>
             <Salary>
               {element.minSalary + ' - ' + element.maxSalary + ' PLN'}
             </Salary>
             <Salary>{element.main}</Salary>
-            <LightInfo>{element.company.localisation}</LightInfo>
+            <LightInfo>{element.localisation}</LightInfo>
           </ColumWithSalary>
         </JobInfromation>
       ))}

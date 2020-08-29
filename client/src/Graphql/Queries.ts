@@ -42,6 +42,7 @@ export const ALL_USERS_OFFERS = gql`
       id
       title
       date
+      localisation
     }
   }
 `;
@@ -59,6 +60,7 @@ export const SPECIFIC_JOB_OFFER = gql`
       date
       main
       description
+      localisation
     }
   }
 `;
@@ -145,10 +147,10 @@ export const GET_ALL_INFO = gql`
         onlineRecrutation
         date
         main
+        localisation
         company {
           id
           companyName
-          localisation
         }
       }
 
@@ -170,6 +172,7 @@ export const GET_ALL_SPECIFIC_INFO = gql`
         onlineRecrutation
         description
         main
+        localisation
         date
         company {
           companyName
@@ -199,8 +202,8 @@ export const GET_RANDOM_OFFERS = gql`
       id
       title
       onlineRecrutation
+      localisation
       company {
-        localisation
         companyName
       }
     }
@@ -211,24 +214,13 @@ export const SEARCH_JOB_OFFERS = gql`
     searchJobOffers(input: $input) {
       id
       title
-      mandatory
-      extraSkills
-      tasks
-      benefitsInWork
       minSalary
       maxSalary
-      onlineRecrutation
-      description
       main
       date
+      localisation
       company {
         companyName
-        yearOfSetUp
-        sizeOfCompany
-        localisation
-        description
-        technologies
-        benefits
       }
     }
   }

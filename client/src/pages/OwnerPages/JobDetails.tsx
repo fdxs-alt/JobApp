@@ -22,6 +22,7 @@ import {
   faMoneyBillAlt,
   faMoneyBill,
   faMicrochip,
+  faHome,
 } from '@fortawesome/free-solid-svg-icons';
 
 type Response = {
@@ -36,6 +37,7 @@ type Response = {
     title: string[];
     main: string;
     description: string;
+    localisation: string;
     date: string;
   };
 };
@@ -59,6 +61,12 @@ const JobDetails = () => {
               <Icon icon={faMoneyBillAlt} />
               <Text>
                 Minimum salary: <b>{data!.specificJobOffer.minSalary}</b>
+              </Text>
+            </IconContainer>
+            <IconContainer>
+              <Icon icon={faHome} />
+              <Text>
+                Localisation: <b>{data!.specificJobOffer.localisation}</b>
               </Text>
             </IconContainer>
             <IconContainer>

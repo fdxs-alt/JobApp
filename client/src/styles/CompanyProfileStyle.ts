@@ -57,7 +57,6 @@ export const Description = styled.div`
   line-height: 1.8rem;
   padding: 2rem;
   text-align: justify;
-  word-break: break-all;
 `;
 export const GridContainer = styled.div`
   font-size: 1rem;
@@ -69,6 +68,8 @@ export const GridContainer = styled.div`
 export const Element = styled.span`
   padding: 0.5rem 0.8rem;
   border: 2px solid ${(props) => props.theme.colors.button};
+  display: flex;
+  align-items: center;
 `;
 export const ColumContainer = styled.div`
   display: flex;

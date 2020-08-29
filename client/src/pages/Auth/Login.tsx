@@ -1,5 +1,5 @@
 import React from 'react';
-import { MyButton } from '../styles/Button';
+import { MyButton } from '../../styles/Button';
 import {
   Container,
   LinkContainer,
@@ -10,15 +10,15 @@ import {
   Input,
   Title,
   Error,
-} from '../styles/LoginPageStyles';
+} from '../../styles/LoginPageStyles';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
 import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';
-import { LOGIN } from '../Graphql/AuthMutations';
+import { LOGIN } from '../../Graphql/AuthMutations';
 import { useMutation } from '@apollo/client';
-import { setToken } from '../AccessToken';
-import isAuthenticated, { isOwner } from '../Graphql/isAuth';
+import { setToken } from '../../AccessToken';
+import isAuthenticated, { isOwner } from '../../Graphql/isAuth';
 import { useHistory } from 'react-router-dom';
 type login = {
   email: string;

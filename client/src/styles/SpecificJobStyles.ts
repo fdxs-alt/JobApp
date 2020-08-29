@@ -21,7 +21,7 @@ export const SecondaryColumn = styled.section`
   position: sticky;
   height: 20vh;
   top: clamp(15vh, calc(16vh+5rem), 17vh);
-  z-index: -1;
+  z-index: 1;
 
   & > div {
     border: 1px solid ${(props) => props.theme.colors.lightGray};

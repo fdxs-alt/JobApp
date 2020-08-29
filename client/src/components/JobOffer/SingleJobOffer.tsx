@@ -17,6 +17,7 @@ import { Title as ConfrimationTitle } from '../../styles/SearchBarStyles';
 type Props = {
   title: string;
   id: number;
+  localisation: string;
   date: string;
 };
 type ArrayProp = {
@@ -29,7 +30,7 @@ type QueryProps = {
   allUsersOffers: ArrayProp[];
 };
 
-const SingleJobOffer: React.FC<Props> = ({ title, id, date }) => {
+const SingleJobOffer: React.FC<Props> = ({ title, id, date, localisation }) => {
   const [deleteJobOffer] = useMutation(DELETE_JOB_OFFER, {
     variables: { id },
     update: (store) => {
@@ -79,7 +80,10 @@ const SingleJobOffer: React.FC<Props> = ({ title, id, date }) => {
   return (
     <Container>
       <Title>{title}</Title>
-      <Title>{date}</Title>
+      <Title>
+        {date}
+        {'   '} {localisation}
+      </Title>
       <IconLink to={`/job?id=${id}`}>
         <FontAwesomeIcon icon={faInfoCircle} />
       </IconLink>

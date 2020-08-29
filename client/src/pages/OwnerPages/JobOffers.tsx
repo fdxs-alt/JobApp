@@ -9,13 +9,14 @@ export type UserOfferResponseType = {
   id: number;
   title: string;
   date: string;
+  localisation: string;
 };
 type Response = {
   allUsersOffers: UserOfferResponseType[];
 };
 const JobOffers = () => {
   const { data, loading } = useQuery<Response>(ALL_USERS_OFFERS);
-
+  console.log(data);
   if (loading) return null;
   if (!data)
     return (
@@ -45,6 +46,7 @@ const JobOffers = () => {
                   title={offer.title}
                   id={offer.id}
                   date={offer.date}
+                  localisation={offer.localisation}
                 />
               ))}
             </JobOffersWrapper>

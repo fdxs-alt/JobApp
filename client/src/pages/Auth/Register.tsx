@@ -4,7 +4,7 @@ import {
   MyLink,
   Icon,
   LinkContainer,
-} from '../styles/LoginPageStyles'; 
+} from '../../styles/LoginPageStyles';
 import {
   RegisterContainer,
   ButtonContainer,
@@ -13,11 +13,11 @@ import {
   Header,
   MainContent,
   Logo,
-} from '../styles/Register';
-import logo from '../images/logo.png';
-import RegisterForm from '../components/Register/Register';
-import Login from '../components/Register/Login';
-import Pros from '../components/Register/Proses';
+} from '../../styles/Register';
+import logo from '../../images/logo.png';
+import RegisterForm from '../../components/Register/Register';
+import Login from '../../components/Register/Login';
+import Pros from '../../components/Register/Proses';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 const Register = () => {
   const [active, setActive] = useState(true);

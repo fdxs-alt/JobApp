@@ -62,6 +62,7 @@ type SpecificInfoType = {
     onlineRecrutation: boolean;
     description: string;
     main: string;
+    localisation: string;
     date: string;
     company: {
       companyName: string;
@@ -295,7 +296,7 @@ const SpecificJobOffer = () => {
               <PaddedDiv>
                 <StyledParagraph>
                   Possible job locations:{' '}
-                  {data.getSpecificInfo.offer.company.localisation}
+                  {data.getSpecificInfo.offer.localisation}
                 </StyledParagraph>
 
                 <ApplyButton {...getRootProps()} tabIndex={0}>

@@ -16,6 +16,7 @@ const RandomJobOffers = () => {
   const { data, loading, error } = useQuery(GET_RANDOM_OFFERS, {
     fetchPolicy: 'network-only',
   });
+  console.log(data);
   if (loading || error) return null;
   else
     return (
@@ -37,7 +38,7 @@ const RandomJobOffers = () => {
                 />
               )}
               <LocalisationInfo style={{ padding: '0 2rem' }}>
-                {element.company.localisation}
+                {element.localisation}
               </LocalisationInfo>
             </LocalisationColumn>
           </JobInfromation>

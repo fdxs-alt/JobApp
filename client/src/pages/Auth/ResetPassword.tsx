@@ -1,5 +1,5 @@
 import React from 'react';
-import { MyButton } from '../styles/Button';
+import { MyButton } from '../../styles/Button';
 import {
   Container,
   LinkContainer,
@@ -11,14 +11,14 @@ import {
   Title,
   Error,
   Paragraph,
-} from '../styles/LoginPageStyles';
-import { SuccessMessage } from '../styles/Register';
+} from '../../styles/LoginPageStyles';
+import { SuccessMessage } from '../../styles/Register';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
 import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';
 import { useMutation } from '@apollo/client';
-import { RESET_BY_EMAIL } from '../Graphql/AuthMutations';
+import { RESET_BY_EMAIL } from '../../Graphql/AuthMutations';
 
 type reset = {
   email: string;

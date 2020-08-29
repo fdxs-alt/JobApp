@@ -22,6 +22,10 @@ export class JobOffer extends BaseEntity {
   @Column('text')
   title: string;
 
+  @Field()
+  @Column('varchar')
+  localisation: string;
+
   @Field(() => [String])
   @Column('varchar', { length: 255, array: true })
   mandatory: string[];

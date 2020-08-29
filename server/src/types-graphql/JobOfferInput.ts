@@ -6,6 +6,10 @@ export class JobOfferInput {
   @IsNotEmpty({ message: "Title field can't be empty" })
   title: string;
 
+  @Field()
+  @IsNotEmpty({ message: "Title field can't be empty" })
+  localisation: string;
+
   @Field(() => [String])
   @IsNotEmpty({ message: "Mandatory field can't be empty" })
   mandatory: string[];

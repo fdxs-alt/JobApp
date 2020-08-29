@@ -47,7 +47,7 @@ const CompanyApplications = () => {
   const [remove, { loading: deleteCvLoading }] = useMutation<Response>(
     DELETE_CV,
   );
-
+  console.log(data);
   if (loading) return null;
 
   const handleClick = (id: number, jobId: number) => {
@@ -66,7 +66,9 @@ const CompanyApplications = () => {
                 onClick={async () => {
                   await remove({
                     variables: { id, jobId },
-                    refetchQueries: [{ query: GET_ALL_CVS }],
+                    update: (cache) => {
+                      cache.evict({ id: 'Cv:' + id });
+                    },
                   });
                   onClose();
                 }}

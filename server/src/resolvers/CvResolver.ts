@@ -138,8 +138,6 @@ export class CvResolver {
 
       const cvToDelete = await Cv.findOne({ where: { id } });
 
-      unlinkSync(cvToDelete.name);
-
       await cvToDelete.remove();
       return true;
     } catch (error) {

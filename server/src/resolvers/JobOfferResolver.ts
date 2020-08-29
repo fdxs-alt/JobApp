@@ -5,6 +5,7 @@ import {
   Mutation,
   UseMiddleware,
   Query,
+  Args,
 } from 'type-graphql';
 import { JobOffer } from '../entity/JobOffer';
 import { JobOfferInput } from '../types-graphql/JobOfferInput';
@@ -17,6 +18,7 @@ import { Logo } from '../entity/Logo';
 import { SpecificOfferResponse } from '../types-graphql/SpecificOfferResponse';
 import { getConnection, Like } from 'typeorm';
 import { capitalize } from 'lodash';
+import { findJobOfferInput } from '../types-graphql/findJobOffersInput';
 
 @Resolver()
 export class JobOfferResolver {
@@ -35,6 +37,7 @@ export class JobOfferResolver {
       title,
       description,
       main,
+      localisation,
     }: JobOfferInput,
     @Ctx() ctx: MyContext,
   ): Promise<JobOffer> {
@@ -53,6 +56,7 @@ export class JobOfferResolver {
       minSalary,
       onlineRecrutation,
       tasks,
+      localisation: capitalize(localisation),
       description: capitalize(description),
       main: capitalize(main),
       title: capitalize(title),
@@ -156,6 +160,8 @@ export class JobOfferResolver {
             { main: capitalize(input) },
             { description: Like('%' + input + '%') },
             { description: Like('%' + capitalize(input) + '%') },
+            { localisation: Like('%' + input + '%') },
+            { localisation: Like('%' + capitalize(input) + '%') },
           ],
           join: {
             alias: 'j',
@@ -170,4 +176,8 @@ export class JobOfferResolver {
       throw new Error('An error occured');
     }
   }
+  //   @Query(() => [JobOffer])
+  //   async findJobOffers(
+  //     @Args('input') input: findJobOfferInput,
+  //   ): Promise<JobOffer> {}
 }

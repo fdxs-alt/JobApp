@@ -33,6 +33,7 @@ type CreateJobOfferTypes = {
   onlineRecrutation: boolean;
   main: string;
   description: string;
+  localisation: string;
 };
 const initalState = {
   task: '',
@@ -48,6 +49,7 @@ const schema = Joi.object({
   onlineRecrutation: Joi.boolean().required(),
   main: Joi.string().required(),
   description: Joi.string().required(),
+  localisation: Joi.string().required(),
 });
 const CreateJobOffer: React.FC = () => {
   const {
@@ -90,6 +92,7 @@ const CreateJobOffer: React.FC = () => {
       main: data.main,
       description: data.description,
       mandatory,
+      localisation: data.localisation,
     };
 
     try {
@@ -225,12 +228,21 @@ const CreateJobOffer: React.FC = () => {
             </InputLabel>
 
             <InputLabel htmlFor="Main tech" width={80}>
-              Main technology used in your company:
+              Main technology used during employment:
             </InputLabel>
             <Input name="main" width={80} type="text" ref={register} />
             {errors.main?.type === 'string.empty' && (
               <Error>Main tech cannot be empty</Error>
             )}
+
+            <InputLabel htmlFor="Localisation" width={80}>
+              Localisation of job
+            </InputLabel>
+            <Input name="localisation" width={80} type="text" ref={register} />
+            {errors.localisation?.type === 'string.empty' && (
+              <Error>Localisation field cannot be empty</Error>
+            )}
+
             <InputLabel htmlFor="Description" width={80}>
               Description of job offer:
             </InputLabel>

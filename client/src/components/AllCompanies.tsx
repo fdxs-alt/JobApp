@@ -24,10 +24,10 @@ type infoObjectType = {
       onlineRecrutation: boolean;
       date: string;
       main: string;
+      localisation: string;
       company: {
         id: number;
         companyName: string;
-        localisation: string;
       };
     },
   ];
@@ -70,7 +70,7 @@ const AllJobOffers = () => {
                     {element.minSalary + ' - ' + element.maxSalary + ' PLN'}
                   </Salary>
                   <Salary>{element.main}</Salary>
-                  <LightInfo>{element.company.localisation}</LightInfo>
+                  <LightInfo>{element.localisation}</LightInfo>
                 </ColumWithSalary>
               </JobInfromation>
               {checkIfPossible(data, index) ? (
