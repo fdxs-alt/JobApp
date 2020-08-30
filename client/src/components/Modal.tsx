@@ -7,12 +7,12 @@ import {
   ModalLabel,
   ModalInput,
   ModalContent,
+  OpenButton,
 } from '../styles/ModalStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
 import useOutsideClick from '../utils/ClickOutSide';
-import { Button } from '../styles/Register';
 import { useHistory } from 'react-router-dom';
 type InputType = {
   localisation: string;
@@ -77,7 +77,18 @@ const Modal: React.FC<Props> = ({ closeModal }) => {
           <ModalLabel>Localisation</ModalLabel>
           <ModalInput type="text" name="localisation" ref={register} />
         </InputWrapper>
-        <Button type="submit">Search</Button>
+        <OpenButton
+          type="submit"
+          style={{
+            justifySelf: 'center',
+            gridColumn: '1/3',
+            width: '40%',
+            marginTop: '1.3rem',
+            cursor: 'pointer',
+          }}
+        >
+          Search
+        </OpenButton>
       </ModalInputsWrapper>
     </ModalContent>
   );

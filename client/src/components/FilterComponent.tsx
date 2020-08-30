@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Container, ModalContainer, OpenButton } from '../styles/ModalStyles';
 import Modal from './Modal';
 
