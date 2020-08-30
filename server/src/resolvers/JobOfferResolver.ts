@@ -180,7 +180,7 @@ export class JobOfferResolver {
     @Arg('input')
     input: findJobOfferInput,
   ): Promise<JobOffer[]> {
-    const { localisation, main, minSalary, onlineRecrutation, title } = input;
+    const { localisation, main, minSalary, title } = input;
 
     const Query = await getConnection()
       .getRepository(JobOffer)
@@ -198,12 +198,6 @@ export class JobOfferResolver {
     if (main) {
       Query.andWhere('q.main ilike :main', { main: `%${main}%` });
       Query.andWhere('q.main ilike :main', { main: `%${capitalize(main)}%` });
-    }
-
-    if (onlineRecrutation) {
-      Query.andWhere('q.onlineRecrutation = :onlineRecrutation', {
-        onlineRecrutation,
-      });
     }
 
     if (title) {

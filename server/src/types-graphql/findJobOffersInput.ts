@@ -12,7 +12,4 @@ export class findJobOfferInput {
 
   @Field({ nullable: true })
   minSalary?: number;
-
-  @Field({ nullable: true })
-  onlineRecrutation?: boolean;
 }

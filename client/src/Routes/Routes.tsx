@@ -22,6 +22,7 @@ import JobDetails from '../pages/OwnerPages/JobDetails';
 import CompanyApplications from '../pages/OwnerPages/CompanyApplications';
 import SpecificJobOffer from '../pages/SpecificJobOffer';
 import SearchPage from '../pages/SearchPage';
+import MoreSpecifiedJobOffers from '../pages/MoreSpecifiedJobOffers';
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
@@ -37,6 +38,7 @@ const Routes: React.FC = () => {
         <Route exact path="/employers/events" component={Events} />
         <Route exact path="/jobs" component={MainPage} />
         <Route path="/specific" component={SpecificJobOffer} />
+        <Route path="/specificjob/criteria" component={MoreSpecifiedJobOffers} />
         <ForbbidenWhenLogged path="/user/confirm" component={Confirm} />
         <ForbbidenWhenLogged path="/user/changePassword" component={Reset} />
         <ForbbidenWhenLogged exact path="/reset" component={ResetPassword} />
@@ -47,7 +49,6 @@ const Routes: React.FC = () => {
         <OwnerRoutes exact path="/createJobOffer" component={CreateJobOffer} />
         <OwnerRoutes path="/job" component={JobDetails} />
         <OwnerRoutes path="/application" component={CompanyApplications} />
-        <Redirect to="/" />
       </Switch>
     </BrowserRouter>
   );

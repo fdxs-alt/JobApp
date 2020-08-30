@@ -16,6 +16,7 @@ export const Header = styled.header`
   top: 0;
   right: 0;
   left: 0;
+  z-index: 200;
 `;
 export const LeftPanel = styled.ul`
   list-style-type: none;
