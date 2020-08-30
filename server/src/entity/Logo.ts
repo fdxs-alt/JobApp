@@ -28,6 +28,7 @@ export class Logo extends BaseEntity {
   @Column('bytea')
   data: Buffer;
 
+  @Field(() => Company)
   @OneToOne(() => Company)
   @JoinColumn()
   company: Company;

@@ -27,7 +27,7 @@ const Navbar: React.FC<Props> = ({ fullName, handleClick }) => {
           <MyLink to="/jobs">Offers</MyLink>
         </LeftElement>
         <LeftElement>
-          <MyLink to="/">Profiles</MyLink>
+          <MyLink to="/companies">Companies</MyLink>
         </LeftElement>
         <LeftElement>
           <MyLink to="/">Masterclazz</MyLink>

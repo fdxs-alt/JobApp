@@ -12,6 +12,7 @@ const theme = {
     lightGray: '#dedede',
     secondary: '#3b5bb3',
     secondaryFont: '#888888',
+    lighterBorder: '#eeeeee',
   },
 };
 

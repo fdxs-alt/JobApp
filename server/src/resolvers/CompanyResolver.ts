@@ -15,6 +15,7 @@ import { ResponseTable } from '../types-graphql/AllInfoResonse';
 import { getConnection } from 'typeorm';
 import { JobOffer } from '../entity/JobOffer';
 import { capitalize } from 'lodash';
+import { Logo } from '../entity/Logo';
 
 @Resolver()
 export class CompanyResolver {
@@ -84,11 +85,22 @@ export class CompanyResolver {
       return [false, error];
     }
   }
-  @Query(() => [Company])
-  async getAllComapanies(): Promise<Company[]> {
-    const allCorporations = await Company.find();
+  @Query(() => [Logo])
+  async getAllComapanies(@Arg('cursor') cursor: number): Promise<Logo[]> {
+    const companies = await getConnection()
+      .getRepository(Logo)
+      .createQueryBuilder('q')
+      .leftJoinAndSelect('q.company', 'company')
+      .skip(cursor)
+      .take(24)
+      .getMany();
 
-    return allCorporations;
+    return companies;
+  }
+  @Query(() => Number)
+  async getCompaniesCount(): Promise<number> {
+    const quantity = await Company.count();
+    return quantity;
   }
   @UseMiddleware(EmployerAuthMiddleware)
   @Query(() => Company, { nullable: true })

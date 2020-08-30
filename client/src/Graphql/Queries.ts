@@ -241,3 +241,22 @@ export const FIND_JOB_OFFERS = gql`
     }
   }
 `;
+export const GET_COMPANIES_COUNT = gql`
+  query GetCompaniesCount {
+    getCompaniesCount
+  }
+`;
+export const GET_ALL_COMPANIES = gql`
+  query GetAllComapanies($cursor: Float!) {
+    getAllComapanies(cursor: $cursor) {
+      id
+      name
+      data
+      type
+      company {
+        companyName
+        yearOfSetUp
+      }
+    }
+  }
+`;

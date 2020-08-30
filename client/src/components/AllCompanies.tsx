@@ -1,93 +1,57 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
-import { GET_ALL_INFO } from '../Graphql/Queries';
+import { Redirect } from 'react-router-dom';
+import { GET_ALL_COMPANIES } from '../Graphql/Queries';
+import { encode } from 'base64-arraybuffer';
 
-import { Waypoint } from 'react-waypoint';
-import { length } from '../Graphql/isAuth';
-import {
-  Container,
-  JobInfromation,
-  Column,
-  Title,
-  LightInfo,
-  ColumWithSalary,
-  Salary,
-} from '../styles/MainPageStyles';
-
-type infoObjectType = {
-  info: [
-    {
-      id: number;
-      title: string;
-      minSalary: number;
-      maxSalary: number;
-      onlineRecrutation: boolean;
-      date: string;
-      main: string;
-      localisation: string;
-      company: {
-        id: number;
-        companyName: string;
-      };
-    },
-  ];
-};
-type AllInfoQueryType = {
-  getAllInfo: infoObjectType;
-  hasMore: boolean;
-};
-
-let page = 0;
-const AllJobOffers = () => {
-  const { data, loading, fetchMore } = useQuery<AllInfoQueryType>(
-    GET_ALL_INFO,
-    {
-      variables: { cursor: 0 },
-      fetchPolicy: 'network-only',
-    },
-  );
-  const checkIfPossible = (data: any, index: number) => {
-    return data.getAllInfo.hasMore && index === data.getAllInfo.info.length - 1;
-  };
+const CompanyWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(8, 100px);
+  padding: 0.4rem;
+  gap: 2rem;
+`;
+const SingleComapny = styled.div`
+  display: flex;
+  padding: 0.4rem;
+  border: 2px solid ${(props) => props.theme.colors.lighterBorder};
+  &:hover {
+    border: 2px solid ${(props) => props.theme.colors.darkish};
+  }
+`;
+const Logo = styled.img`
+  width: 25%;
+`;
+const CompanyName = styled.p`
+  flex: 75%;
+  font-size: 1.2rem;
+  color: ${(props) => props.theme.colors.darkish};
+  font-weight: 500;
+  padding: 0.4rem;
+  overflow: hidden;
+  justify-self: center;
+`;
+const AllCompanies = () => {
+  const { data, error, loading } = useQuery(GET_ALL_COMPANIES, {
+    variables: { cursor: 0 },
+  });
+  console.log(data);
   if (loading) return null;
-  else
-    return (
-      <Container>
-        {data &&
-          data.getAllInfo.info.map((element, index: number) => (
-            <React.Fragment key={element.id}>
-              <JobInfromation>
-                <Column>
-                  <Title to={`/specific?id=${element.id}`}>
-                    {element.title}
-                  </Title>
-                  <LightInfo>in {element.company.companyName}</LightInfo>
-                  <LightInfo> {element.date}</LightInfo>
-                </Column>
-
-                <ColumWithSalary>
-                  <Salary>
-                    {element.minSalary + ' - ' + element.maxSalary + ' PLN'}
-                  </Salary>
-                  <Salary>{element.main}</Salary>
-                  <LightInfo>{element.localisation}</LightInfo>
-                </ColumWithSalary>
-              </JobInfromation>
-              {checkIfPossible(data, index) ? (
-                <Waypoint
-                  onEnter={() => {
-                    page = data!.getAllInfo.info.length;
-                    length(data!.getAllInfo.info.length);
-                    fetchMore({
-                      variables: { cursor: page },
-                    });
-                  }}
-                />
-              ) : null}
-            </React.Fragment>
-          ))}
-      </Container>
-    );
+  if (error) return <Redirect to="/" />;
+  return (
+    <CompanyWrapper>
+      {data.getAllComapanies.map((el: any) => (
+        <SingleComapny key={el.id}>
+          <Logo
+            alt="Company"
+            src={`data:image/png;base64, ${encode(el.data)}`}
+          />
+          <CompanyName>{el.company.companyName}</CompanyName>
+        </SingleComapny>
+      ))}
+    </CompanyWrapper>
+  );
 };
 
-export default AllJobOffers;
+export default AllCompanies;
