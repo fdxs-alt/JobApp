@@ -1,15 +1,15 @@
 import React from 'react';
-import { parse } from 'query-string';
 import Navbars from '../components/Navbars/Navbars';
-import FilterComponent from '../components/FilterComponent';
-import SearchBar from '../components/SearchBar';
+import FilterComponent from '../components/FilterComponents/FilterComponent';
+import SearchBar from '../components/FilterComponents/SearchBar';
+import FilterResults from '../components/FilterComponents/FilterResults';
 const MoreSpecifiedJobOffers = () => {
-  const data = parse(window.location.search);
   return (
     <>
       <Navbars />
       <SearchBar />
       <FilterComponent />
+      <FilterResults />
     </>
   );
 };

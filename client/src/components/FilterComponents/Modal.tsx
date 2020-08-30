@@ -8,11 +8,11 @@ import {
   ModalInput,
   ModalContent,
   OpenButton,
-} from '../styles/ModalStyles';
+} from '../../styles/ModalStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
-import useOutsideClick from '../utils/ClickOutSide';
+import useOutsideClick from '../../utils/ClickOutSide';
 import { useHistory } from 'react-router-dom';
 type InputType = {
   localisation: string;
@@ -37,6 +37,7 @@ const Modal: React.FC<Props> = ({ closeModal }) => {
 
   const onSubmit = ({ localisation, main, minSalary, title }: InputType) => {
     reset();
+    closeModal();
     history.push(
       `/specificjob/criteria?localisation=${localisation}&main=${main}&minSalary=${minSalary}&title=${title}`,
     );

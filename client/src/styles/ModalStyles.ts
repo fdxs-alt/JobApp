@@ -9,6 +9,10 @@ export const OpenButton = styled.button`
   border: 3px solid ${(props) => props.theme.colors.lightGray};
   background-color: white;
   font-size: 1.2rem;
+  cursor: pointer;
+  &:hover {
+    color: red;
+  }
 `;
 const fadeIn = keyframes`
   from {

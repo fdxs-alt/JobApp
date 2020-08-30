@@ -207,8 +207,8 @@ export class JobOfferResolver {
       });
     }
 
-    if (minSalary) Query.andWhere('q.minSalary < :minSalary', { minSalary });
+    if (minSalary) Query.andWhere('q.minSalary >= :minSalary', { minSalary });
 
-    return Query.getMany();
+    return Query.leftJoinAndSelect('q.company', 'company').getMany();
   }
 }

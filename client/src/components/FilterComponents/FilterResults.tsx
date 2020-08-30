@@ -1,31 +1,37 @@
 import React from 'react';
 import { parse } from 'query-string';
+import { FIND_JOB_OFFERS } from '../../Graphql/Queries';
 import { useQuery } from '@apollo/client';
-import { SEARCH_JOB_OFFERS } from '../Graphql/Queries';
 import { Redirect } from 'react-router-dom';
 import {
   JobInfromation,
+  Container,
   Column,
+  Title,
   LightInfo,
   ColumWithSalary,
   Salary,
-  Container,
-  Title,
-} from '../styles/MainPageStyles';
-const SearchResult = () => {
-  const input = parse(window.location.search).input?.toString();
+} from '../../styles/MainPageStyles';
 
-  const { data, loading, error } = useQuery(SEARCH_JOB_OFFERS, {
+const FilterResults = () => {
+  const searchParams = parse(window.location.search);
+  const input = {
+    main: searchParams.main,
+    localisation: searchParams.localisation,
+    minSalary: parseInt(searchParams.minSalary as any),
+    title: searchParams.title,
+  };
+
+  const { data, loading, error } = useQuery(FIND_JOB_OFFERS, {
     variables: { input },
   });
 
   if (loading) return null;
 
   if (error) return <Redirect to="/" />;
-
   return (
     <Container>
-      {data.searchJobOffers.map((element: any) => (
+      {data.findJobOffers.map((element: any) => (
         <JobInfromation key={element.id}>
           <Column>
             <Title to={`/specific?id=${element.id}`}>{element.title}</Title>
@@ -46,4 +52,4 @@ const SearchResult = () => {
   );
 };
 
-export default SearchResult;
+export default FilterResults;

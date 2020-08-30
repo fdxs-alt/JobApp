@@ -4,8 +4,8 @@ import {
   SearchInput,
   Title,
   Container,
-} from '../styles/SearchBarStyles';
-import { MyButton } from '../styles/Button';
+} from '../../styles/SearchBarStyles';
+import { MyButton } from '../../styles/Button';
 import { useHistory } from 'react-router-dom';
 const SearchBar = () => {
   const [searchValue, setSearchValue] = useState('');

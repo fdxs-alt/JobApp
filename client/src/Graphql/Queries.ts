@@ -225,3 +225,19 @@ export const SEARCH_JOB_OFFERS = gql`
     }
   }
 `;
+export const FIND_JOB_OFFERS = gql`
+  query FindJobOffers($input: findJobOfferInput!) {
+    findJobOffers(input: $input) {
+      id
+      title
+      minSalary
+      maxSalary
+      main
+      date
+      localisation
+      company {
+        companyName
+      }
+    }
+  }
+`;
