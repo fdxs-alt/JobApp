@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbars from '../components/Navbars/Navbars';
 import AllCompanies from '../components/AllCompanies';
 import styled from 'styled-components';
@@ -16,16 +16,36 @@ const CompanyQuantity = styled.p`
   padding: 0.4rem;
   margin-bottom: 0.6rem;
 `;
+const Button = styled.button`
+  padding: 0.4rem 0.6rem;
+  background-color: white;
+  border: 2px solid ${(props) => props.theme.colors.lighterBorder};
+  color: ${(props) => props.theme.colors.secondaryFont};
+`;
+const PaginationButtonsContainer = styled.div`
+  width: 100%;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 type GetCompaniesCountType = {
   getCompaniesCount: number;
 };
+
 const Companies = () => {
   const { data, loading, error } = useQuery<GetCompaniesCountType>(
     GET_COMPANIES_COUNT,
   );
-  console.log(data);
+  const [page, setPage] = useState(0);
+
   if (loading) return null;
   if (error) return <Redirect to="/" />;
+
+  const onClick = (cursor: number) => {
+    setPage(cursor);
+  };
+
   return (
     <>
       <Navbars />
@@ -33,7 +53,14 @@ const Companies = () => {
         <CompanyQuantity>
           All companies: {data!.getCompaniesCount}
         </CompanyQuantity>
-        <AllCompanies />
+        <AllCompanies cursor={page} />
+        <PaginationButtonsContainer>
+          {[...Array(Math.round(data!.getCompaniesCount / 24) + 1)].map(
+            (_, index: number) => (
+              <Button onClick={() => onClick(index * 24)}>{index + 1}</Button>
+            ),
+          )}
+        </PaginationButtonsContainer>
       </Container>
     </>
   );

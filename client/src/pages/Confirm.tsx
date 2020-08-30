@@ -8,6 +8,7 @@ const Confirm = () => {
   const history = useHistory();
   const query = parse(window.location.search);
   const token = { token: query?.token };
+
   useEffect(() => {
     if (token.token === undefined) history.push('/');
     const confirmUser = async (token: any) => {
@@ -18,6 +19,7 @@ const Confirm = () => {
       }
     };
     confirmUser(token);
+    // eslint-disable-next-line
   }, []);
   if (loading) return null;
   return (

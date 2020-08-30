@@ -8,7 +8,6 @@ import { encode } from 'base64-arraybuffer';
 const CompanyWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(8, 100px);
   padding: 0.4rem;
   gap: 2rem;
 `;
@@ -32,9 +31,12 @@ const CompanyName = styled.p`
   overflow: hidden;
   justify-self: center;
 `;
-const AllCompanies = () => {
+type Props = {
+  cursor: number;
+};
+const AllCompanies: React.FC<Props> = ({ cursor }) => {
   const { data, error, loading } = useQuery(GET_ALL_COMPANIES, {
-    variables: { cursor: 0 },
+    variables: { cursor },
   });
   console.log(data);
   if (loading) return null;
@@ -43,10 +45,12 @@ const AllCompanies = () => {
     <CompanyWrapper>
       {data.getAllComapanies.map((el: any) => (
         <SingleComapny key={el.id}>
-          <Logo
-            alt="Company"
-            src={`data:image/png;base64, ${encode(el.data)}`}
-          />
+          {el.data && (
+            <Logo
+              alt="Company"
+              src={`data:image/png;base64, ${encode(el.data)}`}
+            />
+          )}
           <CompanyName>{el.company.companyName}</CompanyName>
         </SingleComapny>
       ))}
