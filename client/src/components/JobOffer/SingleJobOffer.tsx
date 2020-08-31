@@ -6,6 +6,7 @@ import {
   Container,
   Title,
   DeleteButton,
+  Wrapper,
 } from '../../styles/JobOffersStyles';
 import { DELETE_JOB_OFFER } from '../../Graphql/CompanyMutations';
 import { useMutation } from '@apollo/client';
@@ -79,17 +80,19 @@ const SingleJobOffer: React.FC<Props> = ({ title, id, date, localisation }) => {
 
   return (
     <Container>
-      <Title>{title}</Title>
-      <Title>
-        {date}
-        {'   '} {localisation}
-      </Title>
-      <IconLink to={`/job?id=${id}`}>
-        <FontAwesomeIcon icon={faInfoCircle} />
-      </IconLink>
-      <DeleteButton onClick={() => handleClick()} tabIndex={0}>
-        <FontAwesomeIcon icon={faTrashAlt} />
-      </DeleteButton>
+      <Wrapper>
+        <Title>{title}</Title>
+        <Title>{date}</Title>
+        <Title> {localisation}</Title>
+      </Wrapper>
+      <div style={{ display: 'flex', padding: '1rem' }}>
+        <IconLink to={`/job?id=${id}`}>
+          <FontAwesomeIcon icon={faInfoCircle} />
+        </IconLink>
+        <DeleteButton onClick={() => handleClick()} tabIndex={0}>
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </DeleteButton>
+      </div>
     </Container>
   );
 };

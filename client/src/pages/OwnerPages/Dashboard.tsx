@@ -116,7 +116,6 @@ const Dashboard = () => {
               </JobOfferContainer>
             ) : (
               <NoJobOfferLinkContainer>
-                {' '}
                 <CreateLink to="/createJobOffer">Create job offer!</CreateLink>
               </NoJobOfferLinkContainer>
             )}

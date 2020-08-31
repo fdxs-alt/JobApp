@@ -1,6 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { InputLabel, Error } from '../../styles/LoginPageStyles';
-import { Input, AddButton } from '../../styles/CreateCompanyStyles';
+import {
+  Input,
+  AddButton,
+  InputWrapper,
+} from '../../styles/CreateCompanyStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 type CreateJobOfferInputProps = {
@@ -24,28 +28,21 @@ const CreateJobOfferInput: React.FC<CreateJobOfferInputProps> = ({
   return (
     <form
       style={{
-        width: '90%',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
       }}
     >
-      <InputLabel htmlFor={labelText} width={90}>
+      <InputLabel htmlFor={labelText} width={80}>
         {labelText}
       </InputLabel>
-      <div
-        style={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-        }}
-      >
+      <InputWrapper>
         <Input
           ref={inputRef}
           name={name}
-          width={70}
+          width={80}
           type="text"
           value={value}
           onFocus={(e: React.ChangeEvent<HTMLInputElement>) => handleReset(e)}
@@ -77,8 +74,8 @@ const CreateJobOfferInput: React.FC<CreateJobOfferInputProps> = ({
         >
           ADD <FontAwesomeIcon icon={faPlus} />
         </AddButton>
-        {error && <Error>{error}</Error>}
-      </div>
+      </InputWrapper>
+      {error && <Error>{error}</Error>}
     </form>
   );
 };
