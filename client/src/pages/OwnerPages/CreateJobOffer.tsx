@@ -115,6 +115,8 @@ const CreateJobOffer: React.FC = () => {
       setValue('maxSalary', undefined);
       setValue('description', undefined);
       setValue('main', undefined);
+      setValue('localisation', undefined);
+      dispatch({ type: 'RESET_VALUES' });
       setTimeout(() => {
         history.push('/joboffers');
       }, 3000);
@@ -156,9 +158,6 @@ const CreateJobOffer: React.FC = () => {
     dispatch({ type: 'DELETE_MANDATORY', payload: mandatory });
   };
 
-  useEffect(() => {
-    return dispatch({ type: 'RESET_VALUES' });
-  }, []);
   return (
     <>
       <Navbars />

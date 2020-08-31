@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { size } from '../DefaultValues/HardCoded';
 interface MyButtonProps {
   readonly width?: number;
 }
@@ -9,7 +9,7 @@ export const MyButton = styled.button<MyButtonProps>`
   background-color: ${(props) => props.theme.colors.button};
   border: none;
   color: white;
-  padding: 1.2rem;
+  padding: 0.8rem;
   font-weight: 600;
   cursor: pointer;
 

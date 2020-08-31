@@ -10,9 +10,11 @@ import {
 } from '../../styles/NavbarStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserAlt, faPowerOff } from '@fortawesome/free-solid-svg-icons';
+
 type Props = {
   handleClick: () => void;
 };
+
 const EmployerNavbar: React.FC<Props> = ({ handleClick }) => {
   return (
     <Header>

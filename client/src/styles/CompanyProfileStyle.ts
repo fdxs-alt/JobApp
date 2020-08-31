@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { size } from '../DefaultValues/HardCoded';
 export const Icon = styled(FontAwesomeIcon)`
   font-size: '1.6rem';
   margin-bottom: '10px';
@@ -40,6 +41,10 @@ export const Title = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: ${size.mobile}) {
+    font-size: 1.5rem;
+  }
 `;
 export const BasicInfo = styled.div`
   padding: 2rem;
@@ -51,12 +56,24 @@ export const IconContainer = styled.span`
 export const Text = styled.span`
   font-size: 1.3rem;
   padding: 0.6rem;
+  @media (max-width: ${size.mobile}) {
+    font-size: 1rem;
+  }
 `;
 export const Description = styled.div`
   font-size: 1.2rem;
   line-height: 1.8rem;
   padding: 2rem;
   text-align: justify;
+
+  @media (max-width: ${size.tablet}) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: ${size.mobile}) {
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+  }
 `;
 export const GridContainer = styled.div`
   font-size: 1rem;
@@ -64,20 +81,38 @@ export const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 1.2rem;
+
+  @media (max-width: ${size.tablet}) {
+    gap: 0.6rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: ${size.mobile}) {
+    gap: 0.4rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 export const Element = styled.span`
   padding: 0.5rem 0.8rem;
   border: 2px solid ${(props) => props.theme.colors.button};
   display: flex;
   align-items: center;
+
+  @media (max-width: ${size.mobile}) {
+    font-size: 0.8rem;
+  }
 `;
 export const ColumContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 export const Used = styled.p`
-  padding: 1rem 0rem 0rem 2rem;
+  padding: 1rem 0rem 0rem 1rem;
   font-size: 1.5rem;
+
+  @media (max-width: ${size.mobile}) {
+    font-size: 1.2rem;
+  }
 `;
 export const ImageInputContainer = styled.div`
   display: flex;
@@ -92,9 +127,32 @@ export const ImageInputContainer = styled.div`
   color: #bdbdbd;
   outline: none;
   transition: border 0.24s ease-in-out;
+  font-size: 1.5rem;
+
+  @media (max-width: ${size.laptop}) {
+    font-size: 1.1rem;
+  }
+  @media (max-width: ${size.tablet}) {
+    font-size: 1rem;
+    padding: 0.8rem;
+    margin-left: 0.8rem;
+  }
+
+  @media (max-width: ${size.mobile}) {
+    font-size: 0.8rem;
+    padding: 0.4rem;
+  }
 `;
 export const LogoImage = styled.img`
   height: 250px;
+
+  @media (max-width: ${size.tablet}) {
+    height: 150px;
+  }
+
+  @media (max-width: ${size.mobile}) {
+    height: 100px;
+  }
 `;
 export const NoAppsInformation = styled.p`
   font-size: 2rem;

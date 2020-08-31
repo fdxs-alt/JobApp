@@ -30,3 +30,8 @@ export const benefits = [
   'Shower',
   'Play room',
 ];
+export const size = {
+  mobile: '425px',
+  tablet: '768px',
+  laptop: '1024px',
+};

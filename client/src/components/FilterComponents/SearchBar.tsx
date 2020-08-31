@@ -4,8 +4,8 @@ import {
   SearchInput,
   Title,
   Container,
+  Button,
 } from '../../styles/SearchBarStyles';
-import { MyButton } from '../../styles/Button';
 import { useHistory } from 'react-router-dom';
 const SearchBar = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -30,9 +30,7 @@ const SearchBar = () => {
           required
           placeholder="What are you looking for?"
         />
-        <MyButton width={25} type="submit">
-          Search job
-        </MyButton>
+        <Button type="submit">Search job</Button>
       </Container>
     </Section>
   );

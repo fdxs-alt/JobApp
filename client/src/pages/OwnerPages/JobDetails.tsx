@@ -24,6 +24,12 @@ import {
   faMicrochip,
   faHome,
 } from '@fortawesome/free-solid-svg-icons';
+import {
+  TaskContainer,
+  Circle,
+  Task,
+  DailyTasks,
+} from '../../styles/SpecificJobStyles';
 
 type Response = {
   specificJobOffer: {
@@ -114,13 +120,16 @@ const JobDetails = () => {
           </ColumContainer>
           <ColumContainer>
             <Used>Tasks during employment:</Used>
-            <GridContainer>
+            <DailyTasks>
               {data!.specificJobOffer.tasks.map(
                 (task: string, index: number) => (
-                  <Element key={index}>{task}</Element>
+                  <TaskContainer key={index}>
+                    <Circle>{index + 1}</Circle>
+                    <Task>{task}</Task>
+                  </TaskContainer>
                 ),
               )}
-            </GridContainer>
+            </DailyTasks>
           </ColumContainer>
           <ColumContainer>
             <Used>Benefits:</Used>

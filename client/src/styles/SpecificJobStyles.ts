@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { size } from '../DefaultValues/HardCoded';
 
 export const Container = styled.div`
   width: 75%;
   margin: 2.3rem auto;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: ${size.tablet}) {
+    flex-direction: column-reverse;
+  }
 `;
 export const MainSectionColumn = styled.div`
   width: 65%;
@@ -15,11 +20,15 @@ export const MainSectionColumn = styled.div`
   & > div + div {
     border-top: none;
   }
+
+  @media (max-width: ${size.tablet}) {
+    width: 100%;
+  }
 `;
 export const SecondaryColumn = styled.section`
   width: 33%;
   position: sticky;
-  height: 20vh;
+  height: 2vh;
   top: clamp(15vh, calc(16vh+5rem), 17vh);
   z-index: 1;
 
@@ -28,6 +37,12 @@ export const SecondaryColumn = styled.section`
   }
   & > div + div {
     border-top: none;
+  }
+  @media (max-width: ${size.tablet}) {
+    width: 100%;
+    position: inherit;
+    height: unset;
+    margin-bottom: 2vh;
   }
 `;
 export const TitleWithLogo = styled.div`
@@ -51,6 +66,10 @@ export const Info = styled.span`
 `;
 export const Title = styled.h1`
   padding: 0.4rem;
+
+  @media (max-width: ${size.mobile}) {
+    font-size: 1.5rem;
+  }
 `;
 export const Description = styled.div`
   padding: 1.5rem;
@@ -58,6 +77,10 @@ export const Description = styled.div`
   font-size: 1.1rem;
   line-height: 1.4rem;
   text-align: justify;
+
+  @media (max-width: ${size.mobile}) {
+    padding: 1rem;
+  }
 `;
 export const Label = styled.h3`
   padding: 0.4rem 0 0.8rem 0;
@@ -72,6 +95,14 @@ export const GridContainer = styled.div`
   grid-template-columns: repeat(6, 1fr);
   padding: 0.2rem 0;
   gap: 1.2rem;
+
+  @media (max-width: ${size.tablet}) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: ${size.mobile}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 export const ExtraSkillsGrid = styled.div`
   font-size: 1rem;
@@ -79,6 +110,10 @@ export const ExtraSkillsGrid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   padding: 0.2rem 0;
   gap: 1.2rem;
+
+  @media (max-width: ${size.mobile}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 export const Element = styled.span`
   padding: 0.2rem;
@@ -107,6 +142,11 @@ export const Circle = styled.span`
   align-items: center;
   border: 1px solid ${(props) => props.theme.colors.button};
   color: ${(props) => props.theme.colors.button};
+
+  @media (max-width: ${size.mobile}) {
+    width: 20px;
+    height: 20px;
+  }
 `;
 export const Task = styled.span`
   font-size: 1rem;
@@ -117,6 +157,11 @@ export const BenefitGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+
+  @media (max-width: ${size.tablet}) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const IconContainer = styled.div`
   display: flex;
@@ -130,9 +175,21 @@ export const Icon = styled(FontAwesomeIcon)`
 `;
 export const Image = styled.img`
   width: 100%;
+
+  @media (max-width: ${size.tablet}) {
+    width: 50%;
+  }
+
+  @media (max-width: ${size.mobile}) {
+    width: 100%;
+  }
 `;
 export const AboutCompanyContainer = styled.div`
   padding: 1.5rem;
+
+  @media (max-width: ${size.tablet}) {
+    padding: 1rem;
+  }
 `;
 export const ComapnyInfoIconContainer = styled.div`
   display: flex;

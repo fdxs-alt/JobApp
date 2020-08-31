@@ -2,7 +2,6 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_RANDOM_OFFERS } from '../Graphql/Queries';
 import { JobInfromation } from '../styles/MainPageStyles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import {
   TitleAndCompanyColumn,
@@ -10,6 +9,7 @@ import {
   CompanyInfo,
   LocalisationColumn,
   LocalisationInfo,
+  Icon,
 } from '../styles/RandomJobOfferStyles';
 
 const RandomJobOffers = () => {
@@ -31,15 +31,8 @@ const RandomJobOffers = () => {
             </TitleAndCompanyColumn>
 
             <LocalisationColumn>
-              {element.onlineRecrutation && (
-                <FontAwesomeIcon
-                  icon={faMicrophone}
-                  style={{ marginRight: '0.5rem', fontSize: '1.5rem' }}
-                />
-              )}
-              <LocalisationInfo style={{ padding: '0 2rem' }}>
-                {element.localisation}
-              </LocalisationInfo>
+              {element.onlineRecrutation && <Icon icon={faMicrophone} />}
+              <LocalisationInfo>{element.localisation}</LocalisationInfo>
             </LocalisationColumn>
           </JobInfromation>
         ))}

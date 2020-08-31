@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { size } from '../DefaultValues/HardCoded';
 export const Container = styled.div`
   width: 85%;
   margin: 2.3rem auto;
@@ -11,6 +12,9 @@ export const JobInfromation = styled.div`
   border-bottom: 2px solid ${(props) => props.theme.colors.border};
   padding: 1.2rem 0.8rem;
   display: flex;
+  @media (max-width: ${size.mobile}) {
+    flex-direction: column;
+  }
 `;
 export const Column = styled.div`
   display: flex;

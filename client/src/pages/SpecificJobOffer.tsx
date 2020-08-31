@@ -155,14 +155,7 @@ const SpecificJobOffer = () => {
           <Container>
             <MainSectionColumn>
               <TitleWithLogo>
-                {data.getSpecificInfo.logo.type === 'image/png' ? (
-                  <Logo
-                    alt="Job offer"
-                    src={`data:image/png;base64, ${encode(
-                      data.getSpecificInfo.logo.data,
-                    )}`}
-                  />
-                ) : (
+                {data.getSpecificInfo.logo && (
                   <Logo
                     alt="Job offer"
                     src={`data:image/jpeg;base64, ${encode(
@@ -174,11 +167,12 @@ const SpecificJobOffer = () => {
                 <InfoSection>
                   <Title>{data.getSpecificInfo.offer.title}</Title>
                   <Info>
-                    Company: {data.getSpecificInfo.offer.company.companyName}
+                    Company:{' '}
+                    <b>{data.getSpecificInfo.offer.company.companyName}</b>
                   </Info>
                   <Info>
                     Company size:{' '}
-                    {data.getSpecificInfo.offer.company.sizeOfCompany}
+                    <b>{data.getSpecificInfo.offer.company.sizeOfCompany}</b>
                   </Info>
                 </InfoSection>
               </TitleWithLogo>
@@ -269,7 +263,7 @@ const SpecificJobOffer = () => {
                         <Image
                           key={index}
                           alt="Job offer"
-                          src={`data:image/png;base64, ${encode(image.data)}`}
+                          src={`data:image/jpeg;base64, ${encode(image.data)}`}
                         />
                       ),
                     )}
