@@ -7,6 +7,8 @@ import { LOGOUT } from '../../Graphql/AuthMutations';
 import { setToken } from '../../AccessToken';
 import isAuthenticated, { isOwner } from '../../Graphql/isAuth';
 import { useHistory } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
+import { size } from '../../DefaultValues/HardCoded';
 
 type Response = {
   getUser: {
@@ -23,6 +25,11 @@ const Navbars = () => {
   const history = useHistory();
   const [logout, { client }] = useMutation(LOGOUT);
   const { data, loading } = useQuery<Response>(GET_USER);
+
+  const isLaptopOrSmallDevice = useMediaQuery({
+    query: '(max-width: 1200px)',
+  });
+
   const handleClick = async (): Promise<void> => {
     await logout();
     isAuthenticated(false);
@@ -31,14 +38,22 @@ const Navbars = () => {
     client.clearStore();
     history.push('/login');
   };
+
   if (loading) return null;
   else
     return (
       <>
         {data?.getUser.hasCompany ? (
-          <EmployerNavbar handleClick={handleClick} />
+          <EmployerNavbar
+            handleClick={handleClick}
+            smallMenu={isLaptopOrSmallDevice}
+          />
         ) : (
-          <Navbar fullName={data?.getUser.fullName} handleClick={handleClick} />
+          <Navbar
+            fullName={data?.getUser.fullName}
+            handleClick={handleClick}
+            smallMenu={isLaptopOrSmallDevice}
+          />
         )}
       </>
     );

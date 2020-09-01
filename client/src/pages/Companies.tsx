@@ -57,7 +57,9 @@ const Companies = () => {
         <PaginationButtonsContainer>
           {[...Array(Math.round(data!.getCompaniesCount / 24) + 1)].map(
             (_, index: number) => (
-              <Button onClick={() => onClick(index * 24)}>{index + 1}</Button>
+              <Button onClick={() => onClick(index * 24)} key={index}>
+                {index + 1}
+              </Button>
             ),
           )}
         </PaginationButtonsContainer>
