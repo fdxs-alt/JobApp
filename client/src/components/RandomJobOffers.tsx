@@ -1,7 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_RANDOM_OFFERS } from '../Graphql/Queries';
-import { JobInfromation } from '../styles/MainPageStyles';
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import {
   TitleAndCompanyColumn,
@@ -10,6 +9,7 @@ import {
   LocalisationColumn,
   LocalisationInfo,
   Icon,
+  JobInfromation,
 } from '../styles/RandomJobOfferStyles';
 
 const RandomJobOffers = () => {

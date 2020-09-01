@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { size } from '../DefaultValues/HardCoded';
 export const Container = styled.div`
   width: 85%;
   margin: 1.4rem auto;
@@ -12,6 +13,9 @@ export const OpenButton = styled.button`
   cursor: pointer;
   &:hover {
     color: red;
+  }
+  @media (max-width: ${size.mobile}) {
+    font-size: 1rem;
   }
 `;
 const fadeIn = keyframes`

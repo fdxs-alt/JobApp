@@ -14,6 +14,10 @@ export const CreateLink = styled(Link)`
   font-size: 2rem;
   text-align: center;
   align-self: center;
+
+  @media (max-width: ${size.laptop}) {
+    font-size: 1.5rem;
+  }
 `;
 export const Container = styled.div`
   width: 100%;

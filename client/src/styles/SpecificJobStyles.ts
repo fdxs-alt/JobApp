@@ -11,6 +11,10 @@ export const Container = styled.div`
   @media (max-width: ${size.tablet}) {
     flex-direction: column-reverse;
   }
+
+  @media (max-width: ${size.tablet}) {
+    width: 95%;
+  }
 `;
 export const MainSectionColumn = styled.div`
   width: 65%;

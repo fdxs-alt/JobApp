@@ -65,3 +65,13 @@ export const LocalisationInfo = styled.span`
     font-size: 0.9rem;
   }
 `;
+export const JobInfromation = styled.div`
+  width: 100%;
+  border-left: 3px solid ${(props) => props.theme.colors.darkish};
+  border-top: 2px solid ${(props) => props.theme.colors.border};
+  border-bottom: 2px solid ${(props) => props.theme.colors.border};
+  padding: 1.2rem 0.8rem;
+  display: flex;
+  max-width: 1500px;
+  margin: auto;
+`;
