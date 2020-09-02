@@ -10,7 +10,7 @@ import Clients from '../pages/Clients';
 import Events from '../pages/Events';
 import ResetPassword from '../pages/Auth/ResetPassword';
 import ForbbidenWhenLogged from './NotAccessableWhenLogged';
-import Confirm from '../pages/Confirm';
+import Confirm from '../pages/Auth/Confirm';
 import Reset from '../pages/Auth/Reset';
 import OwnerRoutes from './OwnerRoutes';
 import Dashboard from '../pages/OwnerPages/Dashboard';
@@ -25,13 +25,14 @@ import SearchPage from '../pages/SearchPage';
 import MoreSpecifiedJobOffers from '../pages/MoreSpecifiedJobOffers';
 import PrivateRoutes from './PrivateRoutes';
 import User from '../pages/User';
+import SpecificCompany from '../pages/SpecificCompany';
+
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <ForbbidenWhenLogged exact path="/login" component={Login} />
-        <ForbbidenWhenLogged exact path="/register" component={Register} />
+        <Route exact path="/companies" component={Companies} />
         <Route exact path="/companies" component={Companies} />
         <Route path="/searchjob" component={SearchPage} />
         <Route exact path="/employers" component={ForEmployers} />
@@ -44,9 +45,7 @@ const Routes: React.FC = () => {
           path="/specificjob/criteria"
           component={MoreSpecifiedJobOffers}
         />
-        <ForbbidenWhenLogged path="/user/confirm" component={Confirm} />
-        <ForbbidenWhenLogged path="/user/changePassword" component={Reset} />
-        <ForbbidenWhenLogged exact path="/reset" component={ResetPassword} />
+        <Route path="/company" component={SpecificCompany} />
         <OwnerRoutes exact path="/dashboard" component={Dashboard} />
         <OwnerRoutes exact path="/profile" component={CompanyProfile} />
         <OwnerRoutes exact path="/createCompany" component={CreateCompany} />
@@ -54,6 +53,11 @@ const Routes: React.FC = () => {
         <OwnerRoutes exact path="/createJobOffer" component={CreateJobOffer} />
         <OwnerRoutes path="/job" component={JobDetails} />
         <OwnerRoutes path="/application" component={CompanyApplications} />
+        <ForbbidenWhenLogged path="/user/confirm" component={Confirm} />
+        <ForbbidenWhenLogged path="/user/changePassword" component={Reset} />
+        <ForbbidenWhenLogged exact path="/reset" component={ResetPassword} />
+        <ForbbidenWhenLogged exact path="/login" component={Login} />
+        <ForbbidenWhenLogged exact path="/register" component={Register} />
         <PrivateRoutes path="/user" component={User} />
       </Switch>
     </BrowserRouter>

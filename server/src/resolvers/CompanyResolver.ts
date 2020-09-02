@@ -16,6 +16,7 @@ import { getConnection } from 'typeorm';
 import { JobOffer } from '../entity/JobOffer';
 import { capitalize } from 'lodash';
 import { Logo } from '../entity/Logo';
+import { CompanyResponse } from '../types-graphql/CompanyResponse';
 
 @Resolver()
 export class CompanyResolver {
@@ -97,11 +98,28 @@ export class CompanyResolver {
 
     return companies;
   }
+
   @Query(() => Number)
   async getCompaniesCount(): Promise<number> {
     const quantity = await Company.count();
     return quantity;
   }
+
+  @Query(() => CompanyResponse)
+  async getSpecificCompany(@Arg('id') id: number): Promise<CompanyResponse> {
+    try {
+      const company = await Company.findOne({ where: { id } });
+
+      if (!company) throw new Error("Can't find company with specified id");
+
+      const logo = await Logo.findOne({ where: { company } });
+
+      return { company, logo };
+    } catch (error) {
+      throw new Error('An error occured');
+    }
+  }
+
   @UseMiddleware(EmployerAuthMiddleware)
   @Query(() => Company, { nullable: true })
   async getUserCompany(@Ctx() ctx: MyContext): Promise<Company> {

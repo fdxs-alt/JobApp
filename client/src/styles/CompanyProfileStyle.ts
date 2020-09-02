@@ -165,3 +165,15 @@ export const NoAppsInformation = styled.p`
   font-weight: 500;
   color: ${(props) => props.theme.colors.darkish};
 `;
+
+export const Logo = styled.img`
+  width: 15%;
+
+  @media (max-width: ${size.tablet}) {
+   width: 35%;
+  }
+
+  @media (max-width: ${size.mobile}) {
+   width: 50%;
+  }
+`

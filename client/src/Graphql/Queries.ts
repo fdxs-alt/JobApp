@@ -254,8 +254,27 @@ export const GET_ALL_COMPANIES = gql`
       data
       type
       company {
+        id
         companyName
         yearOfSetUp
+      }
+    }
+  }
+`;
+export const GET_SPECIFIC_COMPANY = gql`
+  query GetSpecificCompany($id: Float!) {
+    getSpecificCompany(id: $id) {
+      company {
+        benefits
+        companyName
+        description
+        yearOfSetUp
+        sizeOfCompany
+        localisation
+        technologies
+      }
+      logo {
+        data
       }
     }
   }

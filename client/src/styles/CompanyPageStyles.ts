@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 import { size } from '../DefaultValues/HardCoded';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   width: 75%;
   margin: 2.5rem auto;
+
+  @media (max-width: ${size.laptop}) {
+    width: 90%;
+  }
 `;
 export const CompanyQuantity = styled.p`
   color: ${(props) => props.theme.colors.darkish};
@@ -60,11 +65,14 @@ export const SingleComapny = styled.div`
 export const Logo = styled.img`
   width: 25%;
 
+  @media (max-width: ${size.tablet}) {
+    width: 35%;
+  }
   @media (max-width: ${size.mobile}) {
-    width: 40%;
+    width: 50%;
   }
 `;
-export const CompanyName = styled.p`
+export const CompanyName = styled.div`
   flex: 75%;
   font-size: 1.2rem;
   color: ${(props) => props.theme.colors.darkish};
@@ -72,8 +80,21 @@ export const CompanyName = styled.p`
   padding: 0.4rem;
   overflow: hidden;
   justify-self: center;
+  justify-content: space-between;
 
   @media (max-width: ${size.tablet}) {
     font-size: 1rem;
+  }
+
+  @media (max-width: ${size.mobile}) {
+    font-size: 0.8rem;
+  }
+`;
+export const CompanyLink = styled(Link)`
+  text-decoration: none;
+  font-size: 1rem;
+  color: ${(props) => props.theme.colors.button};
+  @media (max-width: ${size.mobile}) {
+    font-size: 0.8rem;
   }
 `;

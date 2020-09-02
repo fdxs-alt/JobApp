@@ -8,8 +8,8 @@ import {
   SingleComapny,
   CompanyName,
   Logo,
+  CompanyLink,
 } from '../styles/CompanyPageStyles';
-
 
 type Props = {
   cursor: number;
@@ -18,20 +18,25 @@ const AllCompanies: React.FC<Props> = ({ cursor }) => {
   const { data, error, loading } = useQuery(GET_ALL_COMPANIES, {
     variables: { cursor },
   });
-  console.log(data);
+
   if (loading) return null;
   if (error) return <Redirect to="/" />;
   return (
     <CompanyWrapper>
       {data.getAllComapanies.map((el: any) => (
-        <SingleComapny key={el.id}>
+        <SingleComapny key={el.company.id}>
           {el.data && (
             <Logo
               alt="Company"
-              src={`data:image/png;base64, ${encode(el.data)}`}
+              src={`data:image/jpeg;base64, ${encode(el.data)}`}
             />
           )}
-          <CompanyName>{el.company.companyName}</CompanyName>
+          <CompanyName>
+            <p>{el.company.companyName}</p>
+            <CompanyLink to={`/company?id=${el.company.id}`}>
+              More info...
+            </CompanyLink>
+          </CompanyName>
         </SingleComapny>
       ))}
     </CompanyWrapper>
