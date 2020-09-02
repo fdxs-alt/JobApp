@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { size } from '../DefaultValues/HardCoded';
 interface MyButtonProps {
   readonly width?: number;
 }
@@ -14,5 +15,13 @@ export const MyButton = styled.button<MyButtonProps>`
 
   &:disabled {
     cursor: not-allowed;
+  }
+
+  @media (max-width: ${size.tablet}) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: ${size.mobile}) {
+    width: 75%;
   }
 `;

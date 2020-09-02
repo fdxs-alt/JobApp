@@ -1,11 +1,17 @@
 import styled from 'styled-components';
+import { size } from '../DefaultValues/HardCoded';
 interface RegisterFormInterface {
   active?: boolean;
 }
 export const RegisterContainer = styled.div<RegisterFormInterface>`
   width: 100%;
-  height: ${(props) => (props.active ? '' : '40vh')};
+  max-height: ${(props) => (props.active ? '' : '400px')};
   background-color: white;
+  @media (max-width: ${size.laptop}) {
+    display: flex;
+    flex-direction: column;
+    max-height: ${(props) => (props.active ? '' : '100%')};
+  }
 `;
 export const RegisterForm = styled.form<RegisterFormInterface>`
   width: 100%;
@@ -60,13 +66,25 @@ export const MainContent = styled.main`
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
   margin: 2rem auto;
+
+  @media (max-width: ${size.laptop}) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const Proses = styled.section`
   display: grid;
   gap: 2rem;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 0.75fr 0.25fr;
   color: ${(props) => props.theme.colors.fontColor};
+
+  @media (max-width: ${size.laptop}) {
+    gap: 1rem;
+  }
+  @media (max-width: ${size.tablet}) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const Time = styled.div`
   background-color: white;
@@ -75,9 +93,13 @@ export const Time = styled.div`
   border: 1px solid ${(props) => props.theme.colors.lightBorder};
   display: flex;
   align-items: center;
+
+  @media (max-width: ${size.laptop}) {
+    padding: 1rem;
+  }
 `;
 export const Card = styled.div`
-  padding: 4.5rem;
+  padding: 2.5rem;
   border: 1px solid ${(props) => props.theme.colors.lightBorder};
   text-align: center;
   background-color: white;
@@ -87,6 +109,9 @@ export const Card = styled.div`
   align-items: center;
   justify-content: center;
   line-height: 1.5rem;
+  @media (max-width: ${size.laptop}) {
+    padding: 1.5rem;
+  }
 `;
 export const Title = styled.h4`
   color: ${(props) => props.theme.colors.darkish};

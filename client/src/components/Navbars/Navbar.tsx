@@ -34,8 +34,16 @@ const Navbar: React.FC<Props> = ({ fullName, handleClick, smallMenu }) => {
           <>
             <FontAwesomeIcon
               icon={faTimes}
-              style={{ fontSize: '2rem', alignSelf: 'flex-end' }}
+              style={{
+                fontSize: '2rem',
+                alignSelf: 'flex-end',
+                outline: 'none',
+              }}
               onClick={() => setOpen(false)}
+              onKeyPress={(e: React.KeyboardEvent) => {
+                if (e.key === 'Enter') setOpen(false);
+              }}
+              tabIndex={0}
             />
 
             <LaptopLink to="/jobs">Offers</LaptopLink>
@@ -76,8 +84,12 @@ const Navbar: React.FC<Props> = ({ fullName, handleClick, smallMenu }) => {
         ) : (
           <FontAwesomeIcon
             icon={faBars}
-            style={{ fontSize: '2rem' }}
+            style={{ fontSize: '2rem', outline: 'none' }}
             onClick={() => setOpen(true)}
+            tabIndex={0}
+            onKeyPress={(e: React.KeyboardEvent) => {
+              if (e.key === 'Enter') setOpen(true);
+            }}
           />
         )}
       </LaptopHeader>

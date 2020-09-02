@@ -16,6 +16,7 @@ export const OpenButton = styled.button`
   }
   @media (max-width: ${size.mobile}) {
     font-size: 1rem;
+    align-self: center;
   }
 `;
 const fadeIn = keyframes`
@@ -42,8 +43,17 @@ export const ModalContainer = styled.div`
 `;
 export const ModalContent = styled.div`
   width: 40%;
+  max-width: 1000px;
   padding: 1rem;
   background-color: white;
+
+  @media (max-width: ${size.laptop}) {
+    width: 60%;
+  }
+
+  @media (max-width: ${size.tablet}) {
+    width: 80%;
+  }
 `;
 export const ModalTitle = styled.p`
   color: ${(props) => props.theme.colors.darkish};
@@ -57,6 +67,12 @@ export const ModalInputsWrapper = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+
+  @media (max-width: ${size.mobile}) {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8rem;
+  }
 `;
 export const InputWrapper = styled.div`
   display: flex;
@@ -67,6 +83,11 @@ export const ModalLabel = styled.label`
   color: ${(props) => props.theme.colors.secondaryFont};
   font-size: 1rem;
   padding: 0.4rem;
+
+  @media (max-width: ${size.laptop}) {
+    font-size: 0.8rem;
+    
+  }
 `;
 export const ModalInput = styled.input`
   width: 90%;
@@ -75,6 +96,11 @@ export const ModalInput = styled.input`
   color: ${(props) => props.theme.colors.secondaryFont};
   background-color: white;
   font-size: 1rem;
+
+  @media (max-width: ${size.mobile}) {
+    font-size: 1rem;
+    align-self: center; 
+  }
 `;
 export const CloseButton = styled.button`
   display: block;

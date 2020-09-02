@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { size } from '../DefaultValues/HardCoded';
 export const Container = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.colors.border};
@@ -15,20 +16,31 @@ export const MyLink = styled(Link)`
   font-size: 1.2rem;
 `;
 export const FormContainer = styled.form`
+  max-width: 1000px;
   width: 35%;
   padding: 3rem 0.1rem;
   background-color: white;
   display: flex;
   flex-direction: column;
   align-self: center;
-  align-items: center;
+  align-items: center;  
   margin: 5% auto;
+  @media (max-width: ${size.laptop}) {
+    width: 60%;
+  }
+
+  @media (max-width: ${size.tablet}) {
+    width: 80%;
+  }
 `;
 export const Title = styled.h2`
   width: 100%;
   font-size: 2rem;
   text-align: center;
   padding: 0 1rem 1rem 1rem;
+  @media (max-width: ${size.tablet}) {
+    font-size: 1.6rem;
+  }
 `;
 
 export const Input = styled.input`
@@ -62,6 +74,10 @@ export const Error = styled.p`
   width: 90%;
   color: red;
   padding: 0 0 0.6rem 0;
+
+  @media (max-width: ${size.laptop}) {
+    font-size: 0.9rem;
+  }
 `;
 export const Paragraph = styled.p`
   color: ${(props) => props.theme.colors.fontColor};

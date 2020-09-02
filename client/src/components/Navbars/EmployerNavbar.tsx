@@ -33,6 +33,10 @@ const EmployerNavbar: React.FC<Props> = ({ handleClick, smallMenu }) => {
               icon={faTimes}
               style={{ fontSize: '2rem', alignSelf: 'flex-end' }}
               onClick={() => setOpen(false)}
+              tabIndex={0}
+              onKeyPress={(e: React.KeyboardEvent) => {
+                if (e.key === 'Enter') setOpen(false);
+              }}
             />
 
             <LaptopLink to="/dashboard">Dashboard</LaptopLink>
@@ -40,7 +44,7 @@ const EmployerNavbar: React.FC<Props> = ({ handleClick, smallMenu }) => {
             <LaptopLink to="/joboffers">Offers</LaptopLink>
 
             <LaptopLink to="/application">Application</LaptopLink>
-            
+
             <LaptopLink to="/profile">Company</LaptopLink>
 
             <LaptopLink to="/createJobOffer">Create</LaptopLink>
@@ -59,6 +63,10 @@ const EmployerNavbar: React.FC<Props> = ({ handleClick, smallMenu }) => {
             icon={faBars}
             style={{ fontSize: '2rem' }}
             onClick={() => setOpen(true)}
+            tabIndex={0}
+            onKeyPress={(e: React.KeyboardEvent) => {
+              if (e.key === 'Enter') setOpen(true);
+            }}
           />
         )}
       </LaptopHeader>

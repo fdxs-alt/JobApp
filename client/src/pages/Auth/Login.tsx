@@ -32,21 +32,30 @@ const schema = Joi.object({
 });
 const Login = () => {
   const history = useHistory();
+
   const [login, { error, loading }] = useMutation(LOGIN);
+
   const { register, handleSubmit, errors } = useForm<login>({
     resolver: joiResolver(schema),
   });
+
   const onSubmit = async ({ email, password }: login) => {
     const input = { email, password };
+
     try {
       const response = await login({ variables: { input } });
+
       if (response && response.data) {
+
         isAuthenticated(true);
+
         setToken(response.data.login.accessToken);
+
         if (response.data.login.user.hasCompany) {
           isOwner(true);
           history.push('/dashboard');
         }
+        
       }
     } catch (error) {
       isAuthenticated(false);
