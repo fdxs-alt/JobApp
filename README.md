@@ -8,4 +8,16 @@
 6. Saving images and cvs in datebase (postgre's bytea) - grapql-upload
 ---
 
-##### frontend - work in progress (90%)
+#### Frontend - work in progress (85%)
+1. React + Apollo GraphQl + Typescript
+2. Styled Compontents
+3. Auth with apollo-link-token-refresh 
+4. Pagination with React Waypoint
+5. Sending filies to server via apollo-upload-client
+6. Displaying images from base64
+7. Fully responsive
+---
+##### Todo: 
+1. Add user options.
+2. Add possibility to add opinion with a mark.
+3. Create reset password and confirm page.
