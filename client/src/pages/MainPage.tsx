@@ -6,7 +6,6 @@ import FilterComponent from '../components/FilterComponents/FilterComponent';
 const MainPage = () => {
   return (
     <>
-      <Navbars />
       <SearchBar />
       <FilterComponent />
       <AllJobOffers />

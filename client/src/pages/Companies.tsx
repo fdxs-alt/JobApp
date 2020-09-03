@@ -10,6 +10,7 @@ import {
   Container,
   Button,
 } from '../styles/CompanyPageStyles';
+import Spinner from '../components/Spinner';
 
 type GetCompaniesCountType = {
   getCompaniesCount: number;
@@ -21,7 +22,7 @@ const Companies = () => {
   );
   const [page, setPage] = useState(0);
 
-  if (loading) return null;
+  if (loading) return <Spinner size={50} loading={loading} small />;
   if (error) return <Redirect to="/" />;
 
   const onClick = (cursor: number) => {
@@ -30,7 +31,6 @@ const Companies = () => {
 
   return (
     <>
-      <Navbars />
       <Container>
         <CompanyQuantity>
           All companies: {data!.getCompaniesCount}

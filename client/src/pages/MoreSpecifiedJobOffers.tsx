@@ -6,7 +6,6 @@ import FilterResults from '../components/FilterComponents/FilterResults';
 const MoreSpecifiedJobOffers = () => {
   return (
     <>
-      <Navbars />
       <SearchBar />
       <FilterComponent />
       <FilterResults />

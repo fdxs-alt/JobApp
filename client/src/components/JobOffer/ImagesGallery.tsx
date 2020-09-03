@@ -22,6 +22,7 @@ import {
   Button,
   Image,
 } from '../../styles/ImagesGallery';
+import Spinner from '../Spinner';
 type Response = {
   id: number;
   data: Buffer;
@@ -104,7 +105,7 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
     accept: 'image/jpeg, image/png',
   });
 
-  if (loading) return null;
+  if (loading) return <Spinner size={50} loading={loading} small />;
   else
     return (
       <>

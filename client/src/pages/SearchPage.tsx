@@ -6,7 +6,6 @@ import SearchResult from '../components/FilterComponents/SearchResult';
 const SearchPage = () => {
   return (
     <>
-      <Navbars />
       <SearchBar />
       <SearchResult />
     </>

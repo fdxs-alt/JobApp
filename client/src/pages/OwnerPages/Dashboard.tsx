@@ -21,6 +21,7 @@ import { useQuery } from '@apollo/client';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CreateLink } from '../../styles/CompanyProfileStyle';
+import Spinner from '../../components/Spinner';
 
 type Offer = {
   id: number;
@@ -47,17 +48,10 @@ type Response = {
 
 const Dashboard = () => {
   const { data, loading } = useQuery<Response>(GET_INFORMATION);
-  if (loading)
-    return (
-      <>
-        <Navbars />
-      </>
-    );
+  if (loading) return <Spinner size={50} small loading={loading} />;
   else
     return (
       <>
-        <Navbars />
-
         <Container>
           <GridContainer>
             <DashboardTitle>

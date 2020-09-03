@@ -11,13 +11,14 @@ import {
   Icon,
   JobInfromation,
 } from '../styles/RandomJobOfferStyles';
+import Spinner from './Spinner';
 
 const RandomJobOffers = () => {
   const { data, loading, error } = useQuery(GET_RANDOM_OFFERS, {
     fetchPolicy: 'network-only',
   });
-  console.log(data);
-  if (loading || error) return null;
+
+  if (loading) return <Spinner size={50} small loading={loading} />;
   else
     return (
       <div>

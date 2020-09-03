@@ -23,6 +23,7 @@ import {
   Text,
 } from '../../styles/CompanyProfileStyle';
 import Logo from '../../components/JobOffer/Logo';
+import Spinner from '../../components/Spinner';
 
 type Response = {
   id: number;
@@ -41,11 +42,10 @@ type getUserCompanyResponse = {
 
 const CompanyProfile = () => {
   const { data, loading } = useQuery<getUserCompanyResponse>(GET_USER_COMPANY);
-  if (loading) return null;
+  if (loading) return <Spinner size={50} loading={loading} small />;
   else if (!data!.getUserCompany)
     return (
       <>
-        <Navbars />
         <Container>
           <CreateLink to="/createCompany">
             You dont have company yet, create it now!
@@ -56,7 +56,6 @@ const CompanyProfile = () => {
   else
     return (
       <>
-        <Navbars />
         <Main>
           <Title>
             {data!.getUserCompany.companyName}{' '}

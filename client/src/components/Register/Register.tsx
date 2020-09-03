@@ -10,6 +10,7 @@ import { useMutation } from '@apollo/client';
 import { REGISTER } from '../../Graphql/AuthMutations';
 import { ToastContainer } from 'react-toastify';
 import { CustomToast } from '../../utils/CustomToast';
+import Spinner from '../Spinner';
 interface Props {
   active: boolean;
 }
@@ -125,7 +126,11 @@ const Register: React.FC<Props> = ({ active }: Props) => {
           </>
         )}
 
-        {!loading && <MyButton width={40}>Register</MyButton>}
+        {!loading ? (
+          <MyButton width={40}>Register</MyButton>
+        ) : (
+          <Spinner loading={loading} small size={50} />
+        )}
       </RegisterForm>
     </>
   );

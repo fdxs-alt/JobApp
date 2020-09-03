@@ -9,6 +9,7 @@ import isAuthenticated, { isOwner } from '../../Graphql/isAuth';
 import { useHistory } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { size } from '../../DefaultValues/HardCoded';
+import Spinner from '../Spinner';
 
 type Response = {
   getUser: {
@@ -39,7 +40,7 @@ const Navbars = () => {
     history.push('/login');
   };
 
-  if (loading) return null;
+  if (loading) return <Spinner size={100} loading={loading} />;
   else
     return (
       <>

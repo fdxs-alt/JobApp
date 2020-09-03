@@ -23,6 +23,7 @@ import UserTech from '../../components/CompanyForm/UserTech';
 import Tech from '../../components/CompanyForm/Tech';
 import BenefitsComponent from '../../components/inputs/Benefits';
 import { CustomToast } from '../../utils/CustomToast';
+import Spinner from '../../components/Spinner';
 const today = new Date();
 interface CreateCompanyProps {
   companyName: string;
@@ -122,8 +123,6 @@ const CreateCompany = () => {
         style={{ width: '30%' }}
       />
 
-      <Navbars />
-
       <Wrapper>
         <Container>
           <Column>
@@ -218,7 +217,9 @@ const CreateCompany = () => {
             )}
           </Column>
 
-          {loading ? null : (
+          {loading ? (
+            <Spinner size={50} small loading={loading} />
+          ) : (
             <Button onClick={handleSubmit(onSubmit)}>Save and create</Button>
           )}
         </Container>

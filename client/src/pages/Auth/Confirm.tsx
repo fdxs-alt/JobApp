@@ -3,6 +3,7 @@ import { parse } from 'query-string';
 import { useMutation } from '@apollo/client';
 import { CONFIRM } from '../../Graphql/AuthMutations';
 import { useHistory } from 'react-router-dom';
+import Spinner from '../../components/Spinner';
 const Confirm = () => {
   const [confirm, { loading, error }] = useMutation(CONFIRM);
   const history = useHistory();
@@ -21,7 +22,7 @@ const Confirm = () => {
     confirmUser(token);
     // eslint-disable-next-line
   }, []);
-  if (loading) return null;
+  if (loading) return <Spinner size={100} loading={loading} />;
   return (
     <div>
       {!error && !loading && <div>User has been confirmed successfully </div>}

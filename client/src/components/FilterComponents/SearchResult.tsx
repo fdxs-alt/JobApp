@@ -12,6 +12,7 @@ import {
   Container,
   Title,
 } from '../../styles/MainPageStyles';
+import Spinner from '../Spinner';
 const SearchResult = () => {
   const input = parse(window.location.search).input?.toString();
 
@@ -19,7 +20,7 @@ const SearchResult = () => {
     variables: { input },
   });
 
-  if (loading) return null;
+  if (loading) return <Spinner size={50} loading={loading} small />;
 
   if (error) return <Redirect to="/" />;
 

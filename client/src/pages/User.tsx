@@ -2,11 +2,7 @@ import React from 'react';
 import Navbars from '../components/Navbars/Navbars';
 
 const User = () => {
-  return (
-    <>
-      <Navbars />
-    </>
-  );
+  return <></>;
 };
 
 export default User;

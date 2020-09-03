@@ -12,6 +12,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { setToken } from '../../AccessToken';
 import isAuth, { isOwner } from '../../Graphql/isAuth';
 import { useHistory } from 'react-router-dom';
+import Spinner from '../Spinner';
 type login = {
   email: string;
   password: string;
@@ -31,7 +32,9 @@ const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
   const { register, handleSubmit, errors } = useForm<login>({
     resolver: joiResolver(schema),
   });
+
   const history = useHistory();
+
   const onSubmit = async ({ email, password }: login) => {
     const input = { email, password };
     try {
@@ -74,9 +77,7 @@ const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
         <Error>Password field cannot be empty</Error>
       )}
       {loading ? (
-        <MyButton style={{ marginBottom: '1.5rem' }} width={30} disabled>
-          Log in
-        </MyButton>
+        <Spinner size={50} small loading={loading} />
       ) : (
         <MyButton style={{ marginBottom: '1.5rem' }} width={30}>
           Log in

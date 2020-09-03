@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Routes from './Routes/Routes';
 import { setToken } from './AccessToken';
 import isAuth, { isOwner } from './Graphql/isAuth';
+import Spinner from './components/Spinner';
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
@@ -23,7 +24,8 @@ const App: React.FC = () => {
     });
   }, []);
 
-  if (loading) return null;
+  if (loading) return <Spinner size={100} loading={loading} />;
+  
   else return <Routes />;
 };
 

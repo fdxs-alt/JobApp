@@ -24,6 +24,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { encode } from 'base64-arraybuffer';
 import Navbars from '../components/Navbars/Navbars';
+import Spinner from '../components/Spinner';
 
 const SpecificCompany = () => {
   const id = parse(window.location.search).id;
@@ -31,7 +32,8 @@ const SpecificCompany = () => {
     variables: { id: parseInt(id as any) },
   });
 
-  if (loading) return null;
+  if (loading) return <Spinner size={50} loading={loading} small />;
+
   if (error) return <Redirect to="/companies" />;
   return (
     <>

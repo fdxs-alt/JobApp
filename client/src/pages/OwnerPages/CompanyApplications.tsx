@@ -26,6 +26,7 @@ import {
   PdfLink,
 } from '../../styles/CompanyApplicationStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Spinner from '../../components/Spinner';
 type Response = {
   getAllCvs: {
     joboffer: {
@@ -47,8 +48,8 @@ const CompanyApplications = () => {
   const [remove, { loading: deleteCvLoading }] = useMutation<Response>(
     DELETE_CV,
   );
-  console.log(data);
-  if (loading) return null;
+
+  if (loading) return <Spinner size={100} loading={loading} />;
 
   const handleClick = (id: number, jobId: number) => {
     confirmAlert({
@@ -83,7 +84,6 @@ const CompanyApplications = () => {
   };
   return (
     <>
-      <Navbars />
       {data && (
         <Wrapper>
           {data.getAllCvs.map((element: any, index: number) => (

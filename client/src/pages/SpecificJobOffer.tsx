@@ -49,6 +49,7 @@ import { ADD_CV } from '../Graphql/CompanyMutations';
 import { ToastContainer } from 'react-toastify';
 import isAuthenticated, { isOwner } from '../Graphql/isAuth';
 import { CustomToast } from '../utils/CustomToast';
+import Spinner from '../components/Spinner';
 
 type SpecificInfoType = {
   offer: {
@@ -132,7 +133,7 @@ const SpecificJobOffer = () => {
     accept: 'application/pdf, application/vnd.ms-excel',
   });
 
-  if (loading) return null;
+  if (loading) return <Spinner size={50} loading={loading} small />;
   else if (error) return <Redirect to="/" />;
   else
     return (

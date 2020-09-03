@@ -30,6 +30,7 @@ import {
   Task,
   DailyTasks,
 } from '../../styles/SpecificJobStyles';
+import Spinner from '../../components/Spinner';
 
 type Response = {
   specificJobOffer: {
@@ -54,12 +55,11 @@ const JobDetails = () => {
     variables: { id },
   });
 
-  if (loading) return <Navbars />;
+  if (loading) return <Spinner loading={loading} size={50} small />;
   else if (error) return <Redirect to="/joboffers" />;
   else
     return (
       <>
-        <Navbars />
         <Main>
           <Title>{data!.specificJobOffer.title}</Title>
           <BasicInfo>

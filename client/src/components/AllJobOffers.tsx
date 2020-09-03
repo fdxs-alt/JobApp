@@ -13,6 +13,7 @@ import {
   ColumWithSalary,
   Salary,
 } from '../styles/MainPageStyles';
+import Spinner from './Spinner';
 
 type infoObjectType = {
   info: [
@@ -49,8 +50,10 @@ const AllJobOffers = () => {
   const checkIfPossible = (data: any, index: number) => {
     return data.getAllInfo.hasMore && index === data.getAllInfo.info.length - 1;
   };
-  if (loading) return null;
-  else
+
+  if (loading) {
+    return <Spinner size={100} loading={loading} />;
+  } else
     return (
       <Container>
         {data &&

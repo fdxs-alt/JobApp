@@ -7,12 +7,13 @@ import { encode } from 'base64-arraybuffer';
 import { confirmAlert } from 'react-confirm-alert';
 import { Title } from '../../styles/SearchBarStyles';
 import { Confirmation } from '../../styles/ImagesGallery';
-import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import { ButtonContainer, Button } from '../../styles/ImagesGallery';
 import {
   ImageInputContainer,
   LogoImage,
 } from '../../styles/CompanyProfileStyle';
+import Spinner from '../Spinner';
 
 type Props = {
   id: number;
@@ -66,8 +67,7 @@ const Logo: React.FC<Props> = ({ id }) => {
       },
     });
   };
-
-  if (loading) return null;
+  if (loading) return <Spinner size={50} loading={loading} small />;
   else if (!data.getCompanyLogo) {
     return (
       <ImageInputContainer {...getRootProps()}>

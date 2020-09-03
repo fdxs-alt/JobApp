@@ -10,6 +10,7 @@ import {
   Logo,
   CompanyLink,
 } from '../styles/CompanyPageStyles';
+import Spinner from './Spinner';
 
 type Props = {
   cursor: number;
@@ -19,7 +20,7 @@ const AllCompanies: React.FC<Props> = ({ cursor }) => {
     variables: { cursor },
   });
 
-  if (loading) return null;
+  if (loading) return <Spinner size={50} small loading={loading} />;
   if (error) return <Redirect to="/" />;
   return (
     <CompanyWrapper>

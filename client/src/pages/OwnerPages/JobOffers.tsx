@@ -5,6 +5,7 @@ import { ALL_USERS_OFFERS } from '../../Graphql/Queries';
 import { useQuery } from '@apollo/client';
 import SingleJobOffer from '../../components/JobOffer/SingleJobOffer';
 import { JobOffersWrapper } from '../../styles/JobOffersStyles';
+import Spinner from '../../components/Spinner';
 export type UserOfferResponseType = {
   id: number;
   title: string;
@@ -16,12 +17,10 @@ type Response = {
 };
 const JobOffers = () => {
   const { data, loading } = useQuery<Response>(ALL_USERS_OFFERS);
-  console.log(data);
-  if (loading) return null;
+  if (loading) return <Spinner loading={loading} size={50} small />;
   if (!data)
     return (
       <>
-        <Navbars />
         <Container>
           <CreateLink to="/createCompany">
             You need to create company first!
@@ -32,7 +31,6 @@ const JobOffers = () => {
   else
     return (
       <>
-        <Navbars />
         <Container>
           {data.allUsersOffers.length === 0 ? (
             <CreateLink to="/createJobOffer">

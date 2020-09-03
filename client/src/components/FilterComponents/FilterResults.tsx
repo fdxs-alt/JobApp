@@ -12,6 +12,7 @@ import {
   ColumWithSalary,
   Salary,
 } from '../../styles/MainPageStyles';
+import Spinner from '../Spinner';
 
 const FilterResults = () => {
   const searchParams = parse(window.location.search);
@@ -21,12 +22,12 @@ const FilterResults = () => {
     minSalary: parseInt(searchParams.minSalary as any),
     title: searchParams.title,
   };
-
+  
   const { data, loading, error } = useQuery(FIND_JOB_OFFERS, {
     variables: { input },
   });
 
-  if (loading) return null;
+  if (loading) return <Spinner small size={50} loading={loading} />;
 
   if (error) return <Redirect to="/" />;
   return (

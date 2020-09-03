@@ -160,7 +160,6 @@ const CreateJobOffer: React.FC = () => {
 
   return (
     <>
-      <Navbars />
       <ToastContainer
         position="top-right"
         autoClose={3000}

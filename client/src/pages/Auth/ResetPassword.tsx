@@ -19,6 +19,7 @@ import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';
 import { useMutation } from '@apollo/client';
 import { RESET_BY_EMAIL } from '../../Graphql/AuthMutations';
+import Spinner from '../../components/Spinner';
 
 type reset = {
   email: string;
@@ -69,9 +70,7 @@ const Login = () => {
           <Error>Email must be a valid email</Error>
         )}
         {loading ? (
-          <MyButton style={{ marginBottom: '1.5rem' }} width={40} disabled>
-            Send recovery email
-          </MyButton>
+          <Spinner size={50} loading={loading} small />
         ) : (
           <MyButton style={{ marginBottom: '1.5rem' }} width={40}>
             Send recovery email
