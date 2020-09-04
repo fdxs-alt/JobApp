@@ -8,7 +8,6 @@ import { setToken } from '../../AccessToken';
 import isAuthenticated, { isOwner } from '../../Graphql/isAuth';
 import { useHistory } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { size } from '../../DefaultValues/HardCoded';
 import Spinner from '../Spinner';
 
 type Response = {

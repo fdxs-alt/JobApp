@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import Navbars from '../components/Navbars/Navbars';
 import { parse } from 'query-string';
 import { useQuery, useMutation } from '@apollo/client';
 import { Redirect } from 'react-router-dom';
@@ -125,7 +124,7 @@ const SpecificJobOffer = () => {
             'error',
           );
     },
-    [id],
+    [id, addCV],
   );
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -151,7 +150,6 @@ const SpecificJobOffer = () => {
           style={{ width: '30%' }}
         />
 
-        <Navbars />
         {data && (
           <Container>
             <MainSectionColumn>

@@ -3,7 +3,6 @@ import { parse } from 'query-string';
 import { useQuery } from '@apollo/client';
 import { SPECIFIC_JOB_OFFER } from '../../Graphql/Queries';
 import { Redirect } from 'react-router-dom';
-import Navbars from '../../components/Navbars/Navbars';
 import ImagesGallery from '../../components/JobOffer/ImagesGallery';
 import {
   Icon,

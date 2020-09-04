@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { TableContext } from '../../context/TableProvider';
-import Navbars from '../../components/Navbars/Navbars';
 import { useForm } from 'react-hook-form';
 import { InputLabel, Error } from '../../styles/LoginPageStyles';
 import { useMutation } from '@apollo/client';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import MainPage from '../pages/MainPage';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
@@ -32,16 +32,25 @@ const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <ForbbidenWhenLogged path="/user/confirm" component={Confirm} />
-        <ForbbidenWhenLogged path="/user/changePassword" component={Reset} />
-        <ForbbidenWhenLogged exact path="/reset" component={ResetPassword} />
         <ForbbidenWhenLogged exact path="/login" component={Login} />
         <ForbbidenWhenLogged exact path="/register" component={Register} />
-        <PrivateRoutes path="/user" component={User} />
-
+        <ForbbidenWhenLogged exact path="/reset" component={ResetPassword} />
         <Route>
           <Layout>
             <Switch>
+              <ForbbidenWhenLogged
+                exact
+                path="/user/confirm"
+                component={Confirm}
+              />
+              <ForbbidenWhenLogged
+                path="/user/changePassword/"
+                component={Reset}
+                exact
+              />
+
+              <PrivateRoutes path="/user" component={User} />
+
               <Route exact path="/" component={MainPage} />
               <Route exact path="/companies" component={Companies} />
               <Route path="/searchjob" component={SearchPage} />

@@ -23,7 +23,6 @@ import {
   faUserFriends,
 } from '@fortawesome/free-solid-svg-icons';
 import { encode } from 'base64-arraybuffer';
-import Navbars from '../components/Navbars/Navbars';
 import Spinner from '../components/Spinner';
 
 const SpecificCompany = () => {
@@ -37,7 +36,6 @@ const SpecificCompany = () => {
   if (error) return <Redirect to="/companies" />;
   return (
     <>
-      <Navbars />
       <Main>
         <Title>
           {data!.getSpecificCompany.company.companyName}

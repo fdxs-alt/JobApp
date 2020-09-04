@@ -4,17 +4,25 @@ import { useMutation } from '@apollo/client';
 import { CONFIRM } from '../../Graphql/AuthMutations';
 import { useHistory } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
+import SearchBar from '../../components/FilterComponents/SearchBar';
+import {
+  Container,
+  ConfirmMessage,
+  ErrorMessage,
+} from '../../styles/AuthStyles';
+
 const Confirm = () => {
-  const [confirm, { loading, error }] = useMutation(CONFIRM);
+  const [confirm, { loading, error, data }] = useMutation(CONFIRM);
   const history = useHistory();
   const query = parse(window.location.search);
   const token = { token: query?.token };
-
+  console.log(token);
   useEffect(() => {
     if (token.token === undefined) history.push('/');
     const confirmUser = async (token: any) => {
       try {
         await confirm({ variables: token });
+        setTimeout(() => history.push('/'), 2000);
       } catch (error) {
         setTimeout(() => history.push('/'), 2000);
       }
@@ -24,10 +32,17 @@ const Confirm = () => {
   }, []);
   if (loading) return <Spinner size={100} loading={loading} />;
   return (
-    <div>
-      {!error && !loading && <div>User has been confirmed successfully </div>}
-      {error && error.message}
-    </div>
+    <>
+      <SearchBar />
+      <Container>
+        {data && (
+          <ConfirmMessage>
+            Account has been confirmed successfully
+          </ConfirmMessage>
+        )}
+        {error && <ErrorMessage>{error.message}</ErrorMessage>}
+      </Container>
+    </>
   );
 };
 

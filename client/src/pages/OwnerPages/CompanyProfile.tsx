@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbars from '../../components/Navbars/Navbars';
 import { useQuery } from '@apollo/client';
 import { GET_USER_COMPANY } from '../../Graphql/Queries';
 import {

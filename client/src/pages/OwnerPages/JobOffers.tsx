@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbars from '../../components/Navbars/Navbars';
 import { Container, CreateLink } from '../../styles/CompanyProfileStyle';
 import { ALL_USERS_OFFERS } from '../../Graphql/Queries';
 import { useQuery } from '@apollo/client';

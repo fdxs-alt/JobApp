@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Navbars from '../components/Navbars/Navbars';
 import AllCompanies from '../components/AllCompanies';
 import { GET_COMPANIES_COUNT } from '../Graphql/Queries';
 import { Redirect } from 'react-router-dom';

@@ -49,3 +49,18 @@ export const DELETE_CV = gql`
     deleteCv(id: $id, jobId: $jobId)
   }
 `;
+export const RESET = gql`
+  mutation Reset($data: ResetPasswordInput!) {
+    reset(data: $data) {
+      accessToken
+      user {
+        id
+        email
+        confirmed
+        hasCompany
+        fullName
+        companyName
+      }
+    }
+  }
+`;
