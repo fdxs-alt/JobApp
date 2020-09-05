@@ -5,15 +5,13 @@ import { useDropzone } from 'react-dropzone';
 import { ADD_LOGO, DELETE_LOGO } from '../../Graphql/CompanyMutations';
 import { encode } from 'base64-arraybuffer';
 import { confirmAlert } from 'react-confirm-alert';
-import { Title } from '../../styles/SearchBarStyles';
-import { Confirmation } from '../../styles/ImagesGallery';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { ButtonContainer, Button } from '../../styles/ImagesGallery';
 import {
   ImageInputContainer,
   LogoImage,
 } from '../../styles/CompanyProfileStyle';
 import Spinner from '../Spinner';
+import ConfirmationModal from '../shared/ConfirmationModal';
 
 type Props = {
   id: number;
@@ -44,25 +42,21 @@ const Logo: React.FC<Props> = ({ id }) => {
     accept: 'image/jpeg, image/png',
   });
 
+  const handleClick = async (onClose: () => void) => {
+    await deleteLogo();
+    onClose();
+  };
   const handleSubmit = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
-          <div>
-            <Title>Are you sure?</Title>
-            <Confirmation>Do you really want to delete the logo?</Confirmation>
-            <ButtonContainer>
-              <Button onClick={onClose}>No</Button>
-              <Button
-                onClick={async () => {
-                  await deleteLogo();
-                  onClose();
-                }}
-              >
-                Yes
-              </Button>
-            </ButtonContainer>
-          </div>
+          <ConfirmationModal
+            deleteText="Yes"
+            title="Are you sure?"
+            confirmationText="Do you really want to delete the logo?"
+            handleClick={handleClick}
+            onClose={onClose}
+          />
         );
       },
     });

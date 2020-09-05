@@ -1,21 +1,12 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_ALL_INFO } from '../Graphql/Queries';
-
 import { Waypoint } from 'react-waypoint';
 import { length } from '../Graphql/isAuth';
-import {
-  Container,
-  JobInfromation,
-  Column,
-  Title,
-  LightInfo,
-  ColumWithSalary,
-  Salary,
-} from '../styles/MainPageStyles';
+import { Container } from '../styles/MainPageStyles';
 import Spinner from './Spinner';
-
-type infoObjectType = {
+import JobInfromation from './shared/JobInformation';
+export type infoObjectType = {
   info: [
     {
       id: number;
@@ -59,28 +50,12 @@ const AllJobOffers = () => {
         {data &&
           data.getAllInfo.info.map((element, index: number) => (
             <React.Fragment key={element.id}>
-              <JobInfromation>
-                <Column>
-                  <Title to={`/specific?id=${element.id}`}>
-                    {element.title}
-                  </Title>
-                  <LightInfo>in {element.company.companyName}</LightInfo>
-                  <LightInfo> {element.date}</LightInfo>
-                </Column>
-
-                <ColumWithSalary>
-                  <Salary>
-                    {element.minSalary + ' - ' + element.maxSalary + ' PLN'}
-                  </Salary>
-                  <Salary>{element.main}</Salary>
-                  <LightInfo>{element.localisation}</LightInfo>
-                </ColumWithSalary>
-              </JobInfromation>
+              <JobInfromation element={element} />
               {checkIfPossible(data, index) ? (
                 <Waypoint
                   onEnter={() => {
-                    page = data!.getAllInfo.info.length;
-                    length(data!.getAllInfo.info.length);
+                    page = data?.getAllInfo.info.length;
+                    length(data?.getAllInfo.info.length);
                     fetchMore({
                       variables: { cursor: page },
                     });

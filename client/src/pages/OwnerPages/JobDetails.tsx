@@ -3,7 +3,7 @@ import { parse } from 'query-string';
 import { useQuery } from '@apollo/client';
 import { SPECIFIC_JOB_OFFER } from '../../Graphql/Queries';
 import { Redirect } from 'react-router-dom';
-import ImagesGallery from '../../components/JobOffer/ImagesGallery';
+import ImagesGallery from '../../components/JobOffer/ImageGallery/ImagesGallery';
 import {
   Icon,
   Main,
@@ -60,47 +60,47 @@ const JobDetails = () => {
     return (
       <>
         <Main>
-          <Title>{data!.specificJobOffer.title}</Title>
+          <Title>{data?.specificJobOffer.title}</Title>
           <BasicInfo>
             <IconContainer>
               <Icon icon={faMoneyBillAlt} />
               <Text>
-                Minimum salary: <b>{data!.specificJobOffer.minSalary}</b>
+                Minimum salary: <b>{data?.specificJobOffer.minSalary}</b>
               </Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faHome} />
               <Text>
-                Localisation: <b>{data!.specificJobOffer.localisation}</b>
+                Localisation: <b>{data?.specificJobOffer.localisation}</b>
               </Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faMoneyBill} />
               <Text>
-                Maximum salary: <b>{data!.specificJobOffer.maxSalary}</b>
+                Maximum salary: <b>{data?.specificJobOffer.maxSalary}</b>
               </Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faMicrochip} />
               <Text>
-                Main technology: <b>{data!.specificJobOffer.main}</b>
+                Main technology: <b>{data?.specificJobOffer.main}</b>
               </Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faMicrochip} />
               <Text>
-                Date of publish: <b>{data!.specificJobOffer.date}</b>
+                Date of publish: <b>{data?.specificJobOffer.date}</b>
               </Text>
             </IconContainer>
           </BasicInfo>
           <Description>
             <h3>Description:</h3>
-            {data!.specificJobOffer.description}
+            {data?.specificJobOffer.description}
           </Description>
           <ColumContainer>
             <Used>Mandatory skills:</Used>
             <GridContainer>
-              {data!.specificJobOffer.mandatory.map(
+              {data?.specificJobOffer.mandatory.map(
                 (mandatory: string, index: number) => (
                   <Element key={index}>{mandatory}</Element>
                 ),
@@ -110,7 +110,7 @@ const JobDetails = () => {
           <ColumContainer>
             <Used>Extra skills: </Used>
             <GridContainer>
-              {data!.specificJobOffer.extraSkills.map(
+              {data?.specificJobOffer.extraSkills.map(
                 (skill: string, index: number) => (
                   <Element key={index}>{skill}</Element>
                 ),
@@ -120,7 +120,7 @@ const JobDetails = () => {
           <ColumContainer>
             <Used>Tasks during employment:</Used>
             <DailyTasks>
-              {data!.specificJobOffer.tasks.map(
+              {data?.specificJobOffer.tasks.map(
                 (task: string, index: number) => (
                   <TaskContainer key={index}>
                     <Circle>{index + 1}</Circle>
@@ -133,7 +133,7 @@ const JobDetails = () => {
           <ColumContainer>
             <Used>Benefits:</Used>
             <GridContainer>
-              {data!.specificJobOffer.benefitsInWork.map(
+              {data?.specificJobOffer.benefitsInWork.map(
                 (benefit: string, index: number) => (
                   <Element key={index}>{benefit}</Element>
                 ),

@@ -3,17 +3,9 @@ import { parse } from 'query-string';
 import { FIND_JOB_OFFERS } from '../../Graphql/Queries';
 import { useQuery } from '@apollo/client';
 import { Redirect } from 'react-router-dom';
-import {
-  JobInfromation,
-  Container,
-  Column,
-  Title,
-  LightInfo,
-  ColumWithSalary,
-  Salary,
-} from '../../styles/MainPageStyles';
 import Spinner from '../Spinner';
-
+import { Container } from '../../styles/MainPageStyles';
+import JobInfromation from './../shared/JobInformation';
 const FilterResults = () => {
   const searchParams = parse(window.location.search);
   const input = {
@@ -33,21 +25,7 @@ const FilterResults = () => {
   return (
     <Container>
       {data.findJobOffers.map((element: any) => (
-        <JobInfromation key={element.id}>
-          <Column>
-            <Title to={`/specific?id=${element.id}`}>{element.title}</Title>
-            <LightInfo>in {element.company.companyName}</LightInfo>
-            <LightInfo> {element.date}</LightInfo>
-          </Column>
-
-          <ColumWithSalary>
-            <Salary>
-              {element.minSalary + ' - ' + element.maxSalary + ' PLN'}
-            </Salary>
-            <Salary>{element.main}</Salary>
-            <LightInfo>{element.localisation}</LightInfo>
-          </ColumWithSalary>
-        </JobInfromation>
+        <JobInfromation key={element.id} element={element} />
       ))}
     </Container>
   );

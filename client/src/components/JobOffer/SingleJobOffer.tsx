@@ -42,7 +42,7 @@ const SingleJobOffer: React.FC<Props> = ({ title, id, date, localisation }) => {
         query: ALL_USERS_OFFERS,
         data: {
           allUsersOffers: [
-            ...(jobOffers!.allUsersOffers as any).filter(
+            ...(jobOffers?.allUsersOffers as any).filter(
               (t: ArrayProp) => t.id !== id,
             ),
           ],
@@ -58,7 +58,7 @@ const SingleJobOffer: React.FC<Props> = ({ title, id, date, localisation }) => {
             <ConfrimationTitle>Are you sure?</ConfrimationTitle>
             <Confirmation>
               Do you really want to delete this job offer?{' '}
-              <b>You can't undo this action</b>
+              <b>You cant undo this action</b>
             </Confirmation>
 
             <ButtonContainer>

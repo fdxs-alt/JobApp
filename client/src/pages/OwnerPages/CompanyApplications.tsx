@@ -58,7 +58,7 @@ const CompanyApplications = () => {
             <Title>Are you sure?</Title>
             <Confirmation>
               Do you really want to delete this cv?
-              <b> This action can't be undone</b>
+              <b> This action cant be undone</b>
             </Confirmation>
             <ButtonContainer>
               <Button onClick={onClose}>No</Button>
