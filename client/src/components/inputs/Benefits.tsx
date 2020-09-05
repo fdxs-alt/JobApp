@@ -28,7 +28,6 @@ const Benefits = () => {
                 key={index}
                 text={benefit}
                 handleClick={handleAddingBenefit}
-                
               />
             );
           })}

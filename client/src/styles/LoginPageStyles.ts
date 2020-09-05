@@ -23,7 +23,7 @@ export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-self: center;
-  align-items: center;  
+  align-items: center;
   margin: 5% auto;
   @media (max-width: ${size.laptop}) {
     width: 60%;

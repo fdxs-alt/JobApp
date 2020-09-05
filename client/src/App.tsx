@@ -25,7 +25,6 @@ const App: React.FC = () => {
   }, []);
 
   if (loading) return <Spinner size={100} loading={loading} />;
-  
   else return <Routes />;
 };
 

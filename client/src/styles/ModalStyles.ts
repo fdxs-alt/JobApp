@@ -86,7 +86,6 @@ export const ModalLabel = styled.label`
 
   @media (max-width: ${size.laptop}) {
     font-size: 0.8rem;
-    
   }
 `;
 export const ModalInput = styled.input`
@@ -99,7 +98,7 @@ export const ModalInput = styled.input`
 
   @media (max-width: ${size.mobile}) {
     font-size: 1rem;
-    align-self: center; 
+    align-self: center;
   }
 `;
 export const CloseButton = styled.button`
