@@ -46,7 +46,6 @@ const Login = () => {
       const response = await login({ variables: { input } });
 
       if (response && response.data) {
-
         isAuthenticated(true);
 
         setToken(response.data.login.accessToken);
@@ -55,7 +54,6 @@ const Login = () => {
           isOwner(true);
           history.push('/dashboard');
         }
-        
       }
     } catch (error) {
       isAuthenticated(false);

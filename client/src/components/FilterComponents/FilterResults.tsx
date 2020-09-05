@@ -22,7 +22,7 @@ const FilterResults = () => {
     minSalary: parseInt(searchParams.minSalary as any),
     title: searchParams.title,
   };
-  
+
   const { data, loading, error } = useQuery(FIND_JOB_OFFERS, {
     variables: { input },
   });
