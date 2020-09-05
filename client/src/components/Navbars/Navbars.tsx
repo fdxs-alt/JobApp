@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import Spinner from '../Spinner';
 
-type Response = {
+export interface GetUserResponse {
   getUser: {
     id: number;
     email: string;
@@ -18,13 +18,15 @@ type Response = {
     hasCompany: boolean;
     fullName: string;
     companyName: string;
+    name: string;
+    surname: string;
   };
-};
+}
 
 const Navbars = () => {
   const history = useHistory();
   const [logout, { client }] = useMutation(LOGOUT);
-  const { data, loading } = useQuery<Response>(GET_USER);
+  const { data, loading } = useQuery<GetUserResponse>(GET_USER);
 
   const isLaptopOrSmallDevice = useMediaQuery({
     query: '(max-width: 1200px)',

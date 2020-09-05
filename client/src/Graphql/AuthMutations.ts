@@ -32,3 +32,13 @@ export const RESET_BY_EMAIL = gql`
     resetEmail(email: $email)
   }
 `;
+export const CHANGE_PASSWORD = gql`
+  mutation ChangePassword($data: ChangePasswordInput!) {
+    changePassword(data: $data)
+  }
+`;
+export const DELETE_ACCOUNT = gql`
+  mutation DeleteAccount {
+    deleteAccount
+  }
+`;

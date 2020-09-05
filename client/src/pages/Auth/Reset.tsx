@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { Container } from '../../styles/AuthStyles';
@@ -16,30 +15,16 @@ import { CustomToast } from '../../utils/CustomToast';
 import { setToken } from '../../AccessToken';
 import isAuthenticated, { isOwner } from '../../Graphql/isAuth';
 import { GET_USER } from '../../Graphql/Queries';
-type ResetInputType = {
+import {
+  InputWrapper,
+  ChangePasswordTitle,
+  Button,
+} from '../../styles/ResetPasswordStyles';
+export type ResetInputType = {
   password: string;
   confirmPassword: string;
 };
-const InputWrapper = styled.form`
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-const ChangePasswordTitle = styled.p`
-  font-size: 1.4rem;
-  padding: 2rem;
-  font-weight: 500;
-  color: ${(props) => props.theme.colors.darkish};
-`;
-const Button = styled.button`
-  padding: 0.8rem 0.4rem;
-  color: white;
-  background-color: ${(props) => props.theme.colors.button};
-  border: none;
-  font-size: 1.2rem;
-`;
+
 const schema = Joi.object({
   password: Joi.string().required().min(8),
   confirmPassword: Joi.string().required().min(8),

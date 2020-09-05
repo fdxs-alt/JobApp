@@ -20,9 +20,12 @@ export const CreateLink = styled(Link)`
   }
 `;
 export const Container = styled.div`
+  margin: 2.3rem auto;
   width: 100%;
+  min-height: 100%;
   display: flex;
   justify-content: center;
+  align-content: center;
 `;
 export const Main = styled.section`
   width: 80%;

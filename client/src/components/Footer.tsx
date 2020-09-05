@@ -1,62 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { size } from '../DefaultValues/HardCoded';
+import {
+  FooterWrapper,
+  FooterContainer,
+  ColumnTitle,
+  FooterLink,
+  Column,
+} from '../styles/FooterStyles';
 
-const FooterWrapper = styled.section`
-  width: 100%;
-  background-color: #191919;
-`;
-const FooterContainer = styled.div`
-  margin: 0 auto;
-  max-width: 1200px;
-  width: 75%;
-  color: white;
-  display: grid;
-  padding: 3rem 5rem;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  justify-content: space-around;
-
-  @media (max-width: ${size.mobile}) {
-    width: 95%;
-  }
-`;
-const ColumnTitle = styled.p`
-  font-size: 1.1rem;
-  padding: 0.4rem;
-`;
-const FooterLink = styled(Link)`
-  color: white;
-  text-decoration: none;
-  padding: 0.2rem;
-  font-size: 0.9rem;
-  &:hover {
-    color: red;
-  }
-`;
-type ColumProps = {
-  bgColor?: string;
-};
-const Column = styled.div<ColumProps>`
-  padding: 0 0.5rem;
-
-  display: flex;
-  flex-direction: column;
-  border-left: 2px solid ${(props) => props.theme.colors.lightBorder};
-  position: relative;
-  &::after {
-    content: '';
-    position: absolute;
-    height: 30px;
-    width: 5px;
-    top: 0;
-    right: 0;
-    left: -1px;
-    bottom: 0;
-    border-left: 5px solid ${(props) => props.bgColor};
-  }
-`;
 const Footer = () => {
   return (
     <FooterWrapper>

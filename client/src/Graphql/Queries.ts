@@ -9,6 +9,8 @@ export const GET_USER = gql`
       hasCompany
       fullName
       companyName
+      name
+      surname
     }
   }
 `;

@@ -11,7 +11,7 @@ import { sendRefreshCookie } from '../utils/sendRefreshCookie';
 @Resolver()
 export class ResetPasswordResolver {
   @Mutation(() => UserResponse, { nullable: true })
-  async reset(
+  async resetPassword(
     @Arg('data') { password, confirmPassword, token }: ResetPasswordInput,
     @Ctx() { res }: MyContext,
   ): Promise<UserResponse> {
