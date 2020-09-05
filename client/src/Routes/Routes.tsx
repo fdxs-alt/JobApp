@@ -4,10 +4,6 @@ import MainPage from '../pages/MainPage';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import Companies from '../pages/Companies';
-import ForEmployers from '../pages/ForEmployers';
-import Pricing from '../pages/Pricing';
-import Clients from '../pages/Clients';
-import Events from '../pages/Events';
 import ResetPassword from '../pages/Auth/ResetPassword';
 import ForbbidenWhenLogged from './NotAccessableWhenLogged';
 import Confirm from '../pages/Auth/Confirm';
@@ -54,10 +50,6 @@ const Routes: React.FC = () => {
               <Route exact path="/" component={MainPage} />
               <Route exact path="/companies" component={Companies} />
               <Route path="/searchjob" component={SearchPage} />
-              <Route exact path="/employers" component={ForEmployers} />
-              <Route exact path="/employers/pricing" component={Pricing} />
-              <Route exact path="/employers/clients" component={Clients} />
-              <Route exact path="/employers/events" component={Events} />
               <Route exact path="/jobs" component={MainPage} />
               <Route path="/specific" component={SpecificJobOffer} />
               <Route

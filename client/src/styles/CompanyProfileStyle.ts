@@ -21,8 +21,6 @@ export const CreateLink = styled(Link)`
 `;
 export const Container = styled.div`
   width: 100%;
-  min-height: 90vh;
-  background-color: ${(props) => props.theme.colors.border};
   display: flex;
   justify-content: center;
 `;
@@ -170,10 +168,10 @@ export const Logo = styled.img`
   width: 15%;
 
   @media (max-width: ${size.tablet}) {
-   width: 35%;
+    width: 35%;
   }
 
   @media (max-width: ${size.mobile}) {
-   width: 50%;
+    width: 50%;
   }
-`
+`;

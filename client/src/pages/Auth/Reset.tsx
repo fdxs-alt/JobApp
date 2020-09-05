@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Container } from '../../styles/AuthStyles';
 import { RESET } from '../../Graphql/CompanyMutations';
 import { parse } from 'query-string';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { InputLabel, Input } from '../../styles/LoginPageStyles';
 import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';

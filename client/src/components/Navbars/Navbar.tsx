@@ -53,7 +53,7 @@ const Navbar: React.FC<Props> = ({ fullName, handleClick, smallMenu }) => {
             {fullName ? (
               <LaptopLink to="/">Apply for a job</LaptopLink>
             ) : (
-              <LaptopLink to="/employers">For Employers</LaptopLink>
+              <LaptopLink to="/">For Employers</LaptopLink>
             )}
 
             {fullName ? (
@@ -111,7 +111,7 @@ const Navbar: React.FC<Props> = ({ fullName, handleClick, smallMenu }) => {
         </LeftPanel>
         <RightPanel>
           <RightElement>
-            <MyLink to="/employers">For Employers</MyLink>
+            <MyLink to="/">For Employers</MyLink>
           </RightElement>
           <RightElement>
             {fullName ? (

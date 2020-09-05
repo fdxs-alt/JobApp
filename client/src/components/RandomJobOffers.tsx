@@ -14,7 +14,7 @@ import {
 import Spinner from './Spinner';
 
 const RandomJobOffers = () => {
-  const { data, loading, error } = useQuery(GET_RANDOM_OFFERS, {
+  const { data, loading } = useQuery(GET_RANDOM_OFFERS, {
     fetchPolicy: 'network-only',
   });
 

@@ -11,8 +11,6 @@ const GlobalStyle = createGlobalStyle`
     body {
         width: 100%;
         font-family: 'Poppins', sans-serif;
-        display: flex;
-        flex-direction: column;
         height: 100vh;
     }
 `;
