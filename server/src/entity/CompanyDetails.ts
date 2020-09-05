@@ -47,14 +47,18 @@ export class Company extends BaseEntity {
   benefits: string[];
 
   @Field(() => User)
-  @OneToOne(() => User)
+  @OneToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn()
   employer: User;
 
   @Field(() => [JobOffer])
-  @OneToMany(() => JobOffer, (joboffer) => joboffer.company)
+  @OneToMany(() => JobOffer, (joboffer) => joboffer.company, {
+    onDelete: 'CASCADE',
+  })
   joboffers: JobOffer;
 
-  @OneToMany(() => Opinion, (opinion) => opinion.company)
+  @OneToMany(() => Opinion, (opinion) => opinion.company, {
+    onDelete: 'CASCADE',
+  })
   opinions: Opinion;
 }

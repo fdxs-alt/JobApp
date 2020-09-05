@@ -19,4 +19,5 @@ export const Button = styled.button`
   background-color: ${(props) => props.theme.colors.button};
   border: none;
   font-size: 1.2rem;
+  cursor: pointer;
 `;

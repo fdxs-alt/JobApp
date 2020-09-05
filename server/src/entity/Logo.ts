@@ -29,7 +29,7 @@ export class Logo extends BaseEntity {
   data: Buffer;
 
   @Field(() => Company)
-  @OneToOne(() => Company)
+  @OneToOne(() => Company, { onDelete: 'CASCADE' })
   @JoinColumn()
   company: Company;
 }

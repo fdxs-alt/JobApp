@@ -59,6 +59,7 @@ export class UserResolver {
   async deleteAccount(@Ctx() { payload }: MyContext): Promise<Boolean> {
     try {
       const user = await User.findOne({ where: { id: payload.userId } });
+
       await user.remove();
       return true;
     } catch (error) {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import styled from 'styled-components';
 import { joiResolver } from '@hookform/resolvers';
 import Joi from '@hapi/joi';
 import { InputLabel, Input, Error } from '../styles/LoginPageStyles';
@@ -10,18 +9,8 @@ import { CustomToast } from '../utils/CustomToast';
 import { ToastContainer } from 'react-toastify';
 import { useMutation } from '@apollo/client';
 import { CHANGE_PASSWORD } from '../Graphql/AuthMutations';
-const ChangePasswordWrapper = styled.form`
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-const Container = styled.form`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-`;
+import { Container, ChangePasswordWrapper } from '../styles/UserPageStyles';
+
 interface ResetInputInterface extends ResetInputType {
   prevPassword: string;
 }
