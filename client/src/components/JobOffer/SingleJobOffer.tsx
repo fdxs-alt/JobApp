@@ -12,9 +12,7 @@ import { DELETE_JOB_OFFER } from '../../Graphql/CompanyMutations';
 import { useMutation } from '@apollo/client';
 import { ALL_USERS_OFFERS } from '../../Graphql/Queries';
 import { confirmAlert } from 'react-confirm-alert';
-import { Confirmation } from '../../styles/ImagesGallery';
-import { ButtonContainer, Button } from '../../styles/ImagesGallery';
-import { Title as ConfrimationTitle } from '../../styles/SearchBarStyles';
+import ConfirmationModal from '../Shared/ConfirmationModal';
 type Props = {
   title: string;
   id: number;
@@ -50,29 +48,21 @@ const SingleJobOffer: React.FC<Props> = ({ title, id, date, localisation }) => {
       });
     },
   });
-  const handleClick = () => {
+  const handleClick = async (onClose: () => void) => {
+    await deleteJobOffer();
+    onClose();
+  };
+  const handleDelete = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
-          <div>
-            <ConfrimationTitle>Are you sure?</ConfrimationTitle>
-            <Confirmation>
-              Do you really want to delete this job offer?{' '}
-              <b>You cant undo this action</b>
-            </Confirmation>
-
-            <ButtonContainer>
-              <Button onClick={onClose}>No</Button>
-              <Button
-                onClick={async () => {
-                  await deleteJobOffer();
-                  onClose();
-                }}
-              >
-                Yes
-              </Button>
-            </ButtonContainer>
-          </div>
+          <ConfirmationModal
+            title="Are you sure?"
+            confirmationText="Do you really want to delete this job offer? You cant undo this action"
+            handleClick={handleClick}
+            onClose={onClose}
+            deleteText="Yes"
+          />
         );
       },
     });
@@ -89,7 +79,7 @@ const SingleJobOffer: React.FC<Props> = ({ title, id, date, localisation }) => {
         <IconLink to={`/job?id=${id}`}>
           <FontAwesomeIcon icon={faInfoCircle} />
         </IconLink>
-        <DeleteButton onClick={() => handleClick()} tabIndex={0}>
+        <DeleteButton onClick={() => handleDelete()} tabIndex={0}>
           <FontAwesomeIcon icon={faTrashAlt} />
         </DeleteButton>
       </div>

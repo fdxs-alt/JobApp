@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { Redirect } from 'react-router-dom';
 import Spinner from '../Spinner';
 import { Container } from '../../styles/MainPageStyles';
-import JobInfromation from './../shared/JobInformation';
+import JobInfromation from '../Shared/JobInformation';
 const FilterResults = () => {
   const searchParams = parse(window.location.search);
   const input = {

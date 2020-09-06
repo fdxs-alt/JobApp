@@ -50,15 +50,14 @@ const CompanyApplications = () => {
 
   if (loading) return <Spinner size={100} loading={loading} />;
 
-  const handleClick = (id: number, jobId: number) => {
+  const handleDelete = (id: number, jobId: number) => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
           <div>
             <Title>Are you sure?</Title>
             <Confirmation>
-              Do you really want to delete this cv?
-              <b> This action cant be undone</b>
+              Do you really want to delete this cv? This action cant be undone
             </Confirmation>
             <ButtonContainer>
               <Button onClick={onClose}>No</Button>
@@ -104,7 +103,7 @@ const CompanyApplications = () => {
                       <DeleteIcon
                         icon={faTrashAlt}
                         onClick={() => {
-                          handleClick(cv.id, element.joboffer.id);
+                          handleDelete(cv.id, element.joboffer.id);
                         }}
                       />
                     )}

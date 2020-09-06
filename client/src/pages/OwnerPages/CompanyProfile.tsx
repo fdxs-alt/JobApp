@@ -17,12 +17,11 @@ import {
   Description,
   ColumContainer,
   Used,
-  GridContainer,
-  Element,
   Text,
 } from '../../styles/CompanyProfileStyle';
 import Logo from '../../components/JobOffer/Logo';
 import Spinner from '../../components/Spinner';
+import MappedTable from '../../components/Shared/MappedTable';
 
 type Response = {
   id: number;
@@ -74,27 +73,15 @@ const CompanyProfile = () => {
               <Text>Size of company: {data!.getUserCompany.sizeOfCompany}</Text>
             </IconContainer>
           </BasicInfo>
-          <Description>{data!.getUserCompany.description}</Description>
+          <Description>{data?.getUserCompany.description}</Description>
           <ColumContainer>
             <Used>Technologies used:</Used>
-            <GridContainer>
-              {data!.getUserCompany.technologies.map(
-                (tech: string, index: number) => (
-                  <Element key={index}>{tech}</Element>
-                ),
-              )}
-            </GridContainer>
+            <MappedTable table={data?.getUserCompany.technologies} />
           </ColumContainer>
 
           <ColumContainer>
             <Used>Benefits in your company:</Used>
-            <GridContainer>
-              {data!.getUserCompany.benefits.map(
-                (tech: string, index: number) => (
-                  <Element key={index}>{tech}</Element>
-                ),
-              )}
-            </GridContainer>
+            <MappedTable table={data?.getUserCompany.benefits} />
           </ColumContainer>
         </Main>
       </>

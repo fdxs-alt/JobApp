@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AllCompanies from '../components/AllCompanies';
+import AllCompanies from '../components/AllCompanies/AllCompanies';
 import { GET_COMPANIES_COUNT } from '../Graphql/Queries';
 import { Redirect } from 'react-router-dom';
 import { useQuery } from '@apollo/client';

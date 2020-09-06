@@ -12,8 +12,6 @@ import {
   IconContainer,
   ColumContainer,
   Used,
-  GridContainer,
-  Element,
   Text,
   Description,
 } from '../../styles/CompanyProfileStyle';
@@ -23,13 +21,9 @@ import {
   faMicrochip,
   faHome,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  TaskContainer,
-  Circle,
-  Task,
-  DailyTasks,
-} from '../../styles/SpecificJobStyles';
 import Spinner from '../../components/Spinner';
+import MappedTable from '../../components/Shared/MappedTable';
+import Tasks from '../../components/Shared/Tasks';
 
 type Response = {
   specificJobOffer: {
@@ -99,46 +93,18 @@ const JobDetails = () => {
           </Description>
           <ColumContainer>
             <Used>Mandatory skills:</Used>
-            <GridContainer>
-              {data?.specificJobOffer.mandatory.map(
-                (mandatory: string, index: number) => (
-                  <Element key={index}>{mandatory}</Element>
-                ),
-              )}
-            </GridContainer>
           </ColumContainer>
           <ColumContainer>
             <Used>Extra skills: </Used>
-            <GridContainer>
-              {data?.specificJobOffer.extraSkills.map(
-                (skill: string, index: number) => (
-                  <Element key={index}>{skill}</Element>
-                ),
-              )}
-            </GridContainer>
+            <MappedTable table={data?.specificJobOffer.extraSkills} />
           </ColumContainer>
           <ColumContainer>
             <Used>Tasks during employment:</Used>
-            <DailyTasks>
-              {data?.specificJobOffer.tasks.map(
-                (task: string, index: number) => (
-                  <TaskContainer key={index}>
-                    <Circle>{index + 1}</Circle>
-                    <Task>{task}</Task>
-                  </TaskContainer>
-                ),
-              )}
-            </DailyTasks>
+            <Tasks table={data?.specificJobOffer.tasks} />
           </ColumContainer>
           <ColumContainer>
             <Used>Benefits:</Used>
-            <GridContainer>
-              {data?.specificJobOffer.benefitsInWork.map(
-                (benefit: string, index: number) => (
-                  <Element key={index}>{benefit}</Element>
-                ),
-              )}
-            </GridContainer>
+            <MappedTable table={data?.specificJobOffer.benefitsInWork} />
           </ColumContainer>
           <ImagesGallery id={id} />
         </Main>

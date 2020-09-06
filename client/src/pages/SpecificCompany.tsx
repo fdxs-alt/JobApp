@@ -13,8 +13,6 @@ import {
   Description,
   ColumContainer,
   Used,
-  GridContainer,
-  Element,
   Logo,
 } from '../styles/CompanyProfileStyle';
 import {
@@ -24,6 +22,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { encode } from 'base64-arraybuffer';
 import Spinner from '../components/Spinner';
+import MappedTable from '../components/Shared/MappedTable';
 
 const SpecificCompany = () => {
   const id = parse(window.location.search).id;
@@ -69,24 +68,12 @@ const SpecificCompany = () => {
         </Description>
         <ColumContainer>
           <Used>Technologies used:</Used>
-          <GridContainer>
-            {data!.getSpecificCompany.company.technologies.map(
-              (tech: string, index: number) => (
-                <Element key={index}>{tech}</Element>
-              ),
-            )}
-          </GridContainer>
+          <MappedTable table={data.getSpecificCompany.company.technologies} />
         </ColumContainer>
 
         <ColumContainer>
           <Used>Benefits in your company:</Used>
-          <GridContainer>
-            {data!.getSpecificCompany.company.benefits.map(
-              (tech: string, index: number) => (
-                <Element key={index}>{tech}</Element>
-              ),
-            )}
-          </GridContainer>
+          <MappedTable table={data.getSpecificCompany.company.benefits} />
         </ColumContainer>
       </Main>
     </>

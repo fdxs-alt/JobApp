@@ -5,7 +5,7 @@ import { SEARCH_JOB_OFFERS } from '../../Graphql/Queries';
 import { Redirect } from 'react-router-dom';
 import { Container } from '../../styles/MainPageStyles';
 import Spinner from '../Spinner';
-import JobInfromation from './../shared/JobInformation';
+import JobInfromation from '../Shared/JobInformation';
 const SearchResult = () => {
   const input = parse(window.location.search).input?.toString();
 

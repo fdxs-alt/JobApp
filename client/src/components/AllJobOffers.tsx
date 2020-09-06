@@ -5,7 +5,7 @@ import { Waypoint } from 'react-waypoint';
 import { length } from '../Graphql/isAuth';
 import { Container } from '../styles/MainPageStyles';
 import Spinner from './Spinner';
-import JobInfromation from './shared/JobInformation';
+import JobInfromation from './Shared/JobInformation';
 export type infoObjectType = {
   info: [
     {
