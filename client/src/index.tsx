@@ -40,9 +40,9 @@ const client = new ApolloClient({
             merge: false,
           },
           getAllInfo: {
-            merge(existing: any, incoming: any, { args, cache }) {
+            merge(existing: any, incoming: any, { args }) {
               let result: any;
-              if (args!.cursor === 0) {
+              if (args?.cursor === 0) {
                 result = {
                   __typename: 'ResponseTable',
                   hasMore: incoming.hasMore,

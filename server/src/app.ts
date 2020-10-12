@@ -18,7 +18,7 @@ const main = async () => {
 
   await createConnection();
   app.use(cookieParser());
-
+  app.use(helmet());
   app.use(
     cors({
       origin: 'http://localhost:3000',
