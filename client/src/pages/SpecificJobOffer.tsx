@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
-import { parse } from 'query-string';
 import { useQuery, useMutation } from '@apollo/client';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { GET_ALL_SPECIFIC_INFO } from '../Graphql/Queries';
 import { encode } from 'base64-arraybuffer';
 import {
@@ -91,9 +90,9 @@ type Response = {
 };
 
 const SpecificJobOffer = () => {
-  const id = parseInt((parse(window.location.search) as any).id);
+  const id: { id: string } = useParams();
   const { data, loading, error } = useQuery<Response>(GET_ALL_SPECIFIC_INFO, {
-    variables: { id },
+    variables: { id: parseInt(id.id) },
   });
 
   const [addCV] = useMutation(ADD_CV);

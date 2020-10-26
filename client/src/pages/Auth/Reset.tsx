@@ -3,8 +3,7 @@ import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { Container } from '../../styles/AuthStyles';
 import { RESET } from '../../Graphql/CompanyMutations';
-import { parse } from 'query-string';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { InputLabel, Input } from '../../styles/LoginPageStyles';
 import Joi from '@hapi/joi';
 import { joiResolver } from '@hookform/resolvers';
@@ -30,7 +29,7 @@ const schema = Joi.object({
   confirmPassword: Joi.string().required().min(8),
 });
 const Reset = () => {
-  const token = parse(window.location.search).token;
+  const token: { token: string } = useParams();
 
   const { handleSubmit, register, errors } = useForm<ResetInputType>({
     resolver: joiResolver(schema),
@@ -63,7 +62,7 @@ const Reset = () => {
     }
 
     const data = {
-      token: token as string,
+      token: token.token,
       confirmPassword,
       password,
     };

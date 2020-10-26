@@ -1,8 +1,7 @@
 import React from 'react';
-import { parse } from 'query-string';
 import { useQuery } from '@apollo/client';
 import { GET_SPECIFIC_COMPANY } from '../Graphql/Queries';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import {
   Text,
   Main,
@@ -25,9 +24,9 @@ import Spinner from '../components/Spinner';
 import MappedTable from '../components/sharedComp/MappedTable';
 
 const SpecificCompany = () => {
-  const id = parse(window.location.search).id;
+  const id: { id: string } = useParams();
   const { data, loading, error } = useQuery(GET_SPECIFIC_COMPANY, {
-    variables: { id: parseInt(id as any) },
+    variables: { id: parseInt(id.id) },
   });
 
   if (loading) return <Spinner size={50} loading={loading} small />;

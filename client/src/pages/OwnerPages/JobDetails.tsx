@@ -1,8 +1,7 @@
 import React from 'react';
-import { parse } from 'query-string';
 import { useQuery } from '@apollo/client';
 import { SPECIFIC_JOB_OFFER } from '../../Graphql/Queries';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import ImagesGallery from '../../components/JobOffer/ImageGallery/ImagesGallery';
 import {
   Icon,
@@ -43,9 +42,9 @@ type Response = {
 };
 
 const JobDetails = () => {
-  const id = parseInt((parse(window.location.search) as any).id);
+  const id: { id: string } = useParams();
   const { data, loading, error } = useQuery<Response>(SPECIFIC_JOB_OFFER, {
-    variables: { id },
+    variables: { id: parseInt(id.id) },
   });
 
   if (loading) return <Spinner loading={loading} size={50} small />;
@@ -106,7 +105,7 @@ const JobDetails = () => {
             <Used>Benefits:</Used>
             <MappedTable table={data.specificJobOffer.benefitsInWork} />
           </ColumContainer>
-          <ImagesGallery id={id} />
+          <ImagesGallery id={parseInt(id.id)} />
         </Main>
       </>
     );

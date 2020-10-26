@@ -1,17 +1,22 @@
 import React from 'react';
-import { parse } from 'query-string';
 import { FIND_JOB_OFFERS } from '../../Graphql/Queries';
 import { useQuery } from '@apollo/client';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import Spinner from '../Spinner';
 import { Container } from '../../styles/MainPageStyles';
 import JobInfromation from '../sharedComp/JobInformation';
 const FilterResults = () => {
-  const searchParams = parse(window.location.search);
+  const searchParams: {
+    main: string;
+    localisation: string;
+    minSalary: string;
+    title: string;
+  } = useParams();
+
   const input = {
     main: searchParams.main,
     localisation: searchParams.localisation,
-    minSalary: parseInt(searchParams.minSalary as any),
+    minSalary: parseInt(searchParams.minSalary),
     title: searchParams.title,
   };
 
