@@ -4,11 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "tsc -p . && node dist/app.js",
+    "start": "tsc -p . ",
     "dev": "nodemon src/app.ts",
     "build": "tsc",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build && cd .. && node dist/app.js"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
