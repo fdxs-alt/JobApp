@@ -7,10 +7,11 @@ interface Props {
 const MappedTable: React.FC<Props> = ({ table }) => {
   return (
     <GridContainer>
-      {table &&
-        table?.map((element: string, index: number) => (
-          <Element key={index}>{element}</Element>
-        ))}
+      {table
+        ? table?.map((element: string, index: number) => (
+            <Element key={index}>{element}</Element>
+          ))
+        : null}
     </GridContainer>
   );
 };
