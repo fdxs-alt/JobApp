@@ -1,16 +1,15 @@
 import React from 'react';
-import { parse } from 'query-string';
 import { useQuery } from '@apollo/client';
 import { SEARCH_JOB_OFFERS } from '../../Graphql/Queries';
 import { Redirect } from 'react-router-dom';
 import { Container } from '../../styles/MainPageStyles';
 import Spinner from '../Spinner';
 import JobInfromation from '../sharedComp/JobInformation';
+import { useParams } from 'react-router-dom';
 const SearchResult = () => {
-  const input = parse(window.location.search).input?.toString();
-
+  const params: { input: string } = useParams();
   const { data, loading, error } = useQuery(SEARCH_JOB_OFFERS, {
-    variables: { input },
+    variables: { input: params.input },
   });
 
   if (loading) return <Spinner size={50} loading={loading} small />;
