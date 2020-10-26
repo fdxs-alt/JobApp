@@ -22,13 +22,13 @@ const User = () => {
       <InfoSectiontitle>User info:</InfoSectiontitle>
       <UserInfoContainer>
         <UserInfo>
-          <b>Name:</b> {data?.getUser.name}
+          <b>Name:</b> {data.getUser.name}
         </UserInfo>
         <UserInfo>
-          <b>Surname:</b> {data?.getUser.surname}
+          <b>Surname:</b> {data.getUser.surname}
         </UserInfo>
         <UserInfo>
-          <b>Email:</b> {data?.getUser.email}
+          <b>Email:</b> {data.getUser.email}
         </UserInfo>
       </UserInfoContainer>
       <InfoSectiontitle>Change password</InfoSectiontitle>

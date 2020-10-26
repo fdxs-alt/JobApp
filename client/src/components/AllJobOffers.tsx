@@ -54,8 +54,8 @@ const AllJobOffers = () => {
               {checkIfPossible(data, index) ? (
                 <Waypoint
                   onEnter={() => {
-                    page = data?.getAllInfo.info.length;
-                    length(data?.getAllInfo.info.length);
+                    page = data.getAllInfo.info.length;
+                    length(data.getAllInfo.info.length);
                     fetchMore({
                       variables: { cursor: page },
                     });

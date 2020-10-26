@@ -6,8 +6,8 @@ import TableReducer from './TableReducer';
 const initialState = {
   Benefits: benefits,
   technology: technologies,
-  userBenefits: [],
-  userTechnology: [],
+  userBenefits: [] as string[],
+  userTechnology: [] as string[],
 };
 
 const TableContext = createContext<{

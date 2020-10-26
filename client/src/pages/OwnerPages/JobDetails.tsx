@@ -54,57 +54,57 @@ const JobDetails = () => {
     return (
       <>
         <Main>
-          <Title>{data?.specificJobOffer.title}</Title>
+          <Title>{data.specificJobOffer.title}</Title>
           <BasicInfo>
             <IconContainer>
               <Icon icon={faMoneyBillAlt} />
               <Text>
-                Minimum salary: <b>{data?.specificJobOffer.minSalary}</b>
+                Minimum salary: <b>{data.specificJobOffer.minSalary}</b>
               </Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faHome} />
               <Text>
-                Localisation: <b>{data?.specificJobOffer.localisation}</b>
+                Localisation: <b>{data.specificJobOffer.localisation}</b>
               </Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faMoneyBill} />
               <Text>
-                Maximum salary: <b>{data?.specificJobOffer.maxSalary}</b>
+                Maximum salary: <b>{data.specificJobOffer.maxSalary}</b>
               </Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faMicrochip} />
               <Text>
-                Main technology: <b>{data?.specificJobOffer.main}</b>
+                Main technology: <b>{data.specificJobOffer.main}</b>
               </Text>
             </IconContainer>
             <IconContainer>
               <Icon icon={faMicrochip} />
               <Text>
-                Date of publish: <b>{data?.specificJobOffer.date}</b>
+                Date of publish: <b>{data.specificJobOffer.date}</b>
               </Text>
             </IconContainer>
           </BasicInfo>
           <Description>
             <h3>Description:</h3>
-            {data?.specificJobOffer.description}
+            {data.specificJobOffer.description}
           </Description>
           <ColumContainer>
             <Used>Mandatory skills:</Used>
           </ColumContainer>
           <ColumContainer>
             <Used>Extra skills: </Used>
-            <MappedTable table={data?.specificJobOffer.extraSkills} />
+            <MappedTable table={data.specificJobOffer.extraSkills} />
           </ColumContainer>
           <ColumContainer>
             <Used>Tasks during employment:</Used>
-            <Tasks table={data?.specificJobOffer.tasks} />
+            <Tasks table={data.specificJobOffer.tasks} />
           </ColumContainer>
           <ColumContainer>
             <Used>Benefits:</Used>
-            <MappedTable table={data?.specificJobOffer.benefitsInWork} />
+            <MappedTable table={data.specificJobOffer.benefitsInWork} />
           </ColumContainer>
           <ImagesGallery id={id} />
         </Main>

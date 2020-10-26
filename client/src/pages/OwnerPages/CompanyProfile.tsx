@@ -73,15 +73,15 @@ const CompanyProfile = () => {
               <Text>Size of company: {data!.getUserCompany.sizeOfCompany}</Text>
             </IconContainer>
           </BasicInfo>
-          <Description>{data?.getUserCompany.description}</Description>
+          <Description>{data.getUserCompany.description}</Description>
           <ColumContainer>
             <Used>Technologies used:</Used>
-            <MappedTable table={data?.getUserCompany.technologies} />
+            <MappedTable table={data.getUserCompany.technologies} />
           </ColumContainer>
 
           <ColumContainer>
             <Used>Benefits in your company:</Used>
-            <MappedTable table={data?.getUserCompany.benefits} />
+            <MappedTable table={data.getUserCompany.benefits} />
           </ColumContainer>
         </Main>
       </>

@@ -93,12 +93,12 @@ const ImagesGallery: React.FC<Props> = ({ id }) => {
   else
     return (
       <>
-        {data?.getAllJobOfferImages.length !== 0 ? (
+        {data.getAllJobOfferImages.length !== 0 ? (
           <ColumContainer>
             <Used>Gallery: (click to delete an image)</Used>
             <Images
               handleSubmit={handleSubmit}
-              images={data?.getAllJobOfferImages as ImageType[]}
+              images={data.getAllJobOfferImages as ImageType[]}
             />
           </ColumContainer>
         ) : null}

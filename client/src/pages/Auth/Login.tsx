@@ -77,10 +77,10 @@ const Login = () => {
           placeholder="john@doe.com"
           ref={register({ required: true })}
         />
-        {errors.email?.type === 'string.empty' && (
+        {errors.email.type === 'string.empty' && (
           <Error>Email field cannot be empty</Error>
         )}
-        {errors.email?.type === 'string.email' && (
+        {errors.email.type === 'string.email' && (
           <Error>Email must be a valid email</Error>
         )}
         <InputLabel htmlFor="Password">Password</InputLabel>
@@ -90,7 +90,7 @@ const Login = () => {
           placeholder="Don't tell anybody"
           ref={register({ required: true })}
         />
-        {errors.password?.message && (
+        {errors.password.message && (
           <Error>Password field cannot be empty</Error>
         )}
         {loading ? (
@@ -102,7 +102,7 @@ const Login = () => {
             Log in
           </MyButton>
         )}
-        {error?.message && (
+        {error.message && (
           <Error style={{ textAlign: 'center' }}>{error.message}</Error>
         )}
 

@@ -12,12 +12,14 @@ interface Props {
 const Tasks: React.FC<Props> = ({ table }) => {
   return (
     <DailyTasks>
-      {table?.map((task: string, index: number) => (
-        <TaskContainer key={index}>
-          <Circle>{index + 1}</Circle>
-          <Task>{task}</Task>
-        </TaskContainer>
-      ))}
+      {table
+        ? table.map((task: string, index: number) => (
+            <TaskContainer key={index}>
+              <Circle>{index + 1}</Circle>
+              <Task>{task}</Task>
+            </TaskContainer>
+          ))
+        : null}
     </DailyTasks>
   );
 };

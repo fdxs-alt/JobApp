@@ -56,7 +56,7 @@ const CreateJobOfferInput: React.FC<CreateJobOfferInputProps> = ({
               return;
             }
             handleClick(value);
-            inputRef.current?.focus();
+            inputRef.current.focus();
             if (error !== null) setError(null);
           }}
           onKeyPress={(e: any) => {
@@ -67,7 +67,7 @@ const CreateJobOfferInput: React.FC<CreateJobOfferInputProps> = ({
                 return;
               }
               handleClick(value);
-              inputRef.current?.focus();
+              inputRef.current.focus();
               if (error !== null) setError(null);
             }
           }}

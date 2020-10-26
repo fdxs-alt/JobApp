@@ -40,7 +40,7 @@ const SingleJobOffer: React.FC<Props> = ({ title, id, date, localisation }) => {
         query: ALL_USERS_OFFERS,
         data: {
           allUsersOffers: [
-            ...(jobOffers?.allUsersOffers as any).filter(
+            ...(jobOffers.allUsersOffers as any).filter(
               (t: ArrayProp) => t.id !== id,
             ),
           ],

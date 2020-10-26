@@ -57,7 +57,7 @@ const Dashboard = () => {
               <Title>Dashboard</Title>
             </DashboardTitle>
 
-            {!data!.getUserCompany ? (
+            {data.getUserCompany ? (
               <NoCompanyLinkContainer>
                 <CreateLink to="/createCompany">Create company!</CreateLink>
               </NoCompanyLinkContainer>

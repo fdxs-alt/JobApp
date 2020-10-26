@@ -45,7 +45,7 @@ const client = new ApolloClient({
           getAllInfo: {
             merge(existing: any, incoming: any, { args }) {
               let result: any;
-              if (args?.cursor === 0) {
+              if (args.cursor === 0) {
                 result = {
                   __typename: 'ResponseTable',
                   hasMore: incoming.hasMore,
@@ -53,7 +53,7 @@ const client = new ApolloClient({
                 };
               }
               if (existing) {
-                if (existing?.hasMore)
+                if (existing.hasMore)
                   result = {
                     __typename: 'ResponseTable',
                     hasMore: incoming.hasMore,

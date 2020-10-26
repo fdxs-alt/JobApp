@@ -36,7 +36,7 @@ const AllCompanies: React.FC<Props> = ({ cursor }) => {
   if (error) return <Redirect to="/" />;
   return (
     <CompanyWrapper>
-      {data?.getAllComapanies.map((el) => (
+      {data.getAllComapanies.map((el) => (
         <SingleCompanyCompontent key={el.id} singleCompany={el} />
       ))}
     </CompanyWrapper>

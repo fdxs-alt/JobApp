@@ -14,7 +14,7 @@ const PrivateRoutes: React.FC<{
 }> = (props) => {
   const { data } = useQuery<AuthQueryResponse>(IS_AUTH);
 
-  return data?.isAuthenticated ? (
+  return data.isAuthenticated ? (
     <Route path={props.path} exact={props.exact} component={props.component} />
   ) : (
     <Redirect to="/login" />

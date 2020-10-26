@@ -7,10 +7,10 @@ export type State = {
   tasks: string[];
 };
 const initialState = {
-  mandatory: [],
-  benefitsInWork: [],
-  extraSkills: [],
-  tasks: [],
+  mandatory: [] as string[],
+  benefitsInWork: [] as string[],
+  extraSkills: [] as string[],
+  tasks: [] as string[],
 };
 
 const JobOfferContext = createContext<{
