@@ -19,9 +19,10 @@ const SearchResult = () => {
 
   return (
     <Container>
-      {data.searchJobOffers.map((element: any) => (
-        <JobInfromation key={element.id} element={element} />
-      ))}
+      {data &&
+        data.searchJobOffers.map((element: any) => (
+          <JobInfromation key={element.id} element={element} />
+        ))}
     </Container>
   );
 };
