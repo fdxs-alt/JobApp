@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import { UserResolver } from './resolvers/UserResolver';
 import { ResetPasswordResolver } from './resolvers/ResetPasswordResolver';
 import { CompanyResolver } from './resolvers/CompanyResolver';
-import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server-express';
 import express, { Request, Response } from 'express';
 import { graphqlUploadExpress } from 'graphql-upload';
