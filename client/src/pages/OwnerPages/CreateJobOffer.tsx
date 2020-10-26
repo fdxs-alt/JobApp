@@ -110,11 +110,11 @@ const CreateJobOffer: React.FC = () => {
       );
 
       setValue('title', '');
-      setValue('minSalary', undefined);
-      setValue('maxSalary', undefined);
-      setValue('description', undefined);
-      setValue('main', undefined);
-      setValue('localisation', undefined);
+      setValue('minSalary', 0);
+      setValue('maxSalary', 0);
+      setValue('description', '');
+      setValue('main', '');
+      setValue('localisation', '');
       dispatch({ type: 'RESET_VALUES' });
       setTimeout(() => {
         history.push('/joboffers');

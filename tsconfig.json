@@ -19,5 +19,5 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "exclude": ["node_modules", "./client"]
+  "exclude": ["./client"]
 }
