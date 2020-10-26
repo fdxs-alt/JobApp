@@ -33,7 +33,6 @@ const main = async () => {
   app.use(cookieParser());
   app.use(
     cors({
-      origin: process.env.baseurl,
       credentials: true,
     }),
   );
@@ -97,7 +96,7 @@ const main = async () => {
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
     app.get('*', (req, res) => {
-      res.sendFile(join(__dirname, 'client', 'build', 'index.html'));
+      res.sendFile(join(__dirname, '../../client', 'build', 'index.html'));
     });
   }
 
