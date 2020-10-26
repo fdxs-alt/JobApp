@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { UserResolver } from './resolvers/UserResolver';
 import { ResetPasswordResolver } from './resolvers/ResetPasswordResolver';
 import { CompanyResolver } from './resolvers/CompanyResolver';
