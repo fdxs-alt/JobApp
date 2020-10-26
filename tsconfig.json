@@ -17,7 +17,8 @@
     "baseUrl": "./",
     "rootDir": "./src",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "exclude": ["./client"]
 }
