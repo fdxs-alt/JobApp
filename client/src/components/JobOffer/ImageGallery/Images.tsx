@@ -10,14 +10,16 @@ type Props = {
 const Images: React.FC<Props> = ({ images, handleSubmit }) => {
   return (
     <GridContainer>
-      {images?.map((element) => (
-        <div onClick={() => handleSubmit(element.id)} key={element.id}>
-          <Image
-            alt="Job offer"
-            src={`data:image/jpeg;base64, ${encode(element.data)}`}
-          />
-        </div>
-      ))}
+      {images
+        ? images.map((element) => (
+            <div onClick={() => handleSubmit(element.id)} key={element.id}>
+              <Image
+                alt="Job offer"
+                src={`data:image/jpeg;base64, ${encode(element.data)}`}
+              />
+            </div>
+          ))
+        : null}
     </GridContainer>
   );
 };
