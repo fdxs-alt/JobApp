@@ -16,7 +16,7 @@ const link = new TokenRefreshLink({
     }
   },
   fetchAccessToken: () => {
-    return fetch('http://localhost:5000/refresh', {
+    return fetch(process.env.REACT_APP_BASE_URL + '/refresh', {
       method: 'POST',
       credentials: 'include',
     });

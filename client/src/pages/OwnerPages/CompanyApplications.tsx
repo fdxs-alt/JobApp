@@ -93,7 +93,7 @@ const CompanyApplications = () => {
                 element.cvs.map((cv: any, index: number) => (
                   <LinkContainer key={cv.id}>
                     <PdfLink
-                      href={`http://localhost:5000/cv/${cv.name}`}
+                      href={process.env.REACT_APP_BASE_URL + `/cv/${cv.name}`}
                       target="_blank"
                     >
                       {index + 1}. {cv.user.fullName}'s CV {'  '}

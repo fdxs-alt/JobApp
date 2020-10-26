@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -17,7 +16,9 @@ import isAuthenticated, { isOwner, length } from './Graphql/isAuth';
 import { TableProvider } from './context/TableProvider';
 import { JobProvider } from './context/JobOfferProvider';
 import { isEqual } from 'lodash';
+import dotenv from 'dotenv';
 dotenv.config();
+
 const links = ApolloLink.from([
   AuthLink,
   RefreshTokenLink,

@@ -7,7 +7,7 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/refresh', {
+    fetch(process.env.REACT_APP_BASE_URL + '/refresh', {
       method: 'POST',
       credentials: 'include',
     }).then(async (response) => {
