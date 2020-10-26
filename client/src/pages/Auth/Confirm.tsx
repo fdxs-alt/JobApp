@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { parse } from 'query-string';
 import { useMutation } from '@apollo/client';
 import { CONFIRM } from '../../Graphql/AuthMutations';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
 import SearchBar from '../../components/FilterComponents/SearchBar';
 import {
@@ -14,14 +13,14 @@ import {
 const Confirm = () => {
   const [confirm, { loading, error, data }] = useMutation(CONFIRM);
   const history = useHistory();
-  const query = parse(window.location.search);
-  const token = { token: query?.token };
-  console.log(token);
+  const query: { token: string } = useParams();
+  const token = query.token;
+
   useEffect(() => {
-    if (token.token === undefined) history.push('/');
+    if (token === undefined) history.push('/');
     const confirmUser = async (token: any) => {
       try {
-        await confirm({ variables: token });
+        await confirm({ variables: { token } });
         setTimeout(() => history.push('/'), 2000);
       } catch (error) {
         setTimeout(() => history.push('/'), 2000);
