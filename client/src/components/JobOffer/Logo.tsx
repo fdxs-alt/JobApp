@@ -11,7 +11,7 @@ import {
   LogoImage,
 } from '../../styles/CompanyProfileStyle';
 import Spinner from '../Spinner';
-import ConfirmationModal from '../Shared/ConfirmationModal';
+import ConfirmationModal from '../sharedComp/ConfirmationModal';
 
 type Props = {
   id: number;

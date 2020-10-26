@@ -12,7 +12,7 @@ import { DELETE_JOB_OFFER } from '../../Graphql/CompanyMutations';
 import { useMutation } from '@apollo/client';
 import { ALL_USERS_OFFERS } from '../../Graphql/Queries';
 import { confirmAlert } from 'react-confirm-alert';
-import ConfirmationModal from '../Shared/ConfirmationModal';
+import ConfirmationModal from '../sharedComp/ConfirmationModal';
 type Props = {
   title: string;
   id: number;

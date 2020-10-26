@@ -21,7 +21,7 @@ import {
 } from '../../styles/CompanyProfileStyle';
 import Logo from '../../components/JobOffer/Logo';
 import Spinner from '../../components/Spinner';
-import MappedTable from '../../components/Shared/MappedTable';
+import MappedTable from '../../components/sharedComp/MappedTable';
 
 type Response = {
   id: number;

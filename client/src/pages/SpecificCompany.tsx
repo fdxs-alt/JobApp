@@ -22,7 +22,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { encode } from 'base64-arraybuffer';
 import Spinner from '../components/Spinner';
-import MappedTable from '../components/Shared/MappedTable';
+import MappedTable from '../components/sharedComp/MappedTable';
 
 const SpecificCompany = () => {
   const id = parse(window.location.search).id;

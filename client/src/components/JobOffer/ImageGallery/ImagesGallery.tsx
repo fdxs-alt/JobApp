@@ -11,7 +11,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { ImageInputContainer } from '../../../styles/ImagesGallery';
 import Spinner from '../../Spinner';
 import Images from './Images';
-import ConfirmationModal from '../../Shared/ConfirmationModal';
+import ConfirmationModal from '../../sharedComp/ConfirmationModal';
 import { Used, ColumContainer } from '../../../styles/CompanyProfileStyle';
 export type ImageType = {
   id: number;
