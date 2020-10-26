@@ -130,9 +130,9 @@ const CreateCompany = () => {
             </InputLabel>
             <Input name="companyName" width={90} ref={register} />
 
-            {errors.companyName?.type === 'string.empty' && (
+            {errors.companyName ? (
               <Error>Comapny name field cannot be empty</Error>
-            )}
+            ) : null}
 
             <InputLabel htmlFor="Localisation" width={90}>
               Localisation
