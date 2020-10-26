@@ -139,9 +139,9 @@ const CreateCompany = () => {
             </InputLabel>
             <Input name="localisation" width={90} ref={register} />
 
-            {errors.localisation?.type === 'string.empty' && (
+            {errors.localisation ? (
               <Error>Localisation field cannot be empty</Error>
-            )}
+            ) : null}
 
             <InputLabel htmlFor="Size of company" width={90}>
               Size of company
