@@ -16,7 +16,8 @@
     "strict": true,
     "jsx": "react",
     "noUnusedLocals": true,
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "noImplicitAny": false
   },
   "include": ["src"]
 }
