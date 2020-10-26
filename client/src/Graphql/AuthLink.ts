@@ -2,7 +2,7 @@ import { createHttpLink, ApolloLink } from '@apollo/client';
 import { getToken } from '../AccessToken';
 import { createUploadLink } from 'apollo-upload-client';
 export const httpLink = createHttpLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: process.env.uri,
   credentials: 'include',
 });
 
@@ -18,6 +18,6 @@ export const AuthLink = new ApolloLink((operation, forward) => {
 });
 
 export const uploadLink = createUploadLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: process.env.uri,
   credentials: 'include',
 });
