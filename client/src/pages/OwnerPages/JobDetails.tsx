@@ -23,7 +23,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Spinner from '../../components/Spinner';
 import MappedTable from '../../components/Shared/MappedTable';
-import Tasks from '../../components/Shared/Tasks';
 
 type Response = {
   specificJobOffer: {
@@ -100,7 +99,6 @@ const JobDetails = () => {
           </ColumContainer>
           <ColumContainer>
             <Used>Tasks during employment:</Used>
-            <Tasks table={data?.specificJobOffer.tasks} />
           </ColumContainer>
           <ColumContainer>
             <Used>Benefits:</Used>
