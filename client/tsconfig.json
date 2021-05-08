@@ -13,9 +13,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "strict": true,
+    "strict": false,
     "jsx": "react",
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "rootDir": "./src",
     "noImplicitAny": false
   },

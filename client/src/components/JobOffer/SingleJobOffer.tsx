@@ -76,7 +76,7 @@ const SingleJobOffer: React.FC<Props> = ({ title, id, date, localisation }) => {
         <Title> {localisation}</Title>
       </Wrapper>
       <div style={{ display: 'flex', padding: '1rem' }}>
-        <IconLink to={`/job?id=${id}`}>
+        <IconLink to={`/job/${id}`}>
           <FontAwesomeIcon icon={faInfoCircle} />
         </IconLink>
         <DeleteButton onClick={() => handleDelete()} tabIndex={0}>

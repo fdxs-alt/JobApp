@@ -130,7 +130,7 @@ const CreateCompany = () => {
             </InputLabel>
             <Input name="companyName" width={90} ref={register} />
 
-            {errors.companyName ? (
+            {errors?.companyName ? (
               <Error>Comapny name field cannot be empty</Error>
             ) : null}
 
@@ -139,7 +139,7 @@ const CreateCompany = () => {
             </InputLabel>
             <Input name="localisation" width={90} ref={register} />
 
-            {errors.localisation ? (
+            {errors?.localisation ? (
               <Error>Localisation field cannot be empty</Error>
             ) : null}
 
@@ -155,10 +155,10 @@ const CreateCompany = () => {
               max={10000}
             />
 
-            {errors.size.type === 'number.base' && (
+            {errors?.size?.type === 'number.base' && (
               <Error>Size field cannot be empty and must be a number</Error>
             )}
-            {errors.size.type === 'number.min' && (
+            {errors?.size?.type === 'number.min' && (
               <Error>Size field must be at least 1</Error>
             )}
 
@@ -174,15 +174,15 @@ const CreateCompany = () => {
               max={today.getFullYear()}
             />
 
-            {errors.yearOfSetup.type === 'number.base' && (
+            {errors?.yearOfSetup?.type === 'number.base' && (
               <Error>
                 Year of setup field cannot be empty and must be a number
               </Error>
             )}
-            {errors.yearOfSetup.type === 'number.min' && (
+            {errors?.yearOfSetup?.type === 'number.min' && (
               <Error>Year cant be lower than 1950</Error>
             )}
-            {errors.yearOfSetup.type === 'number.max' && (
+            {errors?.yearOfSetup?.type === 'number.max' && (
               <Error>Year cant be higher than {today.getFullYear()}</Error>
             )}
           </Column>
@@ -193,14 +193,14 @@ const CreateCompany = () => {
             </InputLabel>
 
             <Input name="description" width={80} ref={register} />
-            {errors.description.type === 'string.empty' && (
+            {errors?.description?.type === 'string.empty' && (
               <Error>Description field cannot be empty</Error>
             )}
 
             <BenefitsComponent />
             <UserBenefits />
 
-            {tableError.type === 'benefits.empty' && (
+            {tableError?.type === 'benefits.empty' && (
               <Error style={{ width: '80%', padding: '1rem 0' }}>
                 {tableError.message}
               </Error>
@@ -209,7 +209,7 @@ const CreateCompany = () => {
             <Tech />
             <UserTech />
 
-            {tableError.type === 'technologies.empty' && (
+            {tableError?.type === 'technologies.empty' && (
               <Error style={{ width: '80%', padding: '1rem 0' }}>
                 {tableError.message}
               </Error>

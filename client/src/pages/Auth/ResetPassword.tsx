@@ -63,10 +63,10 @@ const Login = () => {
           placeholder="john@doe.com"
           ref={register({ required: true })}
         />
-        {errors.email.type === 'string.empty' && (
+        {errors?.email?.type === 'string.empty' && (
           <Error>Email field cannot be empty</Error>
         )}
-        {errors.email.type === 'string.email' && (
+        {errors?.email?.type === 'string.email' && (
           <Error>Email must be a valid email</Error>
         )}
         {loading ? (

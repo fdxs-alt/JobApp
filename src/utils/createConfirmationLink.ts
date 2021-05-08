@@ -11,5 +11,5 @@ export const createConfirmationLink = async (
       expiresIn: '1d',
     },
   );
-  return `${url}/user/confirm?token=${token}`;
+  return `${url}/user/confirm/${token}`;
 };

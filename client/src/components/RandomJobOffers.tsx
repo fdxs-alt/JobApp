@@ -25,7 +25,7 @@ const RandomJobOffers = () => {
         {data.getRandomJobOffers.map((element: any) => (
           <JobInfromation key={element.id}>
             <TitleAndCompanyColumn>
-              <OfferTitle to={`/specific?id=${element.id}`}>
+              <OfferTitle to={`/specific/${element.id}`}>
                 {element.title}
               </OfferTitle>
               <CompanyInfo>in {element.company.companyName}</CompanyInfo>

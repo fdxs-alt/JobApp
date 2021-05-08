@@ -31,6 +31,7 @@ export function isEmailInUse(validationOptions?: ValidationOptions) {
 export class isUserWithEmailConstraint implements ValidatorConstraintInterface {
   validate(email: string): Promise<boolean> {
     return User.findOne({ where: { email } }).then((user) => {
+      console.log(user);
       if (user) return true;
       return false;
     });

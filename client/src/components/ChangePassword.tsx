@@ -68,23 +68,23 @@ const ChangePassword = () => {
       <ChangePasswordWrapper onSubmit={handleSubmit(handleFormSubmit)}>
         <InputLabel>Previous password</InputLabel>
         <Input type="password" name="prevPassword" ref={register} />
-        {errors.prevPassword.type === 'string.empty' && (
+        {errors?.prevPassword?.type === 'string.empty' && (
           <Error>Previous password field cannot be empty</Error>
         )}
         <InputLabel>Password</InputLabel>
         <Input type="password" name="password" ref={register} />
-        {errors.password.type === 'string.empty' && (
+        {errors?.password?.type === 'string.empty' && (
           <Error>Password field cannot be empty</Error>
         )}
-        {errors.password.type === 'string.min' && (
+        {errors?.password?.type === 'string.min' && (
           <Error>Password field must be at least 8 characters</Error>
         )}
         <InputLabel>Confirm password</InputLabel>
         <Input type="password" name="confirmPassword" ref={register} />
-        {errors.confirmPassword.type === 'string.empty' && (
+        {errors?.confirmPassword?.type === 'string.empty' && (
           <Error>Password field cannot be empty</Error>
         )}
-        {errors.confirmPassword.type === 'string.min' && (
+        {errors?.confirmPassword?.type === 'string.min' && (
           <Error>Password field must be at least 8 characters</Error>
         )}
         <Button type="submit">Change password</Button>

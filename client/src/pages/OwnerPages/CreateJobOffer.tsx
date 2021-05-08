@@ -179,7 +179,7 @@ const CreateJobOffer: React.FC = () => {
             </InputLabel>
             <Input name="title" width={80} type="text" ref={register} />
 
-            {errors.title.type === 'string.empty' && (
+            {errors?.title?.type === 'string.empty' && (
               <Error>Title field cannot be empty</Error>
             )}
             <InputLabel htmlFor="Minimum salary" width={80}>
@@ -192,10 +192,10 @@ const CreateJobOffer: React.FC = () => {
               min={0}
               ref={register}
             />
-            {errors.minSalary.type === 'number.base' && (
+            {errors?.minSalary?.type === 'number.base' && (
               <Error>Minimum salary must be a number and cant be empty</Error>
             )}
-            {errors.minSalary.type === 'number.min' && (
+            {errors?.minSalary?.type === 'number.min' && (
               <Error>Minimum salary must be at least one $</Error>
             )}
             <InputLabel htmlFor="Maximum salary" width={80}>
@@ -208,10 +208,10 @@ const CreateJobOffer: React.FC = () => {
               min={0}
               ref={register}
             />
-            {errors.maxSalary.type === 'number.base' && (
+            {errors?.maxSalary?.type === 'number.base' && (
               <Error>Maximum salary must be a number and cant be empty</Error>
             )}
-            {errors.maxSalary.type === 'number.min' && (
+            {errors?.maxSalary?.type === 'number.min' && (
               <Error>Maximum salary must be atleast one $</Error>
             )}
             <InputLabel htmlFor="Online Recrutation" width={80}>
@@ -228,7 +228,7 @@ const CreateJobOffer: React.FC = () => {
               Main technology used during employment:
             </InputLabel>
             <Input name="main" width={80} type="text" ref={register} />
-            {errors.main.type === 'string.empty' && (
+            {errors?.main?.type === 'string.empty' && (
               <Error>Main tech cannot be empty</Error>
             )}
 
@@ -236,7 +236,7 @@ const CreateJobOffer: React.FC = () => {
               Localisation of job
             </InputLabel>
             <Input name="localisation" width={80} type="text" ref={register} />
-            {errors.localisation.type === 'string.empty' && (
+            {errors?.localisation?.type === 'string.empty' && (
               <Error>Localisation field cannot be empty</Error>
             )}
 
@@ -250,7 +250,7 @@ const CreateJobOffer: React.FC = () => {
               width={80}
               ref={register}
             />
-            {errors.description.type === 'string.empty' && (
+            {errors?.description?.type === 'string.empty' && (
               <Error>Description field cannot be empty</Error>
             )}
           </Column>
@@ -266,7 +266,7 @@ const CreateJobOffer: React.FC = () => {
 
             <MapTable handleClick={handleDeletingTask} table={tasks} />
 
-            {tableErrors.type === 'tasks.empty' && (
+            {tableErrors?.type === 'tasks.empty' && (
               <Error>{tableErrors.message}</Error>
             )}
             <CreateJobOfferInput
@@ -281,7 +281,7 @@ const CreateJobOffer: React.FC = () => {
               handleClick={handleDeletingMandatorySkill}
               table={mandatory}
             />
-            {tableErrors.type === 'mandatory.empty' && (
+            {tableErrors?.type === 'mandatory.empty' && (
               <Error>{tableErrors.message}</Error>
             )}
             <CreateJobOfferInput
@@ -296,7 +296,7 @@ const CreateJobOffer: React.FC = () => {
               handleClick={handleDeletingExtraSkill}
               table={extraSkills}
             />
-            {tableErrors.type === 'skills.empty' && (
+            {tableErrors?.type === 'skills.empty' && (
               <Error>{tableErrors.message}</Error>
             )}
             <CreateJobOfferInput
@@ -311,7 +311,7 @@ const CreateJobOffer: React.FC = () => {
               handleClick={handleDeletingBenefit}
               table={benefitsInWork}
             />
-            {tableErrors.type === 'benefits.empty' && (
+            {tableErrors?.type === 'benefits.empty' && (
               <Error>{tableErrors.message}</Error>
             )}
           </Column>

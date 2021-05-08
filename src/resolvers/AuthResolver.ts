@@ -26,6 +26,7 @@ export class AuthResolver {
       throw new ApolloError(
         'If you are working for company, you need to provide company name',
       );
+
     const user = User.create({
       email,
       password: bcryptedPassword,
@@ -34,6 +35,8 @@ export class AuthResolver {
       name: capitalize(name),
       surname: capitalize(surname),
     });
+
+    console.log(user);
     await user.save();
     const confirmEmailLink = await createConfirmationLink(url, user.id);
 

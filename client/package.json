@@ -38,6 +38,7 @@
     "react-toastify": "^6.0.8",
     "react-waypoint": "^9.0.3",
     "styled-components": "^5.1.1",
+    "superstruct": "^0.15.2",
     "typescript": "^3.7.5"
   },
   "scripts": {
@@ -78,5 +79,6 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
     "prettier": "^2.1.1"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

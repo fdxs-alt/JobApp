@@ -60,10 +60,10 @@ const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
         placeholder="john@doe.com"
         ref={register({ required: true })}
       />
-      {errors.email.type === 'string.empty' && (
+      {errors && errors.email && errors.email.type === 'string.empty' && (
         <Error>Email field cannot be empty</Error>
       )}
-      {errors.email.type === 'string.email' && (
+      {errors && errors.email && errors.email.type === 'string.email' && (
         <Error>Email must be a valid email</Error>
       )}
       <InputLabel htmlFor="Password">Password</InputLabel>
@@ -73,7 +73,9 @@ const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
         placeholder="Don't tell anybody"
         ref={register({ required: true })}
       />
-      {errors.password.message && <Error>Password field cannot be empty</Error>}
+      {errors && errors.password && errors.password.message && (
+        <Error>Password field cannot be empty</Error>
+      )}
       {loading ? (
         <Spinner size={50} small loading={loading} />
       ) : (
@@ -81,7 +83,7 @@ const Login: React.FC<RouteComponentProps & Props> = ({ active }: Props) => {
           Log in
         </MyButton>
       )}
-      {error.message && (
+      {error && error.message && (
         <Error style={{ textAlign: 'center' }}>{error.message}</Error>
       )}
     </LoginForm>

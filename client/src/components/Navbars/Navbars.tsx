@@ -45,14 +45,14 @@ const Navbars = () => {
   else
     return (
       <>
-        {data.getUser.hasCompany ? (
+        {data?.getUser.hasCompany ? (
           <EmployerNavbar
             handleClick={handleClick}
             smallMenu={isLaptopOrSmallDevice}
           />
         ) : (
           <Navbar
-            fullName={data.getUser.fullName}
+            fullName={data?.getUser.fullName}
             handleClick={handleClick}
             smallMenu={isLaptopOrSmallDevice}
           />

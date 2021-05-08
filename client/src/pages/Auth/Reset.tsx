@@ -70,8 +70,10 @@ const Reset = () => {
       await resetPassword({
         variables: { data },
       });
+      CustomToast('Password changes succesfully', 'success');
     } catch (error) {
-      CustomToast(error, 'success');
+      console.log(error);
+      CustomToast('Error occured during password change', 'error');
     }
   };
   if (!token) return <Redirect to="/" />;
@@ -95,18 +97,18 @@ const Reset = () => {
           <ChangePasswordTitle>Change password</ChangePasswordTitle>
           <InputLabel>Password</InputLabel>
           <Input type="password" name="password" ref={register} />
-          {errors.password.type === 'string.empty' && (
+          {errors?.password?.type === 'string.empty' && (
             <Error>Password field cannot be empty</Error>
           )}
-          {errors.password.type === 'string.min' && (
+          {errors?.password?.type === 'string.min' && (
             <Error>Password field must be at least 8 characters</Error>
           )}
           <InputLabel>Confirm password</InputLabel>
           <Input type="password" name="confirmPassword" ref={register} />
-          {errors.confirmPassword.type === 'string.empty' && (
+          {errors?.confirmPassword?.type === 'string.empty' && (
             <Error>Password field cannot be empty</Error>
           )}
-          {errors.confirmPassword.type === 'string.min' && (
+          {errors?.confirmPassword?.type === 'string.min' && (
             <Error>Password field must be at least 8 characters</Error>
           )}
           <Button type="submit">Change password</Button>

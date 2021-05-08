@@ -34,10 +34,12 @@ export class CvResolver {
     if (
       mimetype !== 'application/pdf' &&
       mimetype !== 'application/vnd.ms-excel'
-    )
+    ) {
       return false;
+    }
     const time = Date.now();
     const destination = path.join(__dirname + `../../cv/${time + filename}`);
+
     const p = new Promise<boolean>((res, rej) => {
       createReadStream().pipe(
         createWriteStream(destination)

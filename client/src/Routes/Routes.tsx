@@ -31,53 +31,45 @@ const Routes: React.FC = () => {
         <ForbbidenWhenLogged exact path="/login" component={Login} />
         <ForbbidenWhenLogged exact path="/register" component={Register} />
         <ForbbidenWhenLogged exact path="/reset" component={ResetPassword} />
-        <Route>
-          <Layout>
-            <Switch>
-              <ForbbidenWhenLogged
-                exact
-                path="/user/confirm"
-                component={Confirm}
-              />
-              <ForbbidenWhenLogged
-                path="/user/changePassword/"
-                component={Reset}
-                exact
-              />
+        <Layout>
+          <Switch>
+            <ForbbidenWhenLogged
+              path="/user/confirm/:token"
+              component={Confirm}
+            />
+            <ForbbidenWhenLogged
+              path="/user/changePassword/:token"
+              component={Reset}
+            />
 
-              <PrivateRoutes path="/user" component={User} />
-
-              <Route exact path="/" component={MainPage} />
-              <Route exact path="/companies" component={Companies} />
-              <Route path="/searchjob" component={SearchPage} />
-              <Route exact path="/jobs" component={MainPage} />
-              <Route path="/specific" component={SpecificJobOffer} />
-              <Route
-                path="/specificjob/criteria"
-                component={MoreSpecifiedJobOffers}
-              />
-              <Route path="/company" component={SpecificCompany} />
-              <OwnerRoutes exact path="/dashboard" component={Dashboard} />
-              <OwnerRoutes exact path="/profile" component={CompanyProfile} />
-              <OwnerRoutes
-                exact
-                path="/createCompany"
-                component={CreateCompany}
-              />
-              <OwnerRoutes exact path="/joboffers" component={JobOffers} />
-              <OwnerRoutes
-                exact
-                path="/createJobOffer"
-                component={CreateJobOffer}
-              />
-              <OwnerRoutes path="/job" component={JobDetails} />
-              <OwnerRoutes
-                path="/application"
-                component={CompanyApplications}
-              />
-            </Switch>
-          </Layout>
-        </Route>
+            <PrivateRoutes exact path="/user" component={User} />
+            <Route exact path="/" component={MainPage} />
+            <Route exact path="/companies" component={Companies} />
+            <Route path="/searchjob" component={SearchPage} />
+            <Route exact path="/jobs" component={MainPage} />
+            <Route path="/specific/:id" component={SpecificJobOffer} />
+            <Route
+              path="/specificjob/criteria"
+              component={MoreSpecifiedJobOffers}
+            />
+            <Route path="/company" component={SpecificCompany} />
+            <OwnerRoutes exact path="/dashboard" component={Dashboard} />
+            <OwnerRoutes exact path="/profile" component={CompanyProfile} />
+            <OwnerRoutes
+              exact
+              path="/createCompany"
+              component={CreateCompany}
+            />
+            <OwnerRoutes exact path="/joboffers" component={JobOffers} />
+            <OwnerRoutes
+              exact
+              path="/createJobOffer"
+              component={CreateJobOffer}
+            />
+            <OwnerRoutes path="/job/:id" component={JobDetails} />
+            <OwnerRoutes path="/application" component={CompanyApplications} />
+          </Switch>
+        </Layout>
       </Switch>
     </BrowserRouter>
   );

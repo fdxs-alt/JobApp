@@ -1,7 +1,6 @@
 import 'reflect-metadata';
-import { UserResolver } from './resolvers/UserResolver';
-import { ResetPasswordResolver } from './resolvers/ResetPasswordResolver';
-import { CompanyResolver } from './resolvers/CompanyResolver';
+import dotenv from 'dotenv';
+dotenv.config();
 import { ApolloServer } from 'apollo-server-express';
 import express, { Request, Response } from 'express';
 import { graphqlUploadExpress } from 'graphql-upload';
@@ -9,13 +8,8 @@ import { createConnection } from 'typeorm';
 import { buildSchema } from 'type-graphql';
 import cookieParser from 'cookie-parser';
 import { verify } from 'jsonwebtoken';
-import { User } from './entity/User';
-import { createAccessToken, createRefreshToken } from './utils/createTokens';
-import { sendRefreshCookie } from './utils/sendRefreshCookie';
 import cors from 'cors';
 import { join } from 'path';
-import dotenv from 'dotenv';
-import { AuthResolver } from './resolvers/AuthResolver';
 import { ConfirmEmailResolver } from './resolvers/ConfirmEmailResolver';
 import { CvResolver } from './resolvers/CvResolver';
 import { ForgetPasswordResolver } from './resolvers/ForgetPasswordResolver';
@@ -24,11 +18,19 @@ import { JobOfferResolver } from './resolvers/JobOfferResolver';
 import { LogoResolver } from './resolvers/LogoResolver';
 import { LogoutResolver } from './resolvers/LogoutResolver';
 import { OpinionResolver } from './resolvers/OpinionResolver';
-dotenv.config();
+import { UserResolver } from './resolvers/UserResolver';
+import { ResetPasswordResolver } from './resolvers/ResetPasswordResolver';
+import { CompanyResolver } from './resolvers/CompanyResolver';
+import { User } from './entity/User';
+import { createAccessToken, createRefreshToken } from './utils/createTokens';
+import { sendRefreshCookie } from './utils/sendRefreshCookie';
+import { AuthResolver } from './resolvers/AuthResolver';
+
 const main = async () => {
   const app = express();
 
   await createConnection();
+
   app.use(cookieParser());
   app.use(
     cors({

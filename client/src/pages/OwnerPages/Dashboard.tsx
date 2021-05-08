@@ -47,6 +47,7 @@ type Response = {
 
 const Dashboard = () => {
   const { data, loading } = useQuery<Response>(GET_INFORMATION);
+  console.log(data);
   if (loading) return <Spinner size={50} small loading={loading} />;
   else
     return (
@@ -57,35 +58,35 @@ const Dashboard = () => {
               <Title>Dashboard</Title>
             </DashboardTitle>
 
-            {data.getUserCompany ? (
+            {!data.getUserCompany ? (
               <NoCompanyLinkContainer>
                 <CreateLink to="/createCompany">Create company!</CreateLink>
               </NoCompanyLinkContainer>
             ) : (
               <CompanyInfoContainer>
                 <CompanyInfoElement>
-                  <b>Owner:</b> {data!.getUser.fullName}
+                  <b>Owner:</b> {data?.getUser?.fullName}
                 </CompanyInfoElement>
                 <CompanyInfoElement>
-                  <b>Company name</b> {data!.getUserCompany.companyName}
+                  <b>Company name</b> {data?.getUserCompany?.companyName}
                 </CompanyInfoElement>
                 <CompanyInfoElement>
-                  <b>Localisation:</b> {data!.getUserCompany.localisation}
+                  <b>Localisation:</b> {data?.getUserCompany?.localisation}
                 </CompanyInfoElement>
                 <CompanyInfoElement>
-                  <b>Size of company:</b> {data!.getUserCompany.sizeOfCompany}
+                  <b>Size of company:</b> {data?.getUserCompany?.sizeOfCompany}
                 </CompanyInfoElement>
                 <CompanyInfoElement>
                   <b> Technologies:</b>{' '}
-                  {data!.getUserCompany.technologies.join(', ')}
+                  {data?.getUserCompany?.technologies.join(', ')}
                 </CompanyInfoElement>
                 <CompanyInfoElement>
-                  <b>Benefits:</b> {data!.getUserCompany.benefits.join(', ')}
+                  <b>Benefits:</b> {data?.getUserCompany?.benefits.join(', ')}
                 </CompanyInfoElement>
               </CompanyInfoContainer>
             )}
 
-            {data!.allUsersOffers.length !== 0 ? (
+            {data && data.allUsersOffers.length !== 0 ? (
               <JobOfferContainer>
                 <Column>
                   <FontAwesomeIcon
@@ -101,7 +102,7 @@ const Dashboard = () => {
                     Offers:
                   </h5>
                   {data!.allUsersOffers.map((t: Offer, index: number) => (
-                    <JobOfferElement to={`/job?id=${t.id}`} key={t.id}>
+                    <JobOfferElement to={`/job/${t.id}`} key={t.id}>
                       <b>{index + 1}</b>. {t.title}
                     </JobOfferElement>
                   ))}

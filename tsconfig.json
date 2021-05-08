@@ -1,23 +1,22 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist",
-    "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "allowUnusedLabels": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "es6",
+    "module": "commonjs",
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2018"],
-    "module": "CommonJS",
-    "rootDir": "./src",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "moduleResolution": "Node",
+    "incremental": true,
+    "baseUrl": "./src"
   },
-  "exclude": ["./client", "node_modules"]
+  "include": ["src"],
+  "exclude": ["client", "node_modules", "build"]
 }

@@ -47,6 +47,7 @@ const JobDetails = () => {
     variables: { id: parseInt(id.id) },
   });
 
+  console.log(id);
   if (loading) return <Spinner loading={loading} size={50} small />;
   else if (error) return <Redirect to="/joboffers" />;
   else

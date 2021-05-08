@@ -22,7 +22,7 @@ export class ForgetPasswordResolver {
     );
     try {
       await sendEmail(
-        url + `/user/changePassword/?token=${token}`,
+        url + `/user/changePassword/${token}`,
         email,
         resetPasswordSubject,
       );

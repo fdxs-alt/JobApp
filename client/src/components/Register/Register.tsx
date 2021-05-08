@@ -68,6 +68,7 @@ const Register: React.FC<Props> = ({ active }: Props) => {
       );
       reset();
     } catch (error) {
+      console.log(error);
       CustomToast('Email is already in use, try another email', 'error');
     }
   };
@@ -89,24 +90,26 @@ const Register: React.FC<Props> = ({ active }: Props) => {
       <RegisterForm active={active} onSubmit={handleSubmit(onSubmit)}>
         <InputLabel>Name</InputLabel>
         <Input name="name" ref={register} />
-        {errors.name && <Error>Name field cant be empty</Error>}
+        {errors && errors.name && <Error>Name field cant be empty</Error>}
         <InputLabel>Surname</InputLabel>
         <Input name="surname" ref={register} />
-        {errors.surname && <Error>Surname field cant be empty</Error>}
+        {errors && errors.surname && <Error>Surname field cant be empty</Error>}
         <InputLabel>Email</InputLabel>
         <Input name="email" ref={register} />
-        {errors.email.type === 'string.empty' && (
+        {errors && errors.email && errors.email.type === 'string.empty' && (
           <Error>Email field cannot be empty</Error>
         )}
-        {errors.email.type === 'string.email' && (
+        {errors && errors.email && errors.email.type === 'string.email' && (
           <Error>Email must be a valid email</Error>
         )}
         <InputLabel>Password</InputLabel>
         <Input name="password" ref={register} type="password" />
-        {errors.password.type === 'string.empty' && (
-          <Error>Password field cannot be empty</Error>
-        )}
-        {errors.password.type === 'string.min' && (
+        {errors &&
+          errors.password &&
+          errors.password.type === 'string.empty' && (
+            <Error>Password field cannot be empty</Error>
+          )}
+        {errors && errors.password && errors.password.type === 'string.min' && (
           <Error>Password field must be at least 8 characters</Error>
         )}
         <InputLabel style={{ marginBottom: '15px' }}>

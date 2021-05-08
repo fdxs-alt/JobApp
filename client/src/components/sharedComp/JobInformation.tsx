@@ -27,7 +27,7 @@ const JobInformation: React.FC<Props> = ({ element }) => {
   return (
     <JobInfromation>
       <Column>
-        <Title to={`/specific?id=${element.id}`}>{element.title}</Title>
+        <Title to={`/specific/${element.id}`}>{element.title}</Title>
         <LightInfo>in {element.company.companyName}</LightInfo>
         <LightInfo> {element.date}</LightInfo>
       </Column>
