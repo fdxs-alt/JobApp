@@ -1,3 +1,6 @@
+# Note: OLD PROJECT
+Not everything works properly and my skills since that time has improved, so that's why is archived.
+
 ## Job App
 
 #### Backend:
@@ -25,19 +28,19 @@
 
 #### Example .env:
 
-SENDGRID_API_KEY=
-secret_2 =
-secret =
-email =
-baseurl = http://localhost:3000
-TYPEORM_CONNECTION = postgres
-TYPEORM_HOST = localhost
-TYPEORM_USERNAME = postgres
-TYPEORM_PASSWORD = postgres
-TYPEORM_DATABASE = postgres
-TYPEORM_PORT = 5432
-TYPEORM_SYNCHRONIZE = true
-TYPEORM_ENTITIES = 'src/entity/\*'
-TYPEORM_MIGRATIONS = 'src/migration/\*'
-TYPEORM_MIGRATIONS_RUN = src/migration
-TYPEORM_MIGRATIONS_DIR = src/migration
+SENDGRID_API_KEY=  
+secret_2 =  
+secret =  
+email =  
+baseurl = http://localhost:3000  
+TYPEORM_CONNECTION = postgres  
+TYPEORM_HOST = localhost   
+TYPEORM_USERNAME = postgres  
+TYPEORM_PASSWORD = postgres  
+TYPEORM_DATABASE = postgres  
+TYPEORM_PORT = 5432  
+TYPEORM_SYNCHRONIZE = true  
+TYPEORM_ENTITIES = 'src/entity/\*'  
+TYPEORM_MIGRATIONS = 'src/migration/\*'  
+TYPEORM_MIGRATIONS_RUN = src/migration  
+TYPEORM_MIGRATIONS_DIR = src/migration  
